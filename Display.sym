@@ -285,16 +285,16 @@ Symbol Table
     _SM2                                                        =  00009D G
     _SP                                                         =  000081 G
  17 _Show                                                          000012 GR
- 17 _Show_Ans                                                      00010D GR
-  5 _Show_Ans_PARM_2                                               000022 GR
-  5 _Show_Ans_PARM_3                                               000023 GR
-  5 _Show_Ans_buffer_10000_20                                      000024 R
-  5 _Show_Ans_i_20000_22                                           000027 R
+ 17 _Show_Ans                                                      000082 GR
+  5 _Show_Ans_PARM_2                                               00001D GR
+  5 _Show_Ans_buffer_10000_14                                      00001E R
+  5 _Show_Ans_count_10000_15                                       000021 R
+ 17 _Show_History                                                  00010D GR
+  5 _Show_History_PARM_2                                           000022 GR
+  5 _Show_History_PARM_3                                           000023 GR
+  5 _Show_History_buffer_10000_20                                  000024 R
+  5 _Show_History_i_20000_22                                       000027 R
   5 _Show_PARM_2                                                   000019 GR
- 17 _Show_Reverse                                                  000082 GR
-  5 _Show_Reverse_PARM_2                                           00001D GR
-  5 _Show_Reverse_buffer_10000_14                                  00001E R
-  5 _Show_Reverse_count_10000_15                                   000021 R
   5 _Show_buffer_10000_8                                           00001A R
     _T0                                                         =  0000B4 G
     _T1                                                         =  0000B5 G

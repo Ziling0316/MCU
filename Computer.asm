@@ -18,6 +18,8 @@
 	.globl _Restart_PARM_2
 	.globl _main
 	.globl _clean
+	.globl _Base_timer
+	.globl _Base_init
 	.globl _Keypad_Debounce
 	.globl _Keypad_Debounce_init
 	.globl _Calculate
@@ -25,8 +27,8 @@
 	.globl _SaveNumber
 	.globl _Restart
 	.globl _Counter
+	.globl _Show_History
 	.globl _Show_Ans
-	.globl _Show_Reverse
 	.globl _Show
 	.globl _ReadKeypad
 	.globl _Keypad_flag
@@ -127,10 +129,15 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _base_flag
 	.globl _start
 	.globl _history_count
-	.globl _start_count
+	.globl _base_index
+	.globl _negative_base
+	.globl _Base_num
+	.globl _history_start
 	.globl _history
+	.globl _flag
 	.globl _buffer
 	.globl _Calculate_PARM_6
 	.globl _Calculate_PARM_5
@@ -142,8 +149,8 @@
 	.globl _Update_Expression_PARM_3
 	.globl _Update_Expression_PARM_2
 	.globl _num1_counter
+	.globl _number
 	.globl _timer_count
-	.globl _flag
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -261,13 +268,15 @@ _Keypad_flag::
 	.ds 8
 	.area REG_BANK_1	(REL,OVR,DATA)
 	.ds 8
+	.area REG_BANK_2	(REL,OVR,DATA)
+	.ds 8
 ;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
-_flag::
-	.ds 1
 _timer_count::
+	.ds 1
+_number::
 	.ds 1
 _num1_counter::
 	.ds 1
@@ -294,20 +303,6 @@ _Calculate_PARM_5:
 _Calculate_PARM_6:
 	.ds 3
 _Calculate_sloc0_1_0:
-	.ds 2
-_main_num_1_10000_34:
-	.ds 2
-_main_num_2_10000_34:
-	.ds 2
-_main_ans_10000_34:
-	.ds 2
-_main_op_10000_34:
-	.ds 1
-_main_negative_num1_10000_34:
-	.ds 2
-_main_negative_num2_10000_34:
-	.ds 2
-_main_negative_ans_10000_34:
 	.ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram
@@ -344,14 +339,38 @@ __start__stack:
 	.area ISEG    (DATA)
 _buffer::
 	.ds 8
+_flag::
+	.ds 1
 _history::
 	.ds 10
-_start_count::
+_history_start::
 	.ds 10
+_Base_num::
+	.ds 10
+_negative_base::
+	.ds 5
+_base_index::
+	.ds 1
 _history_count::
 	.ds 1
 _start::
 	.ds 1
+_base_flag::
+	.ds 1
+_main_num_1_10000_38:
+	.ds 2
+_main_num_2_10000_38:
+	.ds 2
+_main_ans_10000_38:
+	.ds 2
+_main_op_10000_38:
+	.ds 1
+_main_negative_num1_10000_38:
+	.ds 2
+_main_negative_num2_10000_38:
+	.ds 2
+_main_negative_ans_10000_38:
+	.ds 2
 ;--------------------------------------------------------
 ; absolute internal ram data
 ;--------------------------------------------------------
@@ -396,6 +415,10 @@ __interrupt_vect:
 	reti
 	.ds	7
 	ljmp	_Keypad_Debounce
+	.ds	5
+	reti
+	.ds	7
+	ljmp	_Base_timer
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
@@ -409,81 +432,46 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
-;	Computer.c:6: char flag = 0;
-	mov	_flag,#0x00
-;	Computer.c:12: char timer_count = 0;
+;	Computer.c:16: char timer_count = 0, number, num1_counter = 0;
 	mov	_timer_count,#0x00
-;	Computer.c:15: char num1_counter = 0;
+;	Computer.c:16: __sbit cal_flag = 0;
 	mov	_num1_counter,#0x00
-;	Computer.c:5: __idata unsigned char buffer[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
+;	Computer.c:5: __idata unsigned char buffer[8] = {-1};
 	mov	r0,#_buffer
 	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0001)
-	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0002)
-	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0003)
-	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0004)
-	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0005)
-	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0006)
-	mov	@r0,#0xff
-	mov	r0,#(_buffer + 0x0007)
-	mov	@r0,#0xff
-;	Computer.c:7: __idata unsigned char history[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+;	Computer.c:6: __idata unsigned char flag = 0;
+	mov	r0,#_flag
+	mov	@r0,#0x00
+;	Computer.c:7: __idata unsigned char history[10] = {-1};
 	mov	r0,#_history
 	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0001)
+;	Computer.c:8: __idata unsigned char history_start[10] = {-1};
+	mov	r0,#_history_start
 	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0002)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0003)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0004)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0005)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0006)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0007)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0008)
-	mov	@r0,#0xff
-	mov	r0,#(_history + 0x0009)
-	mov	@r0,#0xff
-;	Computer.c:8: __idata unsigned char start_count[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-	mov	r0,#_start_count
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0001)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0002)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0003)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0004)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0005)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0006)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0007)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0008)
-	mov	@r0,#0xff
-	mov	r0,#(_start_count + 0x0009)
-	mov	@r0,#0xff
-;	Computer.c:9: __idata unsigned char history_count = 0;
+;	Computer.c:9: __idata unsigned int Base_num[5] = {0};
+	mov	r0,#_Base_num
+	mov	@r0,#0x00
+	inc	r0
+	mov	@r0,#0x00
+;	Computer.c:10: __idata unsigned char negative_base[5] = {0};
+	mov	r0,#_negative_base
+	mov	@r0,#0x00
+;	Computer.c:11: __idata unsigned char base_index = 0;
+	mov	r0,#_base_index
+	mov	@r0,#0x00
+;	Computer.c:12: __idata unsigned char history_count = 0;
 	mov	r0,#_history_count
 	mov	@r0,#0x00
-;	Computer.c:10: __idata unsigned char start = 0;
+;	Computer.c:13: __idata unsigned char start = 0;
 	mov	r0,#_start
 	mov	@r0,#0x00
-;	Computer.c:13: __sbit cal_flag = 0;
+;	Computer.c:14: __idata unsigned char base_flag = 0;
+	mov	r0,#_base_flag
+	mov	@r0,#0x00
+;	Computer.c:17: __sbit cal_flag = 0;
 ;	assignBit
 	clr	_cal_flag
-;	Computer.c:14: __sbit Keypad_flag = 0;
+;	Computer.c:18: __sbit Keypad_flag = 0;
 ;	assignBit
 	clr	_Keypad_flag
 	.area GSFINAL (CODE)
@@ -511,7 +499,7 @@ __sdcc_program_startup:
 ;negative_ans              Allocated with name '_Restart_PARM_7'
 ;num_1                     Allocated to registers r5 r6 r7 
 ;------------------------------------------------------------
-;	Computer.c:17: void Restart(int *num_1, int *num_2, char *op, int *ans, int *negative_num1, int *negative_num2, int *negative_ans)
+;	Computer.c:20: void Restart(int *num_1, int *num_2, char *op, int *ans, int *negative_num1, int *negative_num2, int *negative_ans)
 ;	-----------------------------------------
 ;	 function Restart
 ;	-----------------------------------------
@@ -524,12 +512,12 @@ _Restart:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	Computer.c:19: *num_1 = 0;
+;	Computer.c:22: *num_1 = 0;
 	clr	a
 	lcall	__gptrput
 	inc	dptr
 	lcall	__gptrput
-;	Computer.c:20: *num_2 = 0;
+;	Computer.c:23: *num_2 = 0;
 	mov	r5,_Restart_PARM_2
 	mov	r6,(_Restart_PARM_2 + 1)
 	mov	r7,(_Restart_PARM_2 + 2)
@@ -539,7 +527,7 @@ _Restart:
 	lcall	__gptrput
 	inc	dptr
 	lcall	__gptrput
-;	Computer.c:21: *op = '$';
+;	Computer.c:24: *op = '$';
 	mov	r5,_Restart_PARM_3
 	mov	r6,(_Restart_PARM_3 + 1)
 	mov	r7,(_Restart_PARM_3 + 2)
@@ -548,7 +536,7 @@ _Restart:
 	mov	b,r7
 	mov	a,#0x24
 	lcall	__gptrput
-;	Computer.c:22: *ans = 0;
+;	Computer.c:25: *ans = 0;
 	mov	r5,_Restart_PARM_4
 	mov	r6,(_Restart_PARM_4 + 1)
 	mov	r7,(_Restart_PARM_4 + 2)
@@ -559,10 +547,10 @@ _Restart:
 	lcall	__gptrput
 	inc	dptr
 	lcall	__gptrput
-;	Computer.c:23: cal_flag = 0;
+;	Computer.c:26: cal_flag = 0;
 ;	assignBit
 	clr	_cal_flag
-;	Computer.c:24: *negative_ans = 0;
+;	Computer.c:27: *negative_ans = 0;
 	mov	r5,_Restart_PARM_7
 	mov	r6,(_Restart_PARM_7 + 1)
 	mov	r7,(_Restart_PARM_7 + 2)
@@ -573,7 +561,7 @@ _Restart:
 	lcall	__gptrput
 	inc	dptr
 	lcall	__gptrput
-;	Computer.c:25: *negative_num1 = -1;
+;	Computer.c:28: *negative_num1 = -1;
 	mov	r5,_Restart_PARM_5
 	mov	r6,(_Restart_PARM_5 + 1)
 	mov	r7,(_Restart_PARM_5 + 2)
@@ -584,7 +572,7 @@ _Restart:
 	lcall	__gptrput
 	inc	dptr
 	lcall	__gptrput
-;	Computer.c:26: *negative_num2 = -1;
+;	Computer.c:29: *negative_num2 = -1;
 	mov	r5,_Restart_PARM_6
 	mov	r6,(_Restart_PARM_6 + 1)
 	mov	r7,(_Restart_PARM_6 + 2)
@@ -594,9 +582,9 @@ _Restart:
 	lcall	__gptrput
 	inc	dptr
 	lcall	__gptrput
-;	Computer.c:27: num1_counter = 0;
+;	Computer.c:30: num1_counter = 0;
 	mov	_num1_counter,#0x00
-;	Computer.c:28: }
+;	Computer.c:31: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SaveNumber'
@@ -606,18 +594,18 @@ _Restart:
 ;n                         Allocated to registers r7 
 ;i                         Allocated to registers 
 ;------------------------------------------------------------
-;	Computer.c:29: void SaveNumber(char n, char start, char *b)
+;	Computer.c:32: void SaveNumber(char n, char start, char *b)
 ;	-----------------------------------------
 ;	 function SaveNumber
 ;	-----------------------------------------
 _SaveNumber:
 	mov	r7, dpl
-;	Computer.c:31: for (char i = start; i > 0; i--)
+;	Computer.c:34: for (char i = start; i > 0; i--)
 	mov	r6,_SaveNumber_PARM_2
 00103$:
 	mov	a,r6
 	jz	00101$
-;	Computer.c:33: b[i] = b[i - 1];
+;	Computer.c:36: b[i] = b[i - 1];
 	mov	a,r6
 	add	a, _SaveNumber_PARM_3
 	mov	r3,a
@@ -646,11 +634,11 @@ _SaveNumber:
 	mov	dph,r4
 	mov	b,r5
 	lcall	__gptrput
-;	Computer.c:31: for (char i = start; i > 0; i--)
+;	Computer.c:34: for (char i = start; i > 0; i--)
 	dec	r6
 	sjmp	00103$
 00101$:
-;	Computer.c:35: b[0] = n;
+;	Computer.c:38: b[0] = n;
 	mov	r4,_SaveNumber_PARM_3
 	mov	r5,(_SaveNumber_PARM_3 + 1)
 	mov	r6,(_SaveNumber_PARM_3 + 2)
@@ -658,7 +646,7 @@ _SaveNumber:
 	mov	dph,r5
 	mov	b,r6
 	mov	a,r7
-;	Computer.c:36: }
+;	Computer.c:39: }
 	ljmp	__gptrput
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Update_Expression'
@@ -670,7 +658,7 @@ _SaveNumber:
 ;num_1                     Allocated with name '_Update_Expression_num_1_10000_13'
 ;sloc0                     Allocated with name '_Update_Expression_sloc0_1_0'
 ;------------------------------------------------------------
-;	Computer.c:39: void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int *negative_num2)
+;	Computer.c:42: void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int *negative_num2)
 ;	-----------------------------------------
 ;	 function Update_Expression
 ;	-----------------------------------------
@@ -678,7 +666,7 @@ _Update_Expression:
 	mov	_Update_Expression_num_1_10000_13,dpl
 	mov	(_Update_Expression_num_1_10000_13 + 1),dph
 	mov	(_Update_Expression_num_1_10000_13 + 2),b
-;	Computer.c:42: if (buffer[0] >= 0 && buffer[0] <= 9)
+;	Computer.c:45: if (buffer[0] >= 0 && buffer[0] <= 9)
 	mov	r0,#_buffer
 	mov	a,@r0
 	mov	r4,a
@@ -686,7 +674,7 @@ _Update_Expression:
 	jnc	00199$
 	ljmp	00122$
 00199$:
-;	Computer.c:44: if (*op == '$')
+;	Computer.c:47: if (*op == '$')
 	mov	_Update_Expression_sloc0_1_0,_Update_Expression_PARM_3
 	mov	(_Update_Expression_sloc0_1_0 + 1),(_Update_Expression_PARM_3 + 1)
 	mov	(_Update_Expression_sloc0_1_0 + 2),(_Update_Expression_PARM_3 + 2)
@@ -696,7 +684,7 @@ _Update_Expression:
 	lcall	__gptrget
 	mov	r3,a
 	cjne	r3,#0x24,00102$
-;	Computer.c:46: *num_1 = *num_1 * 10 + (int)buffer[0];
+;	Computer.c:49: *num_1 = *num_1 * 10 + (int)buffer[0];
 	mov	dpl,_Update_Expression_num_1_10000_13
 	mov	dph,(_Update_Expression_num_1_10000_13 + 1)
 	mov	b,(_Update_Expression_num_1_10000_13 + 2)
@@ -727,10 +715,10 @@ _Update_Expression:
 	inc	dptr
 	mov	a,r3
 	lcall	__gptrput
-;	Computer.c:47: num1_counter++;
+;	Computer.c:50: num1_counter++;
 	inc	_num1_counter
 00102$:
-;	Computer.c:49: if (*op != '$')
+;	Computer.c:52: if (*op != '$')
 	mov	dpl,_Update_Expression_sloc0_1_0
 	mov	dph,(_Update_Expression_sloc0_1_0 + 1)
 	mov	b,(_Update_Expression_sloc0_1_0 + 2)
@@ -739,7 +727,7 @@ _Update_Expression:
 	cjne	r7,#0x24,00202$
 	ret
 00202$:
-;	Computer.c:51: *num_2 = *num_2 * 10 + (int)buffer[0];
+;	Computer.c:54: *num_2 = *num_2 * 10 + (int)buffer[0];
 	mov	r5,_Update_Expression_PARM_2
 	mov	r6,(_Update_Expression_PARM_2 + 1)
 	mov	r7,(_Update_Expression_PARM_2 + 2)
@@ -779,7 +767,7 @@ _Update_Expression:
 	mov	a,r2
 	ljmp	__gptrput
 00122$:
-;	Computer.c:54: else if (buffer[0] == 13 && num1_counter == 0)
+;	Computer.c:57: else if (buffer[0] == 13 && num1_counter == 0)
 	clr	a
 	cjne	r4,#0x0d,00203$
 	inc	a
@@ -788,7 +776,7 @@ _Update_Expression:
 	jz	00118$
 	mov	a,_num1_counter
 	jnz	00118$
-;	Computer.c:56: *negative_num1 = 1;
+;	Computer.c:59: *negative_num1 = 1;
 	mov	r3,_Update_Expression_PARM_4
 	mov	r5,(_Update_Expression_PARM_4 + 1)
 	mov	r6,(_Update_Expression_PARM_4 + 2)
@@ -801,7 +789,7 @@ _Update_Expression:
 	clr	a
 	ljmp	__gptrput
 00118$:
-;	Computer.c:58: else if (buffer[0] >= 12 && buffer[0] <= 15 && num1_counter != 0 && *op == '$')
+;	Computer.c:61: else if (buffer[0] >= 12 && buffer[0] <= 15 && num1_counter != 0 && *op == '$')
 	cjne	r4,#0x0c,00207$
 00207$:
 	jc	00112$
@@ -819,14 +807,14 @@ _Update_Expression:
 	lcall	__gptrget
 	mov	r2,a
 	cjne	r2,#0x24,00112$
-;	Computer.c:60: *op = buffer[0];
+;	Computer.c:63: *op = buffer[0];
 	mov	dpl,r3
 	mov	dph,r5
 	mov	b,r6
 	mov	a,r4
 	ljmp	__gptrput
 00112$:
-;	Computer.c:62: else if (buffer[0] == 13 && *op != '$')
+;	Computer.c:65: else if (buffer[0] == 13 && *op != '$')
 	mov	a,r7
 	jz	00108$
 	mov	r5,_Update_Expression_PARM_3
@@ -840,7 +828,7 @@ _Update_Expression:
 	cjne	r5,#0x24,00214$
 	sjmp	00108$
 00214$:
-;	Computer.c:64: *negative_num2 = 1;
+;	Computer.c:67: *negative_num2 = 1;
 	mov	r5,_Update_Expression_PARM_5
 	mov	r6,(_Update_Expression_PARM_5 + 1)
 	mov	r7,(_Update_Expression_PARM_5 + 2)
@@ -853,13 +841,13 @@ _Update_Expression:
 	clr	a
 	ljmp	__gptrput
 00108$:
-;	Computer.c:66: else if (buffer[0] == 11)
+;	Computer.c:69: else if (buffer[0] == 11)
 	cjne	r4,#0x0b,00125$
-;	Computer.c:68: cal_flag = 1;
+;	Computer.c:71: cal_flag = 1;
 ;	assignBit
 	setb	_cal_flag
 00125$:
-;	Computer.c:70: }
+;	Computer.c:73: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Calculate'
@@ -872,14 +860,14 @@ _Update_Expression:
 ;num1                      Allocated to registers r6 r7 
 ;sloc0                     Allocated with name '_Calculate_sloc0_1_0'
 ;------------------------------------------------------------
-;	Computer.c:73: void Calculate(int num1, int num2, char op, int negative_num1, int negative_num2, int *ans)
+;	Computer.c:76: void Calculate(int num1, int num2, char op, int negative_num1, int negative_num2, int *ans)
 ;	-----------------------------------------
 ;	 function Calculate
 ;	-----------------------------------------
 _Calculate:
 	mov	r6, dpl
 	mov	r7, dph
-;	Computer.c:75: switch (op)
+;	Computer.c:78: switch (op)
 	mov	a,#0x0c
 	cjne	a,_Calculate_PARM_3,00132$
 	sjmp	00101$
@@ -897,9 +885,9 @@ _Calculate:
 	ljmp	00104$
 00135$:
 	ret
-;	Computer.c:77: case 12:
+;	Computer.c:80: case 12:
 00101$:
-;	Computer.c:78: *ans = (((-1) * negative_num1) * num1) + (((-1) * negative_num2) * num2);
+;	Computer.c:81: *ans = (((-1) * negative_num1) * num1) + (((-1) * negative_num2) * num2);
 	mov	r3,_Calculate_PARM_6
 	mov	r4,(_Calculate_PARM_6 + 1)
 	mov	r5,(_Calculate_PARM_6 + 2)
@@ -946,11 +934,11 @@ _Calculate:
 	lcall	__gptrput
 	inc	dptr
 	mov	a,r2
-;	Computer.c:79: break;
+;	Computer.c:82: break;
 	ljmp	__gptrput
-;	Computer.c:80: case 13:
+;	Computer.c:83: case 13:
 00102$:
-;	Computer.c:81: *ans = (((-1) * negative_num1) * num1) - (((-1) * negative_num2) * num2);
+;	Computer.c:84: *ans = (((-1) * negative_num1) * num1) - (((-1) * negative_num2) * num2);
 	mov	r3,_Calculate_PARM_6
 	mov	r4,(_Calculate_PARM_6 + 1)
 	mov	r5,(_Calculate_PARM_6 + 2)
@@ -998,11 +986,11 @@ _Calculate:
 	lcall	__gptrput
 	inc	dptr
 	mov	a,r2
-;	Computer.c:82: break;
+;	Computer.c:85: break;
 	ljmp	__gptrput
-;	Computer.c:83: case 14:
+;	Computer.c:86: case 14:
 00103$:
-;	Computer.c:84: *ans = (((-1) * negative_num1) * num1) * (((-1) * negative_num2) * num2);
+;	Computer.c:87: *ans = (((-1) * negative_num1) * num1) * (((-1) * negative_num2) * num2);
 	mov	r3,_Calculate_PARM_6
 	mov	r4,(_Calculate_PARM_6 + 1)
 	mov	r5,(_Calculate_PARM_6 + 2)
@@ -1052,11 +1040,11 @@ _Calculate:
 	lcall	__gptrput
 	inc	dptr
 	mov	a,r2
-;	Computer.c:85: break;
+;	Computer.c:88: break;
 	ljmp	__gptrput
-;	Computer.c:86: case 15:
+;	Computer.c:89: case 15:
 00104$:
-;	Computer.c:87: *ans = (((-1) * negative_num1) * num1) / (((-1) * negative_num2) * num2);
+;	Computer.c:90: *ans = (((-1) * negative_num1) * num1) / (((-1) * negative_num2) * num2);
 	mov	r3,_Calculate_PARM_6
 	mov	r4,(_Calculate_PARM_6 + 1)
 	mov	r5,(_Calculate_PARM_6 + 2)
@@ -1118,27 +1106,27 @@ _Calculate:
 	lcall	__gptrput
 	inc	dptr
 	mov	a,r7
-;	Computer.c:89: }
-;	Computer.c:90: }
+;	Computer.c:92: }
+;	Computer.c:93: }
 	ljmp	__gptrput
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Keypad_Debounce_init'
 ;------------------------------------------------------------
-;	Computer.c:93: void Keypad_Debounce_init(void)
+;	Computer.c:96: void Keypad_Debounce_init(void)
 ;	-----------------------------------------
 ;	 function Keypad_Debounce_init
 ;	-----------------------------------------
 _Keypad_Debounce_init:
-;	Computer.c:95: IE = 0x8a;
+;	Computer.c:98: IE = 0x8a;
 	mov	_IE,#0x8a
-;	Computer.c:97: TMOD = 0x01;
+;	Computer.c:100: TMOD = 0x01;
 	mov	_TMOD,#0x01
-;	Computer.c:99: }
+;	Computer.c:102: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Keypad_Debounce'
 ;------------------------------------------------------------
-;	Computer.c:101: void Keypad_Debounce(void) __interrupt(1) __using(1)
+;	Computer.c:104: void Keypad_Debounce(void) __interrupt(1) __using(1)
 ;	-----------------------------------------
 ;	 function Keypad_Debounce
 ;	-----------------------------------------
@@ -1153,28 +1141,28 @@ _Keypad_Debounce:
 	ar0 = 0x08
 	push	acc
 	push	psw
-;	Computer.c:103: TH0 = (65536 - 50000) / 256;
+;	Computer.c:106: TH0 = (65536 - 50000) / 256;
 	mov	_TH0,#0x3c
-;	Computer.c:104: TL0 = (65536 - 50000) % 256;
+;	Computer.c:107: TL0 = (65536 - 50000) % 256;
 	mov	_TL0,#0xb0
-;	Computer.c:105: timer_count++;
+;	Computer.c:108: timer_count++;
 	inc	_timer_count
-;	Computer.c:106: if (timer_count == 20)
+;	Computer.c:109: if (timer_count == 20)
 	mov	a,#0x14
 	cjne	a,_timer_count,00103$
-;	Computer.c:108: Keypad_flag = 1;
+;	Computer.c:111: Keypad_flag = 1;
 ;	assignBit
 	setb	_Keypad_flag
-;	Computer.c:109: TF0 = 0;
+;	Computer.c:112: TF0 = 0;
 ;	assignBit
 	clr	_TF0
-;	Computer.c:111: TR0 = 0;
+;	Computer.c:114: TR0 = 0;
 ;	assignBit
 	clr	_TR0
-;	Computer.c:112: timer_count = 0;
+;	Computer.c:116: timer_count = 0;
 	mov	_timer_count,#0x00
 00103$:
-;	Computer.c:114: }
+;	Computer.c:118: }
 	pop	psw
 	pop	acc
 	reti
@@ -1183,11 +1171,71 @@ _Keypad_Debounce:
 ;	eliminated unneeded push/pop dph
 ;	eliminated unneeded push/pop b
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'Base_init'
+;------------------------------------------------------------
+;	Computer.c:120: void Base_init(void)
+;	-----------------------------------------
+;	 function Base_init
+;	-----------------------------------------
+_Base_init:
+	ar7 = 0x07
+	ar6 = 0x06
+	ar5 = 0x05
+	ar4 = 0x04
+	ar3 = 0x03
+	ar2 = 0x02
+	ar1 = 0x01
+	ar0 = 0x00
+;	Computer.c:122: IE = 0x8a;
+	mov	_IE,#0x8a
+;	Computer.c:124: TMOD = 0x10;
+	mov	_TMOD,#0x10
+;	Computer.c:126: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'Base_timer'
+;------------------------------------------------------------
+;	Computer.c:128: void Base_timer(void) __interrupt(3) __using(2)
+;	-----------------------------------------
+;	 function Base_timer
+;	-----------------------------------------
+_Base_timer:
+	ar7 = 0x17
+	ar6 = 0x16
+	ar5 = 0x15
+	ar4 = 0x14
+	ar3 = 0x13
+	ar2 = 0x12
+	ar1 = 0x11
+	ar0 = 0x10
+	push	psw
+	mov	psw,#0x10
+;	Computer.c:130: TH1 = (65536 - 50000) / 256;
+	mov	_TH1,#0x3c
+;	Computer.c:131: TL1 = (65536 - 50000) % 256;
+	mov	_TL1,#0xb0
+;	Computer.c:132: base_flag = 1;
+	mov	r0,#_base_flag
+	mov	@r0,#0x01
+;	Computer.c:133: TF1 = 0;
+;	assignBit
+	clr	_TF1
+;	Computer.c:135: TR1 = 0;
+;	assignBit
+	clr	_TR1
+;	Computer.c:137: }
+	pop	psw
+	reti
+;	eliminated unneeded push/pop dpl
+;	eliminated unneeded push/pop dph
+;	eliminated unneeded push/pop b
+;	eliminated unneeded push/pop acc
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'clean'
 ;------------------------------------------------------------
 ;f                         Allocated to registers r7 
 ;------------------------------------------------------------
-;	Computer.c:116: void clean()
+;	Computer.c:139: void clean()
 ;	-----------------------------------------
 ;	 function clean
 ;	-----------------------------------------
@@ -1200,321 +1248,583 @@ _clean:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	Computer.c:118: flag = 0;
-	mov	_flag,#0x00
-;	Computer.c:119: for (char f = 0; f < 8; f++)
+;	Computer.c:141: flag = 0;
+	mov	r0,#_flag
+	mov	@r0,#0x00
+;	Computer.c:142: for (char f = 0; f < 8; f++)
 	mov	r7,#0x00
 00103$:
 	cjne	r7,#0x08,00120$
 00120$:
 	jnc	00105$
-;	Computer.c:121: buffer[f] = -1;
+;	Computer.c:144: buffer[f] = -1;
 	mov	a,r7
 	add	a, #_buffer
 	mov	r0,a
 	mov	@r0,#0xff
-;	Computer.c:119: for (char f = 0; f < 8; f++)
+;	Computer.c:142: for (char f = 0; f < 8; f++)
 	inc	r7
 	sjmp	00103$
 00105$:
-;	Computer.c:124: }
+;	Computer.c:147: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;num_1                     Allocated with name '_main_num_1_10000_34'
-;num_2                     Allocated with name '_main_num_2_10000_34'
-;ans                       Allocated with name '_main_ans_10000_34'
-;op                        Allocated with name '_main_op_10000_34'
-;number                    Allocated to registers r7 
-;old_number                Allocated to registers 
-;negative_num1             Allocated with name '_main_negative_num1_10000_34'
-;negative_num2             Allocated with name '_main_negative_num2_10000_34'
-;negative_ans              Allocated with name '_main_negative_ans_10000_34'
-;count                     Allocated to registers r6 
-;m                         Allocated to registers r5 
+;count                     Allocated to registers r7 
+;m                         Allocated to registers r6 
+;i                         Allocated to registers r7 
+;m                         Allocated to registers r7 
+;m                         Allocated to registers r7 
+;m                         Allocated to registers r7 
+;m                         Allocated to registers r7 
 ;count                     Allocated to registers 
 ;m                         Allocated to registers r7 
+;num_1                     Allocated with name '_main_num_1_10000_38'
+;num_2                     Allocated with name '_main_num_2_10000_38'
+;ans                       Allocated with name '_main_ans_10000_38'
+;op                        Allocated with name '_main_op_10000_38'
+;negative_num1             Allocated with name '_main_negative_num1_10000_38'
+;negative_num2             Allocated with name '_main_negative_num2_10000_38'
+;negative_ans              Allocated with name '_main_negative_ans_10000_38'
 ;------------------------------------------------------------
-;	Computer.c:125: void main(void)
+;	Computer.c:148: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	Computer.c:127: int num_1 = 0, num_2 = 0, ans = 0;
+;	Computer.c:150: __idata int num_1 = 0, num_2 = 0, ans = 0;
+	mov	r0,#_main_num_1_10000_38
 	clr	a
-	mov	_main_num_1_10000_34,a
-	mov	(_main_num_1_10000_34 + 1),a
-	mov	_main_num_2_10000_34,a
-	mov	(_main_num_2_10000_34 + 1),a
-	mov	_main_ans_10000_34,a
-	mov	(_main_ans_10000_34 + 1),a
-;	Computer.c:128: char op = '$';
-	mov	_main_op_10000_34,#0x24
-;	Computer.c:130: int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
-	mov	_main_negative_num1_10000_34,#0xff
-	mov	(_main_negative_num1_10000_34 + 1),#0xff
-	mov	_main_negative_num2_10000_34,#0xff
-	mov	(_main_negative_num2_10000_34 + 1),#0xff
-	mov	_main_negative_ans_10000_34,a
-	mov	(_main_negative_ans_10000_34 + 1),a
-;	Computer.c:131: Keypad_Debounce_init();
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	mov	r0,#_main_num_2_10000_38
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	mov	r0,#_main_ans_10000_38
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+;	Computer.c:151: __idata char op = '$';
+	mov	r0,#_main_op_10000_38
+	mov	@r0,#0x24
+;	Computer.c:153: __idata int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
+	mov	r0,#_main_negative_num1_10000_38
+	mov	@r0,#0xff
+	inc	r0
+	mov	@r0,#0xff
+	mov	r0,#_main_negative_num2_10000_38
+	mov	@r0,#0xff
+	inc	r0
+	mov	@r0,#0xff
+	mov	r0,#_main_negative_ans_10000_38
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+;	Computer.c:154: Base_init();
+	lcall	_Base_init
+;	Computer.c:156: Keypad_Debounce_init();
 	lcall	_Keypad_Debounce_init
-;	Computer.c:133: while (1)
-00121$:
-;	Computer.c:135: TR0 = 1;
+;	Computer.c:159: while (1)
+00131$:
+;	Computer.c:161: TR0 = 1;
 ;	assignBit
 	setb	_TR0
-;	Computer.c:137: number = ReadKeypad();
+;	Computer.c:163: number = ReadKeypad();
 	lcall	_ReadKeypad
-;	Computer.c:138: if (number >= 0 && number <= 15)
+;	Computer.c:165: if (number >= 0 && number <= 15)
 	mov	a,dpl
-	mov	r7,a
+	mov	_number,a
 	add	a,#0xff - 0x0f
-	jnc	00211$
-	ljmp	00118$
-00211$:
-;	Computer.c:142: if (Keypad_flag == 1)
-	jb	_Keypad_flag,00212$
-	ljmp	00118$
-00212$:
-;	Computer.c:144: if (old_number == 10)
-	cjne	r7,#0x0a,00113$
-;	Computer.c:146: char count = start_count[history_count];
+	jnc	00313$
+	ljmp	00128$
+00313$:
+;	Computer.c:168: if (number == 10)
+	mov	a,#0x0a
+	cjne	a,_number,00103$
+;	Computer.c:170: TR1 = 1;
+;	assignBit
+	setb	_TR1
+;	Computer.c:172: char count = history_start[history_count];
 	mov	r0,#_history_count
 	mov	a,@r0
-	add	a, #_start_count
+	add	a, #_history_start
 	mov	r1,a
-	mov	ar6,@r1
-;	Computer.c:147: for (char m = 0; m < 100; m++)
-	mov	r5,#0x00
-00124$:
-	cjne	r5,#0x64,00215$
-00215$:
+	mov	ar7,@r1
+;	Computer.c:173: for (char m = 0; m < 100; m++)
+	mov	r6,#0x00
+00134$:
+	cjne	r6,#0x64,00316$
+00316$:
 	jnc	00101$
-;	Computer.c:149: Show_Ans(history, start, count);
+;	Computer.c:175: Show_History(history, start, count);
 	mov	r0,#_start
-	mov	_Show_Ans_PARM_2,@r0
-	mov	_Show_Ans_PARM_3,r6
+	mov	_Show_History_PARM_2,@r0
+	mov	_Show_History_PARM_3,r7
 	mov	dptr,#_history
 	mov	b, #0x40
+	push	ar7
 	push	ar6
-	push	ar5
-	lcall	_Show_Ans
-	pop	ar5
+	lcall	_Show_History
 	pop	ar6
-;	Computer.c:147: for (char m = 0; m < 100; m++)
-	inc	r5
-	sjmp	00124$
+	pop	ar7
+;	Computer.c:173: for (char m = 0; m < 100; m++)
+	inc	r6
+	sjmp	00134$
 00101$:
-;	Computer.c:151: start += count;
+;	Computer.c:177: start += count;
 	mov	r0,#_start
-	mov	a,r6
+	mov	a,r7
 	add	a, @r0
 	mov	@r0,a
-;	Computer.c:152: history_count++;
+;	Computer.c:178: history_count++;
 	mov	r0,#_history_count
 	inc	@r0
-	ljmp	00118$
-00113$:
-;	Computer.c:157: flag <<= 1;
-	mov	a,_flag
-	add	a,_flag
-	mov	_flag,a
-;	Computer.c:158: flag |= 0x01;
-	orl	_flag,#0x01
-;	Computer.c:160: SaveNumber(old_number, 7, buffer);
-	mov	_SaveNumber_PARM_3,#_buffer
-	mov	(_SaveNumber_PARM_3 + 1),#0x00
-	mov	(_SaveNumber_PARM_3 + 2),#0x40
-	mov	_SaveNumber_PARM_2,#0x07
-	mov	dpl, r7
-	lcall	_SaveNumber
-;	Computer.c:162: Update_Expression(&num_1, &num_2, &op, &negative_num1, &negative_num2);
-	mov	_Update_Expression_PARM_2,#_main_num_2_10000_34
-	mov	(_Update_Expression_PARM_2 + 1),#0x00
-	mov	(_Update_Expression_PARM_2 + 2),#0x40
-	mov	_Update_Expression_PARM_3,#_main_op_10000_34
-	mov	(_Update_Expression_PARM_3 + 1),#0x00
-	mov	(_Update_Expression_PARM_3 + 2),#0x40
-	mov	_Update_Expression_PARM_4,#_main_negative_num1_10000_34
-	mov	(_Update_Expression_PARM_4 + 1),#0x00
-	mov	(_Update_Expression_PARM_4 + 2),#0x40
-	mov	_Update_Expression_PARM_5,#_main_negative_num2_10000_34
-	mov	(_Update_Expression_PARM_5 + 1),#0x00
-	mov	(_Update_Expression_PARM_5 + 2),#0x40
-	mov	dptr,#_main_num_1_10000_34
-	mov	b, #0x40
-	lcall	_Update_Expression
-;	Computer.c:164: if (cal_flag == 1)
-	jb	_cal_flag,00217$
-	ljmp	00111$
-00217$:
-;	Computer.c:167: Calculate(num_1, num_2, op, negative_num1, negative_num2, &ans);
-	mov	_Calculate_PARM_6,#_main_ans_10000_34
-	mov	(_Calculate_PARM_6 + 1),#0x00
-	mov	(_Calculate_PARM_6 + 2),#0x40
-	mov	_Calculate_PARM_2,_main_num_2_10000_34
-	mov	(_Calculate_PARM_2 + 1),(_main_num_2_10000_34 + 1)
-	mov	_Calculate_PARM_3,_main_op_10000_34
-	mov	_Calculate_PARM_4,_main_negative_num1_10000_34
-	mov	(_Calculate_PARM_4 + 1),(_main_negative_num1_10000_34 + 1)
-	mov	_Calculate_PARM_5,_main_negative_num2_10000_34
-	mov	(_Calculate_PARM_5 + 1),(_main_negative_num2_10000_34 + 1)
-	mov	dpl, _main_num_1_10000_34
-	mov	dph, (_main_num_1_10000_34 + 1)
-	lcall	_Calculate
-;	Computer.c:169: if (ans < 0)
-	mov	a,(_main_ans_10000_34 + 1)
-	jnb	acc.7,00103$
-;	Computer.c:171: ans = -ans;
-	clr	c
-	clr	a
-	subb	a,_main_ans_10000_34
-	mov	_main_ans_10000_34,a
-	clr	a
-	subb	a,(_main_ans_10000_34 + 1)
-	mov	(_main_ans_10000_34 + 1),a
-;	Computer.c:172: negative_ans = 1;
-	mov	_main_negative_ans_10000_34,#0x01
-	mov	(_main_negative_ans_10000_34 + 1),#0x00
 00103$:
-;	Computer.c:175: clean();
-	lcall	_clean
-;	Computer.c:176: do
-00104$:
-;	Computer.c:178: SaveNumber(ans % 10, 9, history);
-	mov	__modsint_PARM_2,#0x0a
-	mov	(__modsint_PARM_2 + 1),#0x00
-	mov	dpl, _main_ans_10000_34
-	mov	dph, (_main_ans_10000_34 + 1)
-	lcall	__modsint
-	mov	_SaveNumber_PARM_3,#_history
-	mov	(_SaveNumber_PARM_3 + 1),#0x00
-	mov	(_SaveNumber_PARM_3 + 2),#0x40
-	mov	_SaveNumber_PARM_2,#0x09
-	lcall	_SaveNumber
-;	Computer.c:179: SaveNumber(ans % 10, 7, buffer);
-	mov	__modsint_PARM_2,#0x0a
-	mov	(__modsint_PARM_2 + 1),#0x00
-	mov	dpl, _main_ans_10000_34
-	mov	dph, (_main_ans_10000_34 + 1)
-	lcall	__modsint
-	mov	_SaveNumber_PARM_3,#_buffer
-	mov	(_SaveNumber_PARM_3 + 1),#0x00
-	mov	(_SaveNumber_PARM_3 + 2),#0x40
-	mov	_SaveNumber_PARM_2,#0x07
-	lcall	_SaveNumber
-;	Computer.c:180: ans /= 10;
-	mov	__divsint_PARM_2,#0x0a
-	mov	(__divsint_PARM_2 + 1),#0x00
-	mov	dpl, _main_ans_10000_34
-	mov	dph, (_main_ans_10000_34 + 1)
-	lcall	__divsint
-	mov	_main_ans_10000_34,dpl
-	mov	(_main_ans_10000_34 + 1),dph
-;	Computer.c:181: flag <<= 1;
-	mov	a,_flag
-	add	a,_flag
-	mov	_flag,a
-;	Computer.c:182: flag |= 0x01;
-	orl	_flag,#0x01
-;	Computer.c:183: } while (ans);
-	mov	a,_main_ans_10000_34
-	orl	a,(_main_ans_10000_34 + 1)
-	jnz	00104$
-;	Computer.c:185: if (negative_ans == 1)
-	mov	a,#0x01
-	cjne	a,_main_negative_ans_10000_34,00220$
-	dec	a
-	cjne	a,(_main_negative_ans_10000_34 + 1),00220$
-	sjmp	00221$
-00220$:
-	sjmp	00108$
-00221$:
-;	Computer.c:187: SaveNumber(13, 9, history);
-	mov	_SaveNumber_PARM_3,#_history
-	mov	(_SaveNumber_PARM_3 + 1),#0x00
-	mov	(_SaveNumber_PARM_3 + 2),#0x40
-	mov	_SaveNumber_PARM_2,#0x09
-	mov	dpl, #0x0d
-	lcall	_SaveNumber
-;	Computer.c:188: SaveNumber(13, 7, buffer);
-	mov	_SaveNumber_PARM_3,#_buffer
-	mov	(_SaveNumber_PARM_3 + 1),#0x00
-	mov	(_SaveNumber_PARM_3 + 2),#0x40
-	mov	_SaveNumber_PARM_2,#0x07
-	mov	dpl, #0x0d
-	lcall	_SaveNumber
-;	Computer.c:189: flag <<= 1;
-	mov	a,_flag
-	add	a,_flag
-	mov	_flag,a
-;	Computer.c:190: flag |= 0x01;
-	orl	_flag,#0x01
-00108$:
-;	Computer.c:192: char count = Counter(flag);
-	mov	dpl, _flag
-	lcall	_Counter
-;	Computer.c:193: SaveNumber(count, 9, start_count);
-	mov	_SaveNumber_PARM_3,#_start_count
-	mov	(_SaveNumber_PARM_3 + 1),#0x00
-	mov	(_SaveNumber_PARM_3 + 2),#0x40
-	mov	_SaveNumber_PARM_2,#0x09
-	lcall	_SaveNumber
-;	Computer.c:195: for (char m = 0; m < 100; m++)
+;	Computer.c:182: if (base_flag == 1)
+	mov	r0,#_base_flag
+	cjne	@r0,#0x01,00318$
+	sjmp	00319$
+00318$:
+	ljmp	00125$
+00319$:
+;	Computer.c:184: for (char i = 0; i < 8; i++)
 	mov	r7,#0x00
-00127$:
-	cjne	r7,#0x64,00222$
-00222$:
-	jnc	00109$
-;	Computer.c:197: Show_Reverse(buffer, flag);
-	mov	_Show_Reverse_PARM_2,_flag
+00137$:
+	cjne	r7,#0x08,00320$
+00320$:
+	jnc	00104$
+;	Computer.c:186: flag <<= 1;
+	mov	r0,#_flag
+	mov	ar6,@r0
+	mov	r0,#_flag
+	mov	a,r6
+	add	a,r6
+	mov	@r0,a
+;	Computer.c:187: flag |= Base_num[base_index - 1] & 1;
+	mov	r0,#_base_index
+	mov	ar6,@r0
+	dec	r6
+	mov	a,r6
+	add	a,r6
+	add	a, #_Base_num
+	mov	r1,a
+	mov	ar6,@r1
+	anl	ar6,#0x01
+	mov	r0,#_flag
+	mov	acc,@r0
+	orl	a,r6
+	mov	r0,#_flag
+	mov	@r0,a
+;	Computer.c:188: Base_num[base_index - 1] >>= 1;
+	mov	ar5,@r1
+	inc	r1
+	mov	ar6,@r1
+	dec	r1
+	mov	a,r6
+	clr	c
+	rrc	a
+	xch	a,r5
+	rrc	a
+	xch	a,r5
+	mov	r6,a
+	mov	@r1,ar5
+	inc	r1
+	mov	@r1,ar6
+	dec	r1
+;	Computer.c:184: for (char i = 0; i < 8; i++)
+	inc	r7
+	sjmp	00137$
+00104$:
+;	Computer.c:190: if (negative_base[base_index - 1] == 1)
+	mov	r0,#_base_index
+	mov	a,@r0
+	dec	a
+	add	a, #_negative_base
+	mov	r1,a
+	mov	ar7,@r1
+	cjne	r7,#0x01,00169$
+;	Computer.c:192: flag = ~flag;
+	mov	r0,#_flag
+	mov	a,@r0
+	cpl	a
+	mov	@r0,a
+;	Computer.c:193: flag += 1;
+	mov	r0,#_flag
+	mov	ar7,@r0
+	mov	r0,#_flag
+	mov	a,r7
+	inc	a
+	mov	@r0,a
+;	Computer.c:194: for (char m = 0; m < 8; m++)
+	mov	r7,#0x00
+00140$:
+	cjne	r7,#0x08,00324$
+00324$:
+	jnc	00105$
+;	Computer.c:196: SaveNumber(flag & 1, 7, buffer);
+	mov	r0,#_flag
+	mov	acc,@r0
+	anl	a,#0x01
+	mov	dpl,a
+	mov	_SaveNumber_PARM_3,#_buffer
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x07
+	push	ar7
+	lcall	_SaveNumber
+	pop	ar7
+;	Computer.c:197: flag >>= 1;
+	mov	r0,#_flag
+	mov	a,@r0
+	clr	c
+	rrc	a
+	mov	@r0,a
+;	Computer.c:194: for (char m = 0; m < 8; m++)
+	inc	r7
+	sjmp	00140$
+00105$:
+;	Computer.c:199: for (char m = 0; m < 100; m++)
+	mov	r7,#0x00
+00143$:
+	cjne	r7,#0x64,00326$
+00326$:
+	jnc	00111$
+;	Computer.c:201: Show_Ans(buffer, 0xff);
+	mov	_Show_Ans_PARM_2,#0xff
 	mov	dptr,#_buffer
 	mov	b, #0x40
 	push	ar7
-	lcall	_Show_Reverse
+	lcall	_Show_Ans
 	pop	ar7
-;	Computer.c:195: for (char m = 0; m < 100; m++)
+;	Computer.c:199: for (char m = 0; m < 100; m++)
 	inc	r7
-	sjmp	00127$
-00109$:
-;	Computer.c:200: clean();
+;	Computer.c:206: for (char m = 0; m < 8; m++)
+	sjmp	00143$
+00169$:
+	mov	r7,#0x00
+00146$:
+	cjne	r7,#0x08,00328$
+00328$:
+	jnc	00107$
+;	Computer.c:208: SaveNumber(flag & 1, 7, buffer);
+	mov	r0,#_flag
+	mov	acc,@r0
+	anl	a,#0x01
+	mov	dpl,a
+	mov	_SaveNumber_PARM_3,#_buffer
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x07
+	push	ar7
+	lcall	_SaveNumber
+	pop	ar7
+;	Computer.c:209: flag >>= 1;
+	mov	r0,#_flag
+	mov	a,@r0
+	clr	c
+	rrc	a
+	mov	@r0,a
+;	Computer.c:206: for (char m = 0; m < 8; m++)
+	inc	r7
+	sjmp	00146$
+00107$:
+;	Computer.c:211: for (char m = 0; m < 100; m++)
+	mov	r7,#0x00
+00149$:
+	cjne	r7,#0x64,00330$
+00330$:
+	jnc	00111$
+;	Computer.c:213: Show(buffer, 0xff);
+	mov	_Show_PARM_2,#0xff
+	mov	dptr,#_buffer
+	mov	b, #0x40
+	push	ar7
+	lcall	_Show
+	pop	ar7
+;	Computer.c:211: for (char m = 0; m < 100; m++)
+	inc	r7
+	sjmp	00149$
+00111$:
+;	Computer.c:217: base_flag = 0;
+	mov	r0,#_base_flag
+	mov	@r0,#0x00
+;	Computer.c:218: base_index--;
+	mov	r0,#_base_index
+	dec	@r0
+;	Computer.c:219: clean();
 	lcall	_clean
-;	Computer.c:201: Restart(&num_1, &num_2, &op, &ans, &negative_num1, &negative_num2, &negative_ans);
-	mov	_Restart_PARM_2,#_main_num_2_10000_34
+	ljmp	00128$
+00125$:
+;	Computer.c:222: else if (Keypad_flag == 1)
+	jb	_Keypad_flag,00332$
+	ljmp	00128$
+00332$:
+;	Computer.c:226: flag <<= 1;
+	mov	r0,#_flag
+	mov	ar7,@r0
+	mov	r0,#_flag
+	mov	a,r7
+	add	a,r7
+	mov	@r0,a
+;	Computer.c:227: flag |= 0x01;
+	mov	r0,#_flag
+	mov	a,@r0
+	orl	a,#0x01
+	mov	@r0,a
+;	Computer.c:229: SaveNumber(number, 7, buffer);
+	mov	_SaveNumber_PARM_3,#_buffer
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x07
+	mov	dpl, _number
+	lcall	_SaveNumber
+;	Computer.c:231: Update_Expression(&num_1, &num_2, &op, &negative_num1, &negative_num2);
+	mov	_Update_Expression_PARM_2,#_main_num_2_10000_38
+	mov	(_Update_Expression_PARM_2 + 1),#0x00
+	mov	(_Update_Expression_PARM_2 + 2),#0x40
+	mov	_Update_Expression_PARM_3,#_main_op_10000_38
+	mov	(_Update_Expression_PARM_3 + 1),#0x00
+	mov	(_Update_Expression_PARM_3 + 2),#0x40
+	mov	_Update_Expression_PARM_4,#_main_negative_num1_10000_38
+	mov	(_Update_Expression_PARM_4 + 1),#0x00
+	mov	(_Update_Expression_PARM_4 + 2),#0x40
+	mov	_Update_Expression_PARM_5,#_main_negative_num2_10000_38
+	mov	(_Update_Expression_PARM_5 + 1),#0x00
+	mov	(_Update_Expression_PARM_5 + 2),#0x40
+	mov	dptr,#_main_num_1_10000_38
+	mov	b, #0x40
+	lcall	_Update_Expression
+;	Computer.c:233: if (cal_flag == 1)
+	jb	_cal_flag,00333$
+	ljmp	00121$
+00333$:
+;	Computer.c:236: Calculate(num_1, num_2, op, negative_num1, negative_num2, &ans);
+	mov	_Calculate_PARM_6,#_main_ans_10000_38
+	mov	(_Calculate_PARM_6 + 1),#0x00
+	mov	(_Calculate_PARM_6 + 2),#0x40
+	mov	r0,#_main_num_2_10000_38
+	mov	_Calculate_PARM_2,@r0
+	inc	r0
+	mov	(_Calculate_PARM_2 + 1),@r0
+	mov	r0,#_main_op_10000_38
+	mov	_Calculate_PARM_3,@r0
+	mov	r0,#_main_negative_num1_10000_38
+	mov	_Calculate_PARM_4,@r0
+	inc	r0
+	mov	(_Calculate_PARM_4 + 1),@r0
+	mov	r0,#_main_negative_num2_10000_38
+	mov	_Calculate_PARM_5,@r0
+	inc	r0
+	mov	(_Calculate_PARM_5 + 1),@r0
+	mov	r0,#_main_num_1_10000_38
+	mov	dpl, @r0
+	inc	r0
+	mov	dph, @r0
+	lcall	_Calculate
+;	Computer.c:239: if (ans < 0)
+	mov	r0,#(_main_ans_10000_38 + 1)
+	mov	a,@r0
+	jnb	acc.7,00113$
+;	Computer.c:241: ans = -ans;
+	mov	r0,#_main_ans_10000_38
+	clr	c
+	clr	a
+	subb	a,@r0
+	mov	@r0,a
+	inc	r0
+	clr	a
+	subb	a,@r0
+	mov	@r0,a
+;	Computer.c:242: negative_ans = 1;
+	mov	r0,#_main_negative_ans_10000_38
+	mov	@r0,#0x01
+	inc	r0
+	mov	@r0,#0x00
+;	Computer.c:243: negative_base[base_index] = 1;
+	mov	r0,#_base_index
+	mov	a,@r0
+	add	a, #_negative_base
+	mov	r0,a
+	mov	@r0,#0x01
+00113$:
+;	Computer.c:245: Base_num[base_index] = ans;
+	mov	r0,#_base_index
+	mov	a,@r0
+	add	a,acc
+	add	a, #_Base_num
+	mov	r0,a
+	mov	r1,#_main_ans_10000_38
+	mov	a,@r1
+	mov	@r0,a
+	inc	r0
+	inc	r1
+	mov	a,@r1
+	mov	@r0,a
+;	Computer.c:246: base_index++;
+	mov	r0,#_base_index
+	inc	@r0
+;	Computer.c:248: clean();
+	lcall	_clean
+;	Computer.c:250: do
+00114$:
+;	Computer.c:252: SaveNumber(ans % 10, 9, history);
+	mov	__modsint_PARM_2,#0x0a
+	mov	(__modsint_PARM_2 + 1),#0x00
+	mov	r0,#_main_ans_10000_38
+	mov	dpl, @r0
+	inc	r0
+	mov	dph, @r0
+	lcall	__modsint
+	mov	_SaveNumber_PARM_3,#_history
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x09
+	lcall	_SaveNumber
+;	Computer.c:253: SaveNumber(ans % 10, 7, buffer);
+	mov	__modsint_PARM_2,#0x0a
+	mov	(__modsint_PARM_2 + 1),#0x00
+	mov	r0,#_main_ans_10000_38
+	mov	dpl, @r0
+	inc	r0
+	mov	dph, @r0
+	lcall	__modsint
+	mov	_SaveNumber_PARM_3,#_buffer
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x07
+	lcall	_SaveNumber
+;	Computer.c:254: ans /= 10;
+	mov	__divsint_PARM_2,#0x0a
+	mov	(__divsint_PARM_2 + 1),#0x00
+	mov	r0,#_main_ans_10000_38
+	mov	dpl, @r0
+	inc	r0
+	mov	dph, @r0
+	lcall	__divsint
+	mov	a, dpl
+	mov	b, dph
+	mov	r0,#_main_ans_10000_38
+	mov	@r0,a
+	inc	r0
+	mov	@r0,b
+;	Computer.c:255: flag <<= 1;
+	mov	r0,#_flag
+	mov	ar7,@r0
+	mov	r0,#_flag
+	mov	a,r7
+	add	a,r7
+	mov	@r0,a
+;	Computer.c:256: flag |= 0x01;
+	mov	r0,#_flag
+	mov	a,@r0
+	orl	a,#0x01
+	mov	@r0,a
+;	Computer.c:257: } while (ans);
+	mov	r0,#_main_ans_10000_38
+	mov	a,@r0
+	inc	r0
+	orl	a,@r0
+	jnz	00114$
+;	Computer.c:259: if (negative_ans == 1)
+	mov	r0,#_main_negative_ans_10000_38
+	cjne	@r0,#0x01,00118$
+	inc	r0
+	cjne	@r0,#0x00,00118$
+;	Computer.c:261: SaveNumber(13, 9, history);
+	mov	_SaveNumber_PARM_3,#_history
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x09
+	mov	dpl, #0x0d
+	lcall	_SaveNumber
+;	Computer.c:262: SaveNumber(13, 7, buffer);
+	mov	_SaveNumber_PARM_3,#_buffer
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x07
+	mov	dpl, #0x0d
+	lcall	_SaveNumber
+;	Computer.c:263: flag <<= 1;
+	mov	r0,#_flag
+	mov	ar7,@r0
+	mov	r0,#_flag
+	mov	a,r7
+	add	a,r7
+	mov	@r0,a
+;	Computer.c:264: flag |= 0x01;
+	mov	r0,#_flag
+	mov	a,@r0
+	orl	a,#0x01
+	mov	@r0,a
+00118$:
+;	Computer.c:267: char count = Counter(flag);
+	mov	r0,#_flag
+	mov	dpl, @r0
+	lcall	_Counter
+;	Computer.c:268: SaveNumber(count, 9, history_start);
+	mov	_SaveNumber_PARM_3,#_history_start
+	mov	(_SaveNumber_PARM_3 + 1),#0x00
+	mov	(_SaveNumber_PARM_3 + 2),#0x40
+	mov	_SaveNumber_PARM_2,#0x09
+	lcall	_SaveNumber
+;	Computer.c:269: for (char m = 0; m < 100; m++)
+	mov	r7,#0x00
+00152$:
+	cjne	r7,#0x64,00338$
+00338$:
+	jnc	00119$
+;	Computer.c:271: Show_Ans(buffer, flag);
+	mov	r0,#_flag
+	mov	_Show_Ans_PARM_2,@r0
+	mov	dptr,#_buffer
+	mov	b, #0x40
+	push	ar7
+	lcall	_Show_Ans
+	pop	ar7
+;	Computer.c:269: for (char m = 0; m < 100; m++)
+	inc	r7
+	sjmp	00152$
+00119$:
+;	Computer.c:274: clean();
+	lcall	_clean
+;	Computer.c:275: Restart(&num_1, &num_2, &op, &ans, &negative_num1, &negative_num2, &negative_ans);
+	mov	_Restart_PARM_2,#_main_num_2_10000_38
 	mov	(_Restart_PARM_2 + 1),#0x00
 	mov	(_Restart_PARM_2 + 2),#0x40
-	mov	_Restart_PARM_3,#_main_op_10000_34
+	mov	_Restart_PARM_3,#_main_op_10000_38
 	mov	(_Restart_PARM_3 + 1),#0x00
 	mov	(_Restart_PARM_3 + 2),#0x40
-	mov	_Restart_PARM_4,#_main_ans_10000_34
+	mov	_Restart_PARM_4,#_main_ans_10000_38
 	mov	(_Restart_PARM_4 + 1),#0x00
 	mov	(_Restart_PARM_4 + 2),#0x40
-	mov	_Restart_PARM_5,#_main_negative_num1_10000_34
+	mov	_Restart_PARM_5,#_main_negative_num1_10000_38
 	mov	(_Restart_PARM_5 + 1),#0x00
 	mov	(_Restart_PARM_5 + 2),#0x40
-	mov	_Restart_PARM_6,#_main_negative_num2_10000_34
+	mov	_Restart_PARM_6,#_main_negative_num2_10000_38
 	mov	(_Restart_PARM_6 + 1),#0x00
 	mov	(_Restart_PARM_6 + 2),#0x40
-	mov	_Restart_PARM_7,#_main_negative_ans_10000_34
+	mov	_Restart_PARM_7,#_main_negative_ans_10000_38
 	mov	(_Restart_PARM_7 + 1),#0x00
 	mov	(_Restart_PARM_7 + 2),#0x40
-	mov	dptr,#_main_num_1_10000_34
+	mov	dptr,#_main_num_1_10000_38
 	mov	b, #0x40
 	lcall	_Restart
-00111$:
-;	Computer.c:204: Keypad_flag = 0;
+00121$:
+;	Computer.c:278: Keypad_flag = 0;
 ;	assignBit
 	clr	_Keypad_flag
-00118$:
-;	Computer.c:208: Show(buffer, flag);
-	mov	_Show_PARM_2,_flag
+00128$:
+;	Computer.c:281: Show(buffer, flag);
+	mov	r0,#_flag
+	mov	_Show_PARM_2,@r0
 	mov	dptr,#_buffer
 	mov	b, #0x40
 	lcall	_Show
-;	Computer.c:210: }
-	ljmp	00121$
+;	Computer.c:283: }
+	ljmp	00131$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

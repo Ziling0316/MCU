@@ -104,16 +104,16 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _Show_Ans_PARM_3
+	.globl _Show_History_PARM_3
+	.globl _Show_History_PARM_2
 	.globl _Show_Ans_PARM_2
-	.globl _Show_Reverse_PARM_2
 	.globl _Show_PARM_2
 	.globl _numbers
 	.globl _control
 	.globl _delay
 	.globl _Show
-	.globl _Show_Reverse
 	.globl _Show_Ans
+	.globl _Show_History
 	.globl _Counter
 ;--------------------------------------------------------
 ; special function registers
@@ -238,19 +238,19 @@ _Show_PARM_2:
 	.ds 1
 _Show_buffer_10000_8:
 	.ds 3
-_Show_Reverse_PARM_2:
-	.ds 1
-_Show_Reverse_buffer_10000_14:
-	.ds 3
-_Show_Reverse_count_10000_15:
-	.ds 1
 _Show_Ans_PARM_2:
 	.ds 1
-_Show_Ans_PARM_3:
-	.ds 1
-_Show_Ans_buffer_10000_20:
+_Show_Ans_buffer_10000_14:
 	.ds 3
-_Show_Ans_i_20000_22:
+_Show_Ans_count_10000_15:
+	.ds 1
+_Show_History_PARM_2:
+	.ds 1
+_Show_History_PARM_3:
+	.ds 1
+_Show_History_buffer_10000_20:
+	.ds 3
+_Show_History_i_20000_22:
 	.ds 1
 ;--------------------------------------------------------
 ; overlayable items in internal ram
@@ -463,27 +463,27 @@ _Show:
 ;	Display.c:28: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'Show_Reverse'
+;Allocation info for local variables in function 'Show_Ans'
 ;------------------------------------------------------------
-;flag                      Allocated with name '_Show_Reverse_PARM_2'
-;buffer                    Allocated with name '_Show_Reverse_buffer_10000_14'
-;count                     Allocated with name '_Show_Reverse_count_10000_15'
+;flag                      Allocated with name '_Show_Ans_PARM_2'
+;buffer                    Allocated with name '_Show_Ans_buffer_10000_14'
+;count                     Allocated with name '_Show_Ans_count_10000_15'
 ;i                         Allocated to registers r3 
 ;------------------------------------------------------------
-;	Display.c:30: void Show_Reverse(char *buffer, char flag)
+;	Display.c:30: void Show_Ans(char *buffer, char flag)
 ;	-----------------------------------------
-;	 function Show_Reverse
+;	 function Show_Ans
 ;	-----------------------------------------
-_Show_Reverse:
-	mov	_Show_Reverse_buffer_10000_14,dpl
-	mov	(_Show_Reverse_buffer_10000_14 + 1),dph
-	mov	(_Show_Reverse_buffer_10000_14 + 2),b
+_Show_Ans:
+	mov	_Show_Ans_buffer_10000_14,dpl
+	mov	(_Show_Ans_buffer_10000_14 + 1),dph
+	mov	(_Show_Ans_buffer_10000_14 + 2),b
 ;	Display.c:32: char count = Counter(flag)-1;
-	mov	dpl, _Show_Reverse_PARM_2
+	mov	dpl, _Show_Ans_PARM_2
 	lcall	_Counter
 	mov	a,dpl
 	dec	a
-	mov	_Show_Reverse_count_10000_15,a
+	mov	_Show_Ans_count_10000_15,a
 ;	Display.c:33: for (char i = 0; i < 8; i++)
 	mov	r3,#0x00
 00106$:
@@ -510,7 +510,7 @@ _Show_Reverse:
 	mov	r4,a
 00132$:
 	djnz	b,00131$
-	mov	r6,_Show_Reverse_PARM_2
+	mov	r6,_Show_Ans_PARM_2
 	mov	r7,#0x00
 	mov	a,r6
 	anl	ar2,a
@@ -525,7 +525,7 @@ _Show_Reverse:
 	subb	a,b
 	jnc	00102$
 ;	Display.c:38: P2 = ~numbers[buffer[count - i]];
-	mov	r4,_Show_Reverse_count_10000_15
+	mov	r4,_Show_Ans_count_10000_15
 	mov	r7,#0x00
 	mov	ar5,r3
 	mov	r6,#0x00
@@ -537,12 +537,12 @@ _Show_Reverse:
 	subb	a,r6
 	mov	r7,a
 	mov	a,r4
-	add	a, _Show_Reverse_buffer_10000_14
+	add	a, _Show_Ans_buffer_10000_14
 	mov	r4,a
 	mov	a,r7
-	addc	a, (_Show_Reverse_buffer_10000_14 + 1)
+	addc	a, (_Show_Ans_buffer_10000_14 + 1)
 	mov	r7,a
-	mov	r6,(_Show_Reverse_buffer_10000_14 + 2)
+	mov	r6,(_Show_Ans_buffer_10000_14 + 2)
 	mov	dpl,r4
 	mov	dph,r7
 	mov	b,r6
@@ -571,47 +571,47 @@ _Show_Reverse:
 ;	Display.c:46: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'Show_Ans'
+;Allocation info for local variables in function 'Show_History'
 ;------------------------------------------------------------
-;start                     Allocated with name '_Show_Ans_PARM_2'
-;count                     Allocated with name '_Show_Ans_PARM_3'
-;buffer                    Allocated with name '_Show_Ans_buffer_10000_20'
-;i                         Allocated with name '_Show_Ans_i_20000_22'
+;start                     Allocated with name '_Show_History_PARM_2'
+;count                     Allocated with name '_Show_History_PARM_3'
+;buffer                    Allocated with name '_Show_History_buffer_10000_20'
+;i                         Allocated with name '_Show_History_i_20000_22'
 ;------------------------------------------------------------
-;	Display.c:48: void Show_Ans(char *buffer, char start, char count)
+;	Display.c:48: void Show_History(char *buffer, char start, char count)
 ;	-----------------------------------------
-;	 function Show_Ans
+;	 function Show_History
 ;	-----------------------------------------
-_Show_Ans:
-	mov	_Show_Ans_buffer_10000_20,dpl
-	mov	(_Show_Ans_buffer_10000_20 + 1),dph
-	mov	(_Show_Ans_buffer_10000_20 + 2),b
+_Show_History:
+	mov	_Show_History_buffer_10000_20,dpl
+	mov	(_Show_History_buffer_10000_20 + 1),dph
+	mov	(_Show_History_buffer_10000_20 + 2),b
 ;	Display.c:51: for (char i = 0; i < 8; i++)
-	mov	_Show_Ans_i_20000_22,#0x00
+	mov	_Show_History_i_20000_22,#0x00
 00106$:
 	mov	a,#0x100 - 0x08
-	add	a,_Show_Ans_i_20000_22
+	add	a,_Show_History_i_20000_22
 	jc	00108$
 ;	Display.c:53: P1 = control[i];
-	mov	a,_Show_Ans_i_20000_22
+	mov	a,_Show_History_i_20000_22
 	add	a, #_control
 	mov	r1,a
 	mov	_P1,@r1
 ;	Display.c:54: if (i<count)
 	clr	c
-	mov	a,_Show_Ans_i_20000_22
-	subb	a,_Show_Ans_PARM_3
+	mov	a,_Show_History_i_20000_22
+	subb	a,_Show_History_PARM_3
 	jnc	00102$
 ;	Display.c:56: P2 = ~numbers[buffer[start+(count-1-i)]];
-	mov	r2,_Show_Ans_PARM_2
+	mov	r2,_Show_History_PARM_2
 	mov	r3,#0x00
-	mov	r6,_Show_Ans_PARM_3
+	mov	r6,_Show_History_PARM_3
 	mov	r7,#0x00
 	dec	r6
 	cjne	r6,#0xff,00131$
 	dec	r7
 00131$:
-	mov	r4,_Show_Ans_i_20000_22
+	mov	r4,_Show_History_i_20000_22
 	mov	r5,#0x00
 	mov	a,r6
 	clr	c
@@ -627,12 +627,12 @@ _Show_Ans:
 	addc	a, r3
 	mov	r3,a
 	mov	a,r2
-	add	a, _Show_Ans_buffer_10000_20
+	add	a, _Show_History_buffer_10000_20
 	mov	r2,a
 	mov	a,r3
-	addc	a, (_Show_Ans_buffer_10000_20 + 1)
+	addc	a, (_Show_History_buffer_10000_20 + 1)
 	mov	r3,a
-	mov	r7,(_Show_Ans_buffer_10000_20 + 2)
+	mov	r7,(_Show_History_buffer_10000_20 + 2)
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r7
@@ -653,7 +653,7 @@ _Show_Ans:
 	mov	dptr,#0x0118
 	lcall	_delay
 ;	Display.c:51: for (char i = 0; i < 8; i++)
-	inc	_Show_Ans_i_20000_22
+	inc	_Show_History_i_20000_22
 	sjmp	00106$
 00108$:
 ;	Display.c:64: }

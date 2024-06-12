@@ -104,16 +104,16 @@
                                     104 	.globl _DPL
                                     105 	.globl _SP
                                     106 	.globl _P0
-                                    107 	.globl _Show_Ans_PARM_3
-                                    108 	.globl _Show_Ans_PARM_2
-                                    109 	.globl _Show_Reverse_PARM_2
+                                    107 	.globl _Show_History_PARM_3
+                                    108 	.globl _Show_History_PARM_2
+                                    109 	.globl _Show_Ans_PARM_2
                                     110 	.globl _Show_PARM_2
                                     111 	.globl _numbers
                                     112 	.globl _control
                                     113 	.globl _delay
                                     114 	.globl _Show
-                                    115 	.globl _Show_Reverse
-                                    116 	.globl _Show_Ans
+                                    115 	.globl _Show_Ans
+                                    116 	.globl _Show_History
                                     117 	.globl _Counter
                                     118 ;--------------------------------------------------------
                                     119 ; special function registers
@@ -238,19 +238,19 @@
       000019                        238 	.ds 1
       00001A                        239 _Show_buffer_10000_8:
       00001A                        240 	.ds 3
-      00001D                        241 _Show_Reverse_PARM_2:
+      00001D                        241 _Show_Ans_PARM_2:
       00001D                        242 	.ds 1
-      00001E                        243 _Show_Reverse_buffer_10000_14:
+      00001E                        243 _Show_Ans_buffer_10000_14:
       00001E                        244 	.ds 3
-      000021                        245 _Show_Reverse_count_10000_15:
+      000021                        245 _Show_Ans_count_10000_15:
       000021                        246 	.ds 1
-      000022                        247 _Show_Ans_PARM_2:
+      000022                        247 _Show_History_PARM_2:
       000022                        248 	.ds 1
-      000023                        249 _Show_Ans_PARM_3:
+      000023                        249 _Show_History_PARM_3:
       000023                        250 	.ds 1
-      000024                        251 _Show_Ans_buffer_10000_20:
+      000024                        251 _Show_History_buffer_10000_20:
       000024                        252 	.ds 3
-      000027                        253 _Show_Ans_i_20000_22:
+      000027                        253 _Show_History_i_20000_22:
       000027                        254 	.ds 1
                                     255 ;--------------------------------------------------------
                                     256 ; overlayable items in internal ram
@@ -463,27 +463,27 @@
                                     463 ;	Display.c:28: }
       000081 22               [24]  464 	ret
                                     465 ;------------------------------------------------------------
-                                    466 ;Allocation info for local variables in function 'Show_Reverse'
+                                    466 ;Allocation info for local variables in function 'Show_Ans'
                                     467 ;------------------------------------------------------------
-                                    468 ;flag                      Allocated with name '_Show_Reverse_PARM_2'
-                                    469 ;buffer                    Allocated with name '_Show_Reverse_buffer_10000_14'
-                                    470 ;count                     Allocated with name '_Show_Reverse_count_10000_15'
+                                    468 ;flag                      Allocated with name '_Show_Ans_PARM_2'
+                                    469 ;buffer                    Allocated with name '_Show_Ans_buffer_10000_14'
+                                    470 ;count                     Allocated with name '_Show_Ans_count_10000_15'
                                     471 ;i                         Allocated to registers r3 
                                     472 ;------------------------------------------------------------
-                                    473 ;	Display.c:30: void Show_Reverse(char *buffer, char flag)
+                                    473 ;	Display.c:30: void Show_Ans(char *buffer, char flag)
                                     474 ;	-----------------------------------------
-                                    475 ;	 function Show_Reverse
+                                    475 ;	 function Show_Ans
                                     476 ;	-----------------------------------------
-      000082                        477 _Show_Reverse:
-      000082 85 82*1E         [24]  478 	mov	_Show_Reverse_buffer_10000_14,dpl
-      000085 85 83*1F         [24]  479 	mov	(_Show_Reverse_buffer_10000_14 + 1),dph
-      000088 85 F0*20         [24]  480 	mov	(_Show_Reverse_buffer_10000_14 + 2),b
+      000082                        477 _Show_Ans:
+      000082 85 82*1E         [24]  478 	mov	_Show_Ans_buffer_10000_14,dpl
+      000085 85 83*1F         [24]  479 	mov	(_Show_Ans_buffer_10000_14 + 1),dph
+      000088 85 F0*20         [24]  480 	mov	(_Show_Ans_buffer_10000_14 + 2),b
                                     481 ;	Display.c:32: char count = Counter(flag)-1;
-      00008B 85*1D 82         [24]  482 	mov	dpl, _Show_Reverse_PARM_2
+      00008B 85*1D 82         [24]  482 	mov	dpl, _Show_Ans_PARM_2
       00008E 12r01r77         [24]  483 	lcall	_Counter
       000091 E5 82            [12]  484 	mov	a,dpl
       000093 14               [12]  485 	dec	a
-      000094 F5*21            [12]  486 	mov	_Show_Reverse_count_10000_15,a
+      000094 F5*21            [12]  486 	mov	_Show_Ans_count_10000_15,a
                                     487 ;	Display.c:33: for (char i = 0; i < 8; i++)
       000096 7B 00            [12]  488 	mov	r3,#0x00
       000098                        489 00106$:
@@ -510,7 +510,7 @@
       0000B2 FC               [12]  510 	mov	r4,a
       0000B3                        511 00132$:
       0000B3 D5 F0 F7         [24]  512 	djnz	b,00131$
-      0000B6 AE*1D            [24]  513 	mov	r6,_Show_Reverse_PARM_2
+      0000B6 AE*1D            [24]  513 	mov	r6,_Show_Ans_PARM_2
       0000B8 7F 00            [12]  514 	mov	r7,#0x00
       0000BA EE               [12]  515 	mov	a,r6
       0000BB 52 02            [12]  516 	anl	ar2,a
@@ -525,7 +525,7 @@
       0000CA 95 F0            [12]  525 	subb	a,b
       0000CC 50 2B            [24]  526 	jnc	00102$
                                     527 ;	Display.c:38: P2 = ~numbers[buffer[count - i]];
-      0000CE AC*21            [24]  528 	mov	r4,_Show_Reverse_count_10000_15
+      0000CE AC*21            [24]  528 	mov	r4,_Show_Ans_count_10000_15
       0000D0 7F 00            [12]  529 	mov	r7,#0x00
       0000D2 8B 05            [24]  530 	mov	ar5,r3
       0000D4 7E 00            [12]  531 	mov	r6,#0x00
@@ -537,12 +537,12 @@
       0000DB 9E               [12]  537 	subb	a,r6
       0000DC FF               [12]  538 	mov	r7,a
       0000DD EC               [12]  539 	mov	a,r4
-      0000DE 25*1E            [12]  540 	add	a, _Show_Reverse_buffer_10000_14
+      0000DE 25*1E            [12]  540 	add	a, _Show_Ans_buffer_10000_14
       0000E0 FC               [12]  541 	mov	r4,a
       0000E1 EF               [12]  542 	mov	a,r7
-      0000E2 35*1F            [12]  543 	addc	a, (_Show_Reverse_buffer_10000_14 + 1)
+      0000E2 35*1F            [12]  543 	addc	a, (_Show_Ans_buffer_10000_14 + 1)
       0000E4 FF               [12]  544 	mov	r7,a
-      0000E5 AE*20            [24]  545 	mov	r6,(_Show_Reverse_buffer_10000_14 + 2)
+      0000E5 AE*20            [24]  545 	mov	r6,(_Show_Ans_buffer_10000_14 + 2)
       0000E7 8C 82            [24]  546 	mov	dpl,r4
       0000E9 8F 83            [24]  547 	mov	dph,r7
       0000EB 8E F0            [24]  548 	mov	b,r6
@@ -571,47 +571,47 @@
                                     571 ;	Display.c:46: }
       00010C 22               [24]  572 	ret
                                     573 ;------------------------------------------------------------
-                                    574 ;Allocation info for local variables in function 'Show_Ans'
+                                    574 ;Allocation info for local variables in function 'Show_History'
                                     575 ;------------------------------------------------------------
-                                    576 ;start                     Allocated with name '_Show_Ans_PARM_2'
-                                    577 ;count                     Allocated with name '_Show_Ans_PARM_3'
-                                    578 ;buffer                    Allocated with name '_Show_Ans_buffer_10000_20'
-                                    579 ;i                         Allocated with name '_Show_Ans_i_20000_22'
+                                    576 ;start                     Allocated with name '_Show_History_PARM_2'
+                                    577 ;count                     Allocated with name '_Show_History_PARM_3'
+                                    578 ;buffer                    Allocated with name '_Show_History_buffer_10000_20'
+                                    579 ;i                         Allocated with name '_Show_History_i_20000_22'
                                     580 ;------------------------------------------------------------
-                                    581 ;	Display.c:48: void Show_Ans(char *buffer, char start, char count)
+                                    581 ;	Display.c:48: void Show_History(char *buffer, char start, char count)
                                     582 ;	-----------------------------------------
-                                    583 ;	 function Show_Ans
+                                    583 ;	 function Show_History
                                     584 ;	-----------------------------------------
-      00010D                        585 _Show_Ans:
-      00010D 85 82*24         [24]  586 	mov	_Show_Ans_buffer_10000_20,dpl
-      000110 85 83*25         [24]  587 	mov	(_Show_Ans_buffer_10000_20 + 1),dph
-      000113 85 F0*26         [24]  588 	mov	(_Show_Ans_buffer_10000_20 + 2),b
+      00010D                        585 _Show_History:
+      00010D 85 82*24         [24]  586 	mov	_Show_History_buffer_10000_20,dpl
+      000110 85 83*25         [24]  587 	mov	(_Show_History_buffer_10000_20 + 1),dph
+      000113 85 F0*26         [24]  588 	mov	(_Show_History_buffer_10000_20 + 2),b
                                     589 ;	Display.c:51: for (char i = 0; i < 8; i++)
-      000116 75*27 00         [24]  590 	mov	_Show_Ans_i_20000_22,#0x00
+      000116 75*27 00         [24]  590 	mov	_Show_History_i_20000_22,#0x00
       000119                        591 00106$:
       000119 74 F8            [12]  592 	mov	a,#0x100 - 0x08
-      00011B 25*27            [12]  593 	add	a,_Show_Ans_i_20000_22
+      00011B 25*27            [12]  593 	add	a,_Show_History_i_20000_22
       00011D 40 57            [24]  594 	jc	00108$
                                     595 ;	Display.c:53: P1 = control[i];
-      00011F E5*27            [12]  596 	mov	a,_Show_Ans_i_20000_22
+      00011F E5*27            [12]  596 	mov	a,_Show_History_i_20000_22
       000121 24r00            [12]  597 	add	a, #_control
       000123 F9               [12]  598 	mov	r1,a
       000124 87 90            [24]  599 	mov	_P1,@r1
                                     600 ;	Display.c:54: if (i<count)
       000126 C3               [12]  601 	clr	c
-      000127 E5*27            [12]  602 	mov	a,_Show_Ans_i_20000_22
-      000129 95*23            [12]  603 	subb	a,_Show_Ans_PARM_3
+      000127 E5*27            [12]  602 	mov	a,_Show_History_i_20000_22
+      000129 95*23            [12]  603 	subb	a,_Show_History_PARM_3
       00012B 50 3A            [24]  604 	jnc	00102$
                                     605 ;	Display.c:56: P2 = ~numbers[buffer[start+(count-1-i)]];
-      00012D AA*22            [24]  606 	mov	r2,_Show_Ans_PARM_2
+      00012D AA*22            [24]  606 	mov	r2,_Show_History_PARM_2
       00012F 7B 00            [12]  607 	mov	r3,#0x00
-      000131 AE*23            [24]  608 	mov	r6,_Show_Ans_PARM_3
+      000131 AE*23            [24]  608 	mov	r6,_Show_History_PARM_3
       000133 7F 00            [12]  609 	mov	r7,#0x00
       000135 1E               [12]  610 	dec	r6
       000136 BE FF 01         [24]  611 	cjne	r6,#0xff,00131$
       000139 1F               [12]  612 	dec	r7
       00013A                        613 00131$:
-      00013A AC*27            [24]  614 	mov	r4,_Show_Ans_i_20000_22
+      00013A AC*27            [24]  614 	mov	r4,_Show_History_i_20000_22
       00013C 7D 00            [12]  615 	mov	r5,#0x00
       00013E EE               [12]  616 	mov	a,r6
       00013F C3               [12]  617 	clr	c
@@ -627,12 +627,12 @@
       000149 3B               [12]  627 	addc	a, r3
       00014A FB               [12]  628 	mov	r3,a
       00014B EA               [12]  629 	mov	a,r2
-      00014C 25*24            [12]  630 	add	a, _Show_Ans_buffer_10000_20
+      00014C 25*24            [12]  630 	add	a, _Show_History_buffer_10000_20
       00014E FA               [12]  631 	mov	r2,a
       00014F EB               [12]  632 	mov	a,r3
-      000150 35*25            [12]  633 	addc	a, (_Show_Ans_buffer_10000_20 + 1)
+      000150 35*25            [12]  633 	addc	a, (_Show_History_buffer_10000_20 + 1)
       000152 FB               [12]  634 	mov	r3,a
-      000153 AF*26            [24]  635 	mov	r7,(_Show_Ans_buffer_10000_20 + 2)
+      000153 AF*26            [24]  635 	mov	r7,(_Show_History_buffer_10000_20 + 2)
       000155 8A 82            [24]  636 	mov	dpl,r2
       000157 8B 83            [24]  637 	mov	dph,r3
       000159 8F F0            [24]  638 	mov	b,r7
@@ -653,7 +653,7 @@
       00016C 90 01 18         [24]  653 	mov	dptr,#0x0118
       00016F 12r00r00         [24]  654 	lcall	_delay
                                     655 ;	Display.c:51: for (char i = 0; i < 8; i++)
-      000172 05*27            [12]  656 	inc	_Show_Ans_i_20000_22
+      000172 05*27            [12]  656 	inc	_Show_History_i_20000_22
       000174 80 A3            [24]  657 	sjmp	00106$
       000176                        658 00108$:
                                     659 ;	Display.c:64: }

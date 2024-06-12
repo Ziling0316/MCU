@@ -27,7 +27,7 @@ void Show(char *buffer, char flag)
     }
 }
 
-void Show_Reverse(char *buffer, char flag)
+void Show_Ans(char *buffer, char flag)
 {
     char count = Counter(flag)-1;
     for (char i = 0; i < 8; i++)
@@ -45,7 +45,7 @@ void Show_Reverse(char *buffer, char flag)
     }
 }
 
-void Show_Ans(char *buffer, char start, char count)
+void Show_History(char *buffer, char start, char count)
 {
     // Show_Reverse(buffer, count);
     for (char i = 0; i < 8; i++)
