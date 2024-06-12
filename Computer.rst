@@ -8,1485 +8,1514 @@
                                       8 ;--------------------------------------------------------
                                       9 ; Public variables in this module
                                      10 ;--------------------------------------------------------
-                                     11 	.globl _SaveAns_PARM_2
-                                     12 	.globl _Restart_PARM_7
-                                     13 	.globl _Restart_PARM_6
-                                     14 	.globl _Restart_PARM_5
-                                     15 	.globl _Restart_PARM_4
-                                     16 	.globl _Restart_PARM_3
-                                     17 	.globl _Restart_PARM_2
-                                     18 	.globl _main
-                                     19 	.globl _Keypad_Debounce
-                                     20 	.globl _Keypad_Debounce_init
-                                     21 	.globl _Calculate
-                                     22 	.globl _Update_Expression
-                                     23 	.globl _SaveAns
-                                     24 	.globl _SaveNumber
-                                     25 	.globl _Restart
-                                     26 	.globl _Counter
-                                     27 	.globl _Show_Ans
-                                     28 	.globl _Show_Reverse
-                                     29 	.globl _Show
-                                     30 	.globl _ReadKeypad
-                                     31 	.globl _Keypad_flag
-                                     32 	.globl _cal_flag
-                                     33 	.globl _CY
-                                     34 	.globl _AC
-                                     35 	.globl _F0
-                                     36 	.globl _RS1
-                                     37 	.globl _RS0
-                                     38 	.globl _OV
-                                     39 	.globl _F1
-                                     40 	.globl _P
-                                     41 	.globl _PS
-                                     42 	.globl _PT1
-                                     43 	.globl _PX1
-                                     44 	.globl _PT0
-                                     45 	.globl _PX0
-                                     46 	.globl _RD
-                                     47 	.globl _WR
-                                     48 	.globl _T1
-                                     49 	.globl _T0
-                                     50 	.globl _INT1
-                                     51 	.globl _INT0
-                                     52 	.globl _TXD
-                                     53 	.globl _RXD
-                                     54 	.globl _P3_7
-                                     55 	.globl _P3_6
-                                     56 	.globl _P3_5
-                                     57 	.globl _P3_4
-                                     58 	.globl _P3_3
-                                     59 	.globl _P3_2
-                                     60 	.globl _P3_1
-                                     61 	.globl _P3_0
-                                     62 	.globl _EA
-                                     63 	.globl _ES
-                                     64 	.globl _ET1
-                                     65 	.globl _EX1
-                                     66 	.globl _ET0
-                                     67 	.globl _EX0
-                                     68 	.globl _P2_7
-                                     69 	.globl _P2_6
-                                     70 	.globl _P2_5
-                                     71 	.globl _P2_4
-                                     72 	.globl _P2_3
-                                     73 	.globl _P2_2
-                                     74 	.globl _P2_1
-                                     75 	.globl _P2_0
-                                     76 	.globl _SM0
-                                     77 	.globl _SM1
-                                     78 	.globl _SM2
-                                     79 	.globl _REN
-                                     80 	.globl _TB8
-                                     81 	.globl _RB8
-                                     82 	.globl _TI
-                                     83 	.globl _RI
-                                     84 	.globl _P1_7
-                                     85 	.globl _P1_6
-                                     86 	.globl _P1_5
-                                     87 	.globl _P1_4
-                                     88 	.globl _P1_3
-                                     89 	.globl _P1_2
-                                     90 	.globl _P1_1
-                                     91 	.globl _P1_0
-                                     92 	.globl _TF1
-                                     93 	.globl _TR1
-                                     94 	.globl _TF0
-                                     95 	.globl _TR0
-                                     96 	.globl _IE1
-                                     97 	.globl _IT1
-                                     98 	.globl _IE0
-                                     99 	.globl _IT0
-                                    100 	.globl _P0_7
-                                    101 	.globl _P0_6
-                                    102 	.globl _P0_5
-                                    103 	.globl _P0_4
-                                    104 	.globl _P0_3
-                                    105 	.globl _P0_2
-                                    106 	.globl _P0_1
-                                    107 	.globl _P0_0
-                                    108 	.globl _B
-                                    109 	.globl _ACC
-                                    110 	.globl _PSW
-                                    111 	.globl _IP
-                                    112 	.globl _P3
-                                    113 	.globl _IE
-                                    114 	.globl _P2
-                                    115 	.globl _SBUF
-                                    116 	.globl _SCON
-                                    117 	.globl _P1
-                                    118 	.globl _TH1
-                                    119 	.globl _TH0
-                                    120 	.globl _TL1
-                                    121 	.globl _TL0
-                                    122 	.globl _TMOD
-                                    123 	.globl _TCON
-                                    124 	.globl _PCON
-                                    125 	.globl _DPH
-                                    126 	.globl _DPL
-                                    127 	.globl _SP
-                                    128 	.globl _P0
-                                    129 	.globl _start
-                                    130 	.globl _history_count
-                                    131 	.globl _start_count
-                                    132 	.globl _history
-                                    133 	.globl _buffer
-                                    134 	.globl _Calculate_PARM_6
-                                    135 	.globl _Calculate_PARM_5
-                                    136 	.globl _Calculate_PARM_4
-                                    137 	.globl _Calculate_PARM_3
-                                    138 	.globl _Calculate_PARM_2
-                                    139 	.globl _Update_Expression_PARM_5
-                                    140 	.globl _Update_Expression_PARM_4
-                                    141 	.globl _Update_Expression_PARM_3
-                                    142 	.globl _Update_Expression_PARM_2
-                                    143 	.globl _num1_counter
-                                    144 	.globl _timer_count
-                                    145 	.globl _flag
-                                    146 ;--------------------------------------------------------
-                                    147 ; special function registers
-                                    148 ;--------------------------------------------------------
-                                    149 	.area RSEG    (ABS,DATA)
-      000000                        150 	.org 0x0000
-                           000080   151 _P0	=	0x0080
-                           000081   152 _SP	=	0x0081
-                           000082   153 _DPL	=	0x0082
-                           000083   154 _DPH	=	0x0083
-                           000087   155 _PCON	=	0x0087
-                           000088   156 _TCON	=	0x0088
-                           000089   157 _TMOD	=	0x0089
-                           00008A   158 _TL0	=	0x008a
-                           00008B   159 _TL1	=	0x008b
-                           00008C   160 _TH0	=	0x008c
-                           00008D   161 _TH1	=	0x008d
-                           000090   162 _P1	=	0x0090
-                           000098   163 _SCON	=	0x0098
-                           000099   164 _SBUF	=	0x0099
-                           0000A0   165 _P2	=	0x00a0
-                           0000A8   166 _IE	=	0x00a8
-                           0000B0   167 _P3	=	0x00b0
-                           0000B8   168 _IP	=	0x00b8
-                           0000D0   169 _PSW	=	0x00d0
-                           0000E0   170 _ACC	=	0x00e0
-                           0000F0   171 _B	=	0x00f0
-                                    172 ;--------------------------------------------------------
-                                    173 ; special function bits
-                                    174 ;--------------------------------------------------------
-                                    175 	.area RSEG    (ABS,DATA)
-      000000                        176 	.org 0x0000
-                           000080   177 _P0_0	=	0x0080
-                           000081   178 _P0_1	=	0x0081
-                           000082   179 _P0_2	=	0x0082
-                           000083   180 _P0_3	=	0x0083
-                           000084   181 _P0_4	=	0x0084
-                           000085   182 _P0_5	=	0x0085
-                           000086   183 _P0_6	=	0x0086
-                           000087   184 _P0_7	=	0x0087
-                           000088   185 _IT0	=	0x0088
-                           000089   186 _IE0	=	0x0089
-                           00008A   187 _IT1	=	0x008a
-                           00008B   188 _IE1	=	0x008b
-                           00008C   189 _TR0	=	0x008c
-                           00008D   190 _TF0	=	0x008d
-                           00008E   191 _TR1	=	0x008e
-                           00008F   192 _TF1	=	0x008f
-                           000090   193 _P1_0	=	0x0090
-                           000091   194 _P1_1	=	0x0091
-                           000092   195 _P1_2	=	0x0092
-                           000093   196 _P1_3	=	0x0093
-                           000094   197 _P1_4	=	0x0094
-                           000095   198 _P1_5	=	0x0095
-                           000096   199 _P1_6	=	0x0096
-                           000097   200 _P1_7	=	0x0097
-                           000098   201 _RI	=	0x0098
-                           000099   202 _TI	=	0x0099
-                           00009A   203 _RB8	=	0x009a
-                           00009B   204 _TB8	=	0x009b
-                           00009C   205 _REN	=	0x009c
-                           00009D   206 _SM2	=	0x009d
-                           00009E   207 _SM1	=	0x009e
-                           00009F   208 _SM0	=	0x009f
-                           0000A0   209 _P2_0	=	0x00a0
-                           0000A1   210 _P2_1	=	0x00a1
-                           0000A2   211 _P2_2	=	0x00a2
-                           0000A3   212 _P2_3	=	0x00a3
-                           0000A4   213 _P2_4	=	0x00a4
-                           0000A5   214 _P2_5	=	0x00a5
-                           0000A6   215 _P2_6	=	0x00a6
-                           0000A7   216 _P2_7	=	0x00a7
-                           0000A8   217 _EX0	=	0x00a8
-                           0000A9   218 _ET0	=	0x00a9
-                           0000AA   219 _EX1	=	0x00aa
-                           0000AB   220 _ET1	=	0x00ab
-                           0000AC   221 _ES	=	0x00ac
-                           0000AF   222 _EA	=	0x00af
-                           0000B0   223 _P3_0	=	0x00b0
-                           0000B1   224 _P3_1	=	0x00b1
-                           0000B2   225 _P3_2	=	0x00b2
-                           0000B3   226 _P3_3	=	0x00b3
-                           0000B4   227 _P3_4	=	0x00b4
-                           0000B5   228 _P3_5	=	0x00b5
-                           0000B6   229 _P3_6	=	0x00b6
-                           0000B7   230 _P3_7	=	0x00b7
-                           0000B0   231 _RXD	=	0x00b0
-                           0000B1   232 _TXD	=	0x00b1
-                           0000B2   233 _INT0	=	0x00b2
-                           0000B3   234 _INT1	=	0x00b3
-                           0000B4   235 _T0	=	0x00b4
-                           0000B5   236 _T1	=	0x00b5
-                           0000B6   237 _WR	=	0x00b6
-                           0000B7   238 _RD	=	0x00b7
-                           0000B8   239 _PX0	=	0x00b8
-                           0000B9   240 _PT0	=	0x00b9
-                           0000BA   241 _PX1	=	0x00ba
-                           0000BB   242 _PT1	=	0x00bb
-                           0000BC   243 _PS	=	0x00bc
-                           0000D0   244 _P	=	0x00d0
-                           0000D1   245 _F1	=	0x00d1
-                           0000D2   246 _OV	=	0x00d2
-                           0000D3   247 _RS0	=	0x00d3
-                           0000D4   248 _RS1	=	0x00d4
-                           0000D5   249 _F0	=	0x00d5
-                           0000D6   250 _AC	=	0x00d6
-                           0000D7   251 _CY	=	0x00d7
-      000000                        252 _cal_flag::
-      000000                        253 	.ds 1
-      000001                        254 _Keypad_flag::
-      000001                        255 	.ds 1
-                                    256 ;--------------------------------------------------------
-                                    257 ; overlayable register banks
-                                    258 ;--------------------------------------------------------
-                                    259 	.area REG_BANK_0	(REL,OVR,DATA)
-      000000                        260 	.ds 8
-                                    261 	.area REG_BANK_1	(REL,OVR,DATA)
-      000008                        262 	.ds 8
-                                    263 ;--------------------------------------------------------
-                                    264 ; internal ram data
-                                    265 ;--------------------------------------------------------
-                                    266 	.area DSEG    (DATA)
-      000010                        267 _flag::
-      000010                        268 	.ds 1
-      000011                        269 _timer_count::
-      000011                        270 	.ds 1
-      000012                        271 _num1_counter::
-      000012                        272 	.ds 1
-      000013                        273 _Update_Expression_PARM_2:
-      000013                        274 	.ds 3
-      000016                        275 _Update_Expression_PARM_3:
-      000016                        276 	.ds 3
-      000019                        277 _Update_Expression_PARM_4:
-      000019                        278 	.ds 3
-      00001C                        279 _Update_Expression_PARM_5:
-      00001C                        280 	.ds 3
-      00001F                        281 _Update_Expression_num_1_10000_17:
-      00001F                        282 	.ds 3
-      000022                        283 _Update_Expression_sloc0_1_0:
-      000022                        284 	.ds 3
-      000025                        285 _Calculate_PARM_2:
-      000025                        286 	.ds 2
-      000027                        287 _Calculate_PARM_3:
-      000027                        288 	.ds 1
-      000028                        289 _Calculate_PARM_4:
-      000028                        290 	.ds 2
-      00002A                        291 _Calculate_PARM_5:
-      00002A                        292 	.ds 2
-      00002C                        293 _Calculate_PARM_6:
-      00002C                        294 	.ds 3
-      00002F                        295 _Calculate_sloc0_1_0:
-      00002F                        296 	.ds 2
-      000031                        297 _main_num_1_10000_35:
-      000031                        298 	.ds 2
-      000033                        299 _main_num_2_10000_35:
-      000033                        300 	.ds 2
-      000035                        301 _main_ans_10000_35:
-      000035                        302 	.ds 2
-      000037                        303 _main_op_10000_35:
-      000037                        304 	.ds 1
-      000038                        305 _main_negative_num1_10000_35:
-      000038                        306 	.ds 2
-      00003A                        307 _main_negative_num2_10000_35:
-      00003A                        308 	.ds 2
-      00003C                        309 _main_negative_ans_10000_35:
-      00003C                        310 	.ds 2
-                                    311 ;--------------------------------------------------------
-                                    312 ; overlayable items in internal ram
-                                    313 ;--------------------------------------------------------
-                                    314 	.area	OSEG    (OVR,DATA)
-      000069                        315 _Restart_PARM_2:
-      000069                        316 	.ds 3
-      00006C                        317 _Restart_PARM_3:
-      00006C                        318 	.ds 3
-      00006F                        319 _Restart_PARM_4:
-      00006F                        320 	.ds 3
-      000072                        321 _Restart_PARM_5:
-      000072                        322 	.ds 3
-      000075                        323 _Restart_PARM_6:
-      000075                        324 	.ds 3
-      000078                        325 _Restart_PARM_7:
-      000078                        326 	.ds 3
-                                    327 	.area	OSEG    (OVR,DATA)
+                                     11 	.globl _SaveNumber_PARM_3
+                                     12 	.globl _SaveNumber_PARM_2
+                                     13 	.globl _Restart_PARM_7
+                                     14 	.globl _Restart_PARM_6
+                                     15 	.globl _Restart_PARM_5
+                                     16 	.globl _Restart_PARM_4
+                                     17 	.globl _Restart_PARM_3
+                                     18 	.globl _Restart_PARM_2
+                                     19 	.globl _main
+                                     20 	.globl _clean
+                                     21 	.globl _Keypad_Debounce
+                                     22 	.globl _Keypad_Debounce_init
+                                     23 	.globl _Calculate
+                                     24 	.globl _Update_Expression
+                                     25 	.globl _SaveNumber
+                                     26 	.globl _Restart
+                                     27 	.globl _Counter
+                                     28 	.globl _Show_Ans
+                                     29 	.globl _Show_Reverse
+                                     30 	.globl _Show
+                                     31 	.globl _ReadKeypad
+                                     32 	.globl _Keypad_flag
+                                     33 	.globl _cal_flag
+                                     34 	.globl _CY
+                                     35 	.globl _AC
+                                     36 	.globl _F0
+                                     37 	.globl _RS1
+                                     38 	.globl _RS0
+                                     39 	.globl _OV
+                                     40 	.globl _F1
+                                     41 	.globl _P
+                                     42 	.globl _PS
+                                     43 	.globl _PT1
+                                     44 	.globl _PX1
+                                     45 	.globl _PT0
+                                     46 	.globl _PX0
+                                     47 	.globl _RD
+                                     48 	.globl _WR
+                                     49 	.globl _T1
+                                     50 	.globl _T0
+                                     51 	.globl _INT1
+                                     52 	.globl _INT0
+                                     53 	.globl _TXD
+                                     54 	.globl _RXD
+                                     55 	.globl _P3_7
+                                     56 	.globl _P3_6
+                                     57 	.globl _P3_5
+                                     58 	.globl _P3_4
+                                     59 	.globl _P3_3
+                                     60 	.globl _P3_2
+                                     61 	.globl _P3_1
+                                     62 	.globl _P3_0
+                                     63 	.globl _EA
+                                     64 	.globl _ES
+                                     65 	.globl _ET1
+                                     66 	.globl _EX1
+                                     67 	.globl _ET0
+                                     68 	.globl _EX0
+                                     69 	.globl _P2_7
+                                     70 	.globl _P2_6
+                                     71 	.globl _P2_5
+                                     72 	.globl _P2_4
+                                     73 	.globl _P2_3
+                                     74 	.globl _P2_2
+                                     75 	.globl _P2_1
+                                     76 	.globl _P2_0
+                                     77 	.globl _SM0
+                                     78 	.globl _SM1
+                                     79 	.globl _SM2
+                                     80 	.globl _REN
+                                     81 	.globl _TB8
+                                     82 	.globl _RB8
+                                     83 	.globl _TI
+                                     84 	.globl _RI
+                                     85 	.globl _P1_7
+                                     86 	.globl _P1_6
+                                     87 	.globl _P1_5
+                                     88 	.globl _P1_4
+                                     89 	.globl _P1_3
+                                     90 	.globl _P1_2
+                                     91 	.globl _P1_1
+                                     92 	.globl _P1_0
+                                     93 	.globl _TF1
+                                     94 	.globl _TR1
+                                     95 	.globl _TF0
+                                     96 	.globl _TR0
+                                     97 	.globl _IE1
+                                     98 	.globl _IT1
+                                     99 	.globl _IE0
+                                    100 	.globl _IT0
+                                    101 	.globl _P0_7
+                                    102 	.globl _P0_6
+                                    103 	.globl _P0_5
+                                    104 	.globl _P0_4
+                                    105 	.globl _P0_3
+                                    106 	.globl _P0_2
+                                    107 	.globl _P0_1
+                                    108 	.globl _P0_0
+                                    109 	.globl _B
+                                    110 	.globl _ACC
+                                    111 	.globl _PSW
+                                    112 	.globl _IP
+                                    113 	.globl _P3
+                                    114 	.globl _IE
+                                    115 	.globl _P2
+                                    116 	.globl _SBUF
+                                    117 	.globl _SCON
+                                    118 	.globl _P1
+                                    119 	.globl _TH1
+                                    120 	.globl _TH0
+                                    121 	.globl _TL1
+                                    122 	.globl _TL0
+                                    123 	.globl _TMOD
+                                    124 	.globl _TCON
+                                    125 	.globl _PCON
+                                    126 	.globl _DPH
+                                    127 	.globl _DPL
+                                    128 	.globl _SP
+                                    129 	.globl _P0
+                                    130 	.globl _start
+                                    131 	.globl _history_count
+                                    132 	.globl _start_count
+                                    133 	.globl _history
+                                    134 	.globl _buffer
+                                    135 	.globl _Calculate_PARM_6
+                                    136 	.globl _Calculate_PARM_5
+                                    137 	.globl _Calculate_PARM_4
+                                    138 	.globl _Calculate_PARM_3
+                                    139 	.globl _Calculate_PARM_2
+                                    140 	.globl _Update_Expression_PARM_5
+                                    141 	.globl _Update_Expression_PARM_4
+                                    142 	.globl _Update_Expression_PARM_3
+                                    143 	.globl _Update_Expression_PARM_2
+                                    144 	.globl _num1_counter
+                                    145 	.globl _timer_count
+                                    146 	.globl _flag
+                                    147 ;--------------------------------------------------------
+                                    148 ; special function registers
+                                    149 ;--------------------------------------------------------
+                                    150 	.area RSEG    (ABS,DATA)
+      000000                        151 	.org 0x0000
+                           000080   152 _P0	=	0x0080
+                           000081   153 _SP	=	0x0081
+                           000082   154 _DPL	=	0x0082
+                           000083   155 _DPH	=	0x0083
+                           000087   156 _PCON	=	0x0087
+                           000088   157 _TCON	=	0x0088
+                           000089   158 _TMOD	=	0x0089
+                           00008A   159 _TL0	=	0x008a
+                           00008B   160 _TL1	=	0x008b
+                           00008C   161 _TH0	=	0x008c
+                           00008D   162 _TH1	=	0x008d
+                           000090   163 _P1	=	0x0090
+                           000098   164 _SCON	=	0x0098
+                           000099   165 _SBUF	=	0x0099
+                           0000A0   166 _P2	=	0x00a0
+                           0000A8   167 _IE	=	0x00a8
+                           0000B0   168 _P3	=	0x00b0
+                           0000B8   169 _IP	=	0x00b8
+                           0000D0   170 _PSW	=	0x00d0
+                           0000E0   171 _ACC	=	0x00e0
+                           0000F0   172 _B	=	0x00f0
+                                    173 ;--------------------------------------------------------
+                                    174 ; special function bits
+                                    175 ;--------------------------------------------------------
+                                    176 	.area RSEG    (ABS,DATA)
+      000000                        177 	.org 0x0000
+                           000080   178 _P0_0	=	0x0080
+                           000081   179 _P0_1	=	0x0081
+                           000082   180 _P0_2	=	0x0082
+                           000083   181 _P0_3	=	0x0083
+                           000084   182 _P0_4	=	0x0084
+                           000085   183 _P0_5	=	0x0085
+                           000086   184 _P0_6	=	0x0086
+                           000087   185 _P0_7	=	0x0087
+                           000088   186 _IT0	=	0x0088
+                           000089   187 _IE0	=	0x0089
+                           00008A   188 _IT1	=	0x008a
+                           00008B   189 _IE1	=	0x008b
+                           00008C   190 _TR0	=	0x008c
+                           00008D   191 _TF0	=	0x008d
+                           00008E   192 _TR1	=	0x008e
+                           00008F   193 _TF1	=	0x008f
+                           000090   194 _P1_0	=	0x0090
+                           000091   195 _P1_1	=	0x0091
+                           000092   196 _P1_2	=	0x0092
+                           000093   197 _P1_3	=	0x0093
+                           000094   198 _P1_4	=	0x0094
+                           000095   199 _P1_5	=	0x0095
+                           000096   200 _P1_6	=	0x0096
+                           000097   201 _P1_7	=	0x0097
+                           000098   202 _RI	=	0x0098
+                           000099   203 _TI	=	0x0099
+                           00009A   204 _RB8	=	0x009a
+                           00009B   205 _TB8	=	0x009b
+                           00009C   206 _REN	=	0x009c
+                           00009D   207 _SM2	=	0x009d
+                           00009E   208 _SM1	=	0x009e
+                           00009F   209 _SM0	=	0x009f
+                           0000A0   210 _P2_0	=	0x00a0
+                           0000A1   211 _P2_1	=	0x00a1
+                           0000A2   212 _P2_2	=	0x00a2
+                           0000A3   213 _P2_3	=	0x00a3
+                           0000A4   214 _P2_4	=	0x00a4
+                           0000A5   215 _P2_5	=	0x00a5
+                           0000A6   216 _P2_6	=	0x00a6
+                           0000A7   217 _P2_7	=	0x00a7
+                           0000A8   218 _EX0	=	0x00a8
+                           0000A9   219 _ET0	=	0x00a9
+                           0000AA   220 _EX1	=	0x00aa
+                           0000AB   221 _ET1	=	0x00ab
+                           0000AC   222 _ES	=	0x00ac
+                           0000AF   223 _EA	=	0x00af
+                           0000B0   224 _P3_0	=	0x00b0
+                           0000B1   225 _P3_1	=	0x00b1
+                           0000B2   226 _P3_2	=	0x00b2
+                           0000B3   227 _P3_3	=	0x00b3
+                           0000B4   228 _P3_4	=	0x00b4
+                           0000B5   229 _P3_5	=	0x00b5
+                           0000B6   230 _P3_6	=	0x00b6
+                           0000B7   231 _P3_7	=	0x00b7
+                           0000B0   232 _RXD	=	0x00b0
+                           0000B1   233 _TXD	=	0x00b1
+                           0000B2   234 _INT0	=	0x00b2
+                           0000B3   235 _INT1	=	0x00b3
+                           0000B4   236 _T0	=	0x00b4
+                           0000B5   237 _T1	=	0x00b5
+                           0000B6   238 _WR	=	0x00b6
+                           0000B7   239 _RD	=	0x00b7
+                           0000B8   240 _PX0	=	0x00b8
+                           0000B9   241 _PT0	=	0x00b9
+                           0000BA   242 _PX1	=	0x00ba
+                           0000BB   243 _PT1	=	0x00bb
+                           0000BC   244 _PS	=	0x00bc
+                           0000D0   245 _P	=	0x00d0
+                           0000D1   246 _F1	=	0x00d1
+                           0000D2   247 _OV	=	0x00d2
+                           0000D3   248 _RS0	=	0x00d3
+                           0000D4   249 _RS1	=	0x00d4
+                           0000D5   250 _F0	=	0x00d5
+                           0000D6   251 _AC	=	0x00d6
+                           0000D7   252 _CY	=	0x00d7
+      000000                        253 _cal_flag::
+      000000                        254 	.ds 1
+      000001                        255 _Keypad_flag::
+      000001                        256 	.ds 1
+                                    257 ;--------------------------------------------------------
+                                    258 ; overlayable register banks
+                                    259 ;--------------------------------------------------------
+                                    260 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        261 	.ds 8
+                                    262 	.area REG_BANK_1	(REL,OVR,DATA)
+      000008                        263 	.ds 8
+                                    264 ;--------------------------------------------------------
+                                    265 ; internal ram data
+                                    266 ;--------------------------------------------------------
+                                    267 	.area DSEG    (DATA)
+      000010                        268 _flag::
+      000010                        269 	.ds 1
+      000011                        270 _timer_count::
+      000011                        271 	.ds 1
+      000012                        272 _num1_counter::
+      000012                        273 	.ds 1
+      000013                        274 _Update_Expression_PARM_2:
+      000013                        275 	.ds 3
+      000016                        276 _Update_Expression_PARM_3:
+      000016                        277 	.ds 3
+      000019                        278 _Update_Expression_PARM_4:
+      000019                        279 	.ds 3
+      00001C                        280 _Update_Expression_PARM_5:
+      00001C                        281 	.ds 3
+      00001F                        282 _Update_Expression_num_1_10000_13:
+      00001F                        283 	.ds 3
+      000022                        284 _Update_Expression_sloc0_1_0:
+      000022                        285 	.ds 3
+      000025                        286 _Calculate_PARM_2:
+      000025                        287 	.ds 2
+      000027                        288 _Calculate_PARM_3:
+      000027                        289 	.ds 1
+      000028                        290 _Calculate_PARM_4:
+      000028                        291 	.ds 2
+      00002A                        292 _Calculate_PARM_5:
+      00002A                        293 	.ds 2
+      00002C                        294 _Calculate_PARM_6:
+      00002C                        295 	.ds 3
+      00002F                        296 _Calculate_sloc0_1_0:
+      00002F                        297 	.ds 2
+      000031                        298 _main_num_1_10000_34:
+      000031                        299 	.ds 2
+      000033                        300 _main_num_2_10000_34:
+      000033                        301 	.ds 2
+      000035                        302 _main_ans_10000_34:
+      000035                        303 	.ds 2
+      000037                        304 _main_op_10000_34:
+      000037                        305 	.ds 1
+      000038                        306 _main_negative_num1_10000_34:
+      000038                        307 	.ds 2
+      00003A                        308 _main_negative_num2_10000_34:
+      00003A                        309 	.ds 2
+      00003C                        310 _main_negative_ans_10000_34:
+      00003C                        311 	.ds 2
+                                    312 ;--------------------------------------------------------
+                                    313 ; overlayable items in internal ram
+                                    314 ;--------------------------------------------------------
+                                    315 	.area	OSEG    (OVR,DATA)
+      000066                        316 _Restart_PARM_2:
+      000066                        317 	.ds 3
+      000069                        318 _Restart_PARM_3:
+      000069                        319 	.ds 3
+      00006C                        320 _Restart_PARM_4:
+      00006C                        321 	.ds 3
+      00006F                        322 _Restart_PARM_5:
+      00006F                        323 	.ds 3
+      000072                        324 _Restart_PARM_6:
+      000072                        325 	.ds 3
+      000075                        326 _Restart_PARM_7:
+      000075                        327 	.ds 3
                                     328 	.area	OSEG    (OVR,DATA)
-      000069                        329 _SaveAns_PARM_2:
-      000069                        330 	.ds 3
-                                    331 ;--------------------------------------------------------
-                                    332 ; Stack segment in internal ram
-                                    333 ;--------------------------------------------------------
-                                    334 	.area SSEG
-      0000E9                        335 __start__stack:
-      0000E9                        336 	.ds	1
-                                    337 
-                                    338 ;--------------------------------------------------------
-                                    339 ; indirectly addressable internal ram data
-                                    340 ;--------------------------------------------------------
-                                    341 	.area ISEG    (DATA)
-      00007B                        342 _buffer::
-      00007B                        343 	.ds 8
-      000083                        344 _history::
-      000083                        345 	.ds 50
-      0000B5                        346 _start_count::
-      0000B5                        347 	.ds 50
-      0000E7                        348 _history_count::
-      0000E7                        349 	.ds 1
-      0000E8                        350 _start::
-      0000E8                        351 	.ds 1
-                                    352 ;--------------------------------------------------------
-                                    353 ; absolute internal ram data
-                                    354 ;--------------------------------------------------------
-                                    355 	.area IABS    (ABS,DATA)
-                                    356 	.area IABS    (ABS,DATA)
+      000066                        329 _SaveNumber_PARM_2:
+      000066                        330 	.ds 1
+      000067                        331 _SaveNumber_PARM_3:
+      000067                        332 	.ds 3
+                                    333 	.area	OSEG    (OVR,DATA)
+                                    334 ;--------------------------------------------------------
+                                    335 ; Stack segment in internal ram
+                                    336 ;--------------------------------------------------------
+                                    337 	.area SSEG
+      000096                        338 __start__stack:
+      000096                        339 	.ds	1
+                                    340 
+                                    341 ;--------------------------------------------------------
+                                    342 ; indirectly addressable internal ram data
+                                    343 ;--------------------------------------------------------
+                                    344 	.area ISEG    (DATA)
+      000078                        345 _buffer::
+      000078                        346 	.ds 8
+      000080                        347 _history::
+      000080                        348 	.ds 10
+      00008A                        349 _start_count::
+      00008A                        350 	.ds 10
+      000094                        351 _history_count::
+      000094                        352 	.ds 1
+      000095                        353 _start::
+      000095                        354 	.ds 1
+                                    355 ;--------------------------------------------------------
+                                    356 ; absolute internal ram data
                                     357 ;--------------------------------------------------------
-                                    358 ; bit data
-                                    359 ;--------------------------------------------------------
-                                    360 	.area BSEG    (BIT)
-                                    361 ;--------------------------------------------------------
-                                    362 ; paged external ram data
-                                    363 ;--------------------------------------------------------
-                                    364 	.area PSEG    (PAG,XDATA)
-                                    365 ;--------------------------------------------------------
-                                    366 ; uninitialized external ram data
-                                    367 ;--------------------------------------------------------
-                                    368 	.area XSEG    (XDATA)
-                                    369 ;--------------------------------------------------------
-                                    370 ; absolute external ram data
-                                    371 ;--------------------------------------------------------
-                                    372 	.area XABS    (ABS,XDATA)
-                                    373 ;--------------------------------------------------------
-                                    374 ; initialized external ram data
-                                    375 ;--------------------------------------------------------
-                                    376 	.area XISEG   (XDATA)
-                                    377 	.area HOME    (CODE)
-                                    378 	.area GSINIT0 (CODE)
-                                    379 	.area GSINIT1 (CODE)
-                                    380 	.area GSINIT2 (CODE)
-                                    381 	.area GSINIT3 (CODE)
-                                    382 	.area GSINIT4 (CODE)
-                                    383 	.area GSINIT5 (CODE)
-                                    384 	.area GSINIT  (CODE)
-                                    385 	.area GSFINAL (CODE)
-                                    386 	.area CSEG    (CODE)
-                                    387 ;--------------------------------------------------------
-                                    388 ; interrupt vector
-                                    389 ;--------------------------------------------------------
-                                    390 	.area HOME    (CODE)
-      000000                        391 __interrupt_vect:
-      000000 02 00 11         [24]  392 	ljmp	__sdcc_gsinit_startup
-      000003 32               [24]  393 	reti
-      000004                        394 	.ds	7
-      00000B 02 04 C9         [24]  395 	ljmp	_Keypad_Debounce
-                                    396 ;--------------------------------------------------------
-                                    397 ; global & static initialisations
-                                    398 ;--------------------------------------------------------
-                                    399 	.area HOME    (CODE)
-                                    400 	.area GSINIT  (CODE)
-                                    401 	.area GSFINAL (CODE)
-                                    402 	.area GSINIT  (CODE)
-                                    403 	.globl __sdcc_gsinit_startup
-                                    404 	.globl __sdcc_program_startup
-                                    405 	.globl __start__stack
-                                    406 	.globl __mcs51_genXINIT
-                                    407 	.globl __mcs51_genXRAMCLEAR
-                                    408 	.globl __mcs51_genRAMCLEAR
-                                    409 ;	Computer.c:6: char flag = 0;
-      00006A 75 10 00         [24]  410 	mov	_flag,#0x00
-                                    411 ;	Computer.c:12: char timer_count = 0;
-      00006D 75 11 00         [24]  412 	mov	_timer_count,#0x00
-                                    413 ;	Computer.c:15: char num1_counter = 0;
-      000070 75 12 00         [24]  414 	mov	_num1_counter,#0x00
-                                    415 ;	Computer.c:5: __idata unsigned char buffer[8] = {-1};
-      000073 78 7B            [12]  416 	mov	r0,#_buffer
-      000075 76 FF            [12]  417 	mov	@r0,#0xff
-                                    418 ;	Computer.c:7: __idata unsigned char history[50] = {0};
-      000077 78 83            [12]  419 	mov	r0,#_history
-      000079 76 00            [12]  420 	mov	@r0,#0x00
-                                    421 ;	Computer.c:8: __idata unsigned char start_count[50] = {0};
-      00007B 78 B5            [12]  422 	mov	r0,#_start_count
-      00007D 76 00            [12]  423 	mov	@r0,#0x00
-                                    424 ;	Computer.c:9: __idata unsigned char history_count = 0;
-      00007F 78 E7            [12]  425 	mov	r0,#_history_count
-      000081 76 00            [12]  426 	mov	@r0,#0x00
-                                    427 ;	Computer.c:10: __idata unsigned char start = 0;
-      000083 78 E8            [12]  428 	mov	r0,#_start
-      000085 76 00            [12]  429 	mov	@r0,#0x00
-                                    430 ;	Computer.c:13: __sbit cal_flag = 0;
-                                    431 ;	assignBit
-      000087 C2 00            [12]  432 	clr	_cal_flag
-                                    433 ;	Computer.c:14: __sbit Keypad_flag = 0;
-                                    434 ;	assignBit
-      000089 C2 01            [12]  435 	clr	_Keypad_flag
-                                    436 	.area GSFINAL (CODE)
-      0000D6 02 00 0E         [24]  437 	ljmp	__sdcc_program_startup
-                                    438 ;--------------------------------------------------------
-                                    439 ; Home
-                                    440 ;--------------------------------------------------------
-                                    441 	.area HOME    (CODE)
-                                    442 	.area HOME    (CODE)
-      00000E                        443 __sdcc_program_startup:
-      00000E 02 04 E8         [24]  444 	ljmp	_main
-                                    445 ;	return from main will return to caller
-                                    446 ;--------------------------------------------------------
-                                    447 ; code
-                                    448 ;--------------------------------------------------------
-                                    449 	.area CSEG    (CODE)
-                                    450 ;------------------------------------------------------------
-                                    451 ;Allocation info for local variables in function 'Restart'
-                                    452 ;------------------------------------------------------------
-                                    453 ;num_2                     Allocated with name '_Restart_PARM_2'
-                                    454 ;op                        Allocated with name '_Restart_PARM_3'
-                                    455 ;ans                       Allocated with name '_Restart_PARM_4'
-                                    456 ;negative_num1             Allocated with name '_Restart_PARM_5'
-                                    457 ;negative_num2             Allocated with name '_Restart_PARM_6'
-                                    458 ;negative_ans              Allocated with name '_Restart_PARM_7'
-                                    459 ;num_1                     Allocated to registers r5 r6 r7 
-                                    460 ;------------------------------------------------------------
-                                    461 ;	Computer.c:17: void Restart(int *num_1, int *num_2, char *op, int *ans, int *negative_num1, int *negative_num2, int *negative_ans)
-                                    462 ;	-----------------------------------------
-                                    463 ;	 function Restart
-                                    464 ;	-----------------------------------------
-      0000D9                        465 _Restart:
-                           000007   466 	ar7 = 0x07
-                           000006   467 	ar6 = 0x06
-                           000005   468 	ar5 = 0x05
-                           000004   469 	ar4 = 0x04
-                           000003   470 	ar3 = 0x03
-                           000002   471 	ar2 = 0x02
-                           000001   472 	ar1 = 0x01
-                           000000   473 	ar0 = 0x00
-                                    474 ;	Computer.c:19: *num_1 = 0;
-      0000D9 E4               [12]  475 	clr	a
-      0000DA 12 08 B9         [24]  476 	lcall	__gptrput
-      0000DD A3               [24]  477 	inc	dptr
-      0000DE 12 08 B9         [24]  478 	lcall	__gptrput
-                                    479 ;	Computer.c:20: *num_2 = 0;
-      0000E1 AD 69            [24]  480 	mov	r5,_Restart_PARM_2
-      0000E3 AE 6A            [24]  481 	mov	r6,(_Restart_PARM_2 + 1)
-      0000E5 AF 6B            [24]  482 	mov	r7,(_Restart_PARM_2 + 2)
-      0000E7 8D 82            [24]  483 	mov	dpl,r5
-      0000E9 8E 83            [24]  484 	mov	dph,r6
-      0000EB 8F F0            [24]  485 	mov	b,r7
-      0000ED 12 08 B9         [24]  486 	lcall	__gptrput
-      0000F0 A3               [24]  487 	inc	dptr
-      0000F1 12 08 B9         [24]  488 	lcall	__gptrput
-                                    489 ;	Computer.c:21: *op = '$';
-      0000F4 AD 6C            [24]  490 	mov	r5,_Restart_PARM_3
-      0000F6 AE 6D            [24]  491 	mov	r6,(_Restart_PARM_3 + 1)
-      0000F8 AF 6E            [24]  492 	mov	r7,(_Restart_PARM_3 + 2)
-      0000FA 8D 82            [24]  493 	mov	dpl,r5
-      0000FC 8E 83            [24]  494 	mov	dph,r6
-      0000FE 8F F0            [24]  495 	mov	b,r7
-      000100 74 24            [12]  496 	mov	a,#0x24
-      000102 12 08 B9         [24]  497 	lcall	__gptrput
-                                    498 ;	Computer.c:22: *ans = 0;
-      000105 AD 6F            [24]  499 	mov	r5,_Restart_PARM_4
-      000107 AE 70            [24]  500 	mov	r6,(_Restart_PARM_4 + 1)
-      000109 AF 71            [24]  501 	mov	r7,(_Restart_PARM_4 + 2)
-      00010B 8D 82            [24]  502 	mov	dpl,r5
-      00010D 8E 83            [24]  503 	mov	dph,r6
-      00010F 8F F0            [24]  504 	mov	b,r7
-      000111 E4               [12]  505 	clr	a
-      000112 12 08 B9         [24]  506 	lcall	__gptrput
-      000115 A3               [24]  507 	inc	dptr
-      000116 12 08 B9         [24]  508 	lcall	__gptrput
-                                    509 ;	Computer.c:23: cal_flag = 0;
-                                    510 ;	assignBit
-      000119 C2 00            [12]  511 	clr	_cal_flag
-                                    512 ;	Computer.c:24: *negative_ans = 0;
-      00011B AD 78            [24]  513 	mov	r5,_Restart_PARM_7
-      00011D AE 79            [24]  514 	mov	r6,(_Restart_PARM_7 + 1)
-      00011F AF 7A            [24]  515 	mov	r7,(_Restart_PARM_7 + 2)
-      000121 8D 82            [24]  516 	mov	dpl,r5
-      000123 8E 83            [24]  517 	mov	dph,r6
-      000125 8F F0            [24]  518 	mov	b,r7
-      000127 E4               [12]  519 	clr	a
-      000128 12 08 B9         [24]  520 	lcall	__gptrput
-      00012B A3               [24]  521 	inc	dptr
-      00012C 12 08 B9         [24]  522 	lcall	__gptrput
-                                    523 ;	Computer.c:25: *negative_num1 = -1;
-      00012F AD 72            [24]  524 	mov	r5,_Restart_PARM_5
-      000131 AE 73            [24]  525 	mov	r6,(_Restart_PARM_5 + 1)
-      000133 AF 74            [24]  526 	mov	r7,(_Restart_PARM_5 + 2)
-      000135 8D 82            [24]  527 	mov	dpl,r5
-      000137 8E 83            [24]  528 	mov	dph,r6
-      000139 8F F0            [24]  529 	mov	b,r7
-      00013B 14               [12]  530 	dec	a
-      00013C 12 08 B9         [24]  531 	lcall	__gptrput
-      00013F A3               [24]  532 	inc	dptr
-      000140 12 08 B9         [24]  533 	lcall	__gptrput
-                                    534 ;	Computer.c:26: *negative_num2 = -1;
-      000143 AD 75            [24]  535 	mov	r5,_Restart_PARM_6
-      000145 AE 76            [24]  536 	mov	r6,(_Restart_PARM_6 + 1)
-      000147 AF 77            [24]  537 	mov	r7,(_Restart_PARM_6 + 2)
-      000149 8D 82            [24]  538 	mov	dpl,r5
-      00014B 8E 83            [24]  539 	mov	dph,r6
-      00014D 8F F0            [24]  540 	mov	b,r7
-      00014F 12 08 B9         [24]  541 	lcall	__gptrput
-      000152 A3               [24]  542 	inc	dptr
-      000153 12 08 B9         [24]  543 	lcall	__gptrput
-                                    544 ;	Computer.c:27: num1_counter = 0;
-      000156 75 12 00         [24]  545 	mov	_num1_counter,#0x00
-                                    546 ;	Computer.c:28: }
-      000159 22               [24]  547 	ret
-                                    548 ;------------------------------------------------------------
-                                    549 ;Allocation info for local variables in function 'SaveNumber'
-                                    550 ;------------------------------------------------------------
-                                    551 ;n                         Allocated to registers r7 
-                                    552 ;i                         Allocated to registers r6 
-                                    553 ;------------------------------------------------------------
-                                    554 ;	Computer.c:29: void SaveNumber(char n)
-                                    555 ;	-----------------------------------------
-                                    556 ;	 function SaveNumber
-                                    557 ;	-----------------------------------------
-      00015A                        558 _SaveNumber:
-      00015A AF 82            [24]  559 	mov	r7, dpl
-                                    560 ;	Computer.c:31: for (char i = 7; i > 0; i--)
-      00015C 7E 07            [12]  561 	mov	r6,#0x07
-      00015E                        562 00103$:
-      00015E EE               [12]  563 	mov	a,r6
-      00015F 60 12            [24]  564 	jz	00101$
-                                    565 ;	Computer.c:33: buffer[i] = buffer[i - 1];
-      000161 EE               [12]  566 	mov	a,r6
-      000162 24 7B            [12]  567 	add	a, #_buffer
-      000164 F9               [12]  568 	mov	r1,a
-      000165 8E 05            [24]  569 	mov	ar5,r6
-      000167 ED               [12]  570 	mov	a,r5
-      000168 14               [12]  571 	dec	a
-      000169 24 7B            [12]  572 	add	a, #_buffer
-      00016B F8               [12]  573 	mov	r0,a
-      00016C 86 05            [24]  574 	mov	ar5,@r0
-      00016E A7 05            [24]  575 	mov	@r1,ar5
-                                    576 ;	Computer.c:31: for (char i = 7; i > 0; i--)
-      000170 1E               [12]  577 	dec	r6
-      000171 80 EB            [24]  578 	sjmp	00103$
-      000173                        579 00101$:
-                                    580 ;	Computer.c:35: buffer[0] = n;
-      000173 78 7B            [12]  581 	mov	r0,#_buffer
-      000175 A6 07            [24]  582 	mov	@r0,ar7
-                                    583 ;	Computer.c:36: }
-      000177 22               [24]  584 	ret
-                                    585 ;------------------------------------------------------------
-                                    586 ;Allocation info for local variables in function 'SaveAns'
-                                    587 ;------------------------------------------------------------
-                                    588 ;b                         Allocated with name '_SaveAns_PARM_2'
-                                    589 ;n                         Allocated to registers r7 
-                                    590 ;i                         Allocated to registers r6 
-                                    591 ;------------------------------------------------------------
-                                    592 ;	Computer.c:39: void SaveAns(char n, char* b)
-                                    593 ;	-----------------------------------------
-                                    594 ;	 function SaveAns
-                                    595 ;	-----------------------------------------
-      000178                        596 _SaveAns:
-      000178 AF 82            [24]  597 	mov	r7, dpl
-                                    598 ;	Computer.c:41: for (char i = 49; i > 0; i--)
-      00017A 7E 31            [12]  599 	mov	r6,#0x31
-      00017C                        600 00103$:
-      00017C EE               [12]  601 	mov	a,r6
-      00017D 60 32            [24]  602 	jz	00101$
-                                    603 ;	Computer.c:43: b[i] = b[i - 1];
-      00017F EE               [12]  604 	mov	a,r6
-      000180 25 69            [12]  605 	add	a, _SaveAns_PARM_2
-      000182 FB               [12]  606 	mov	r3,a
-      000183 E4               [12]  607 	clr	a
-      000184 35 6A            [12]  608 	addc	a, (_SaveAns_PARM_2 + 1)
-      000186 FC               [12]  609 	mov	r4,a
-      000187 AD 6B            [24]  610 	mov	r5,(_SaveAns_PARM_2 + 2)
-      000189 8E 01            [24]  611 	mov	ar1,r6
-      00018B 7A 00            [12]  612 	mov	r2,#0x00
-      00018D 19               [12]  613 	dec	r1
-      00018E B9 FF 01         [24]  614 	cjne	r1,#0xff,00123$
-      000191 1A               [12]  615 	dec	r2
-      000192                        616 00123$:
-      000192 E9               [12]  617 	mov	a,r1
-      000193 25 69            [12]  618 	add	a, _SaveAns_PARM_2
-      000195 F9               [12]  619 	mov	r1,a
-      000196 EA               [12]  620 	mov	a,r2
-      000197 35 6A            [12]  621 	addc	a, (_SaveAns_PARM_2 + 1)
-      000199 F8               [12]  622 	mov	r0,a
-      00019A AA 6B            [24]  623 	mov	r2,(_SaveAns_PARM_2 + 2)
-      00019C 89 82            [24]  624 	mov	dpl,r1
-      00019E 88 83            [24]  625 	mov	dph,r0
-      0001A0 8A F0            [24]  626 	mov	b,r2
-      0001A2 12 09 FC         [24]  627 	lcall	__gptrget
-      0001A5 8B 82            [24]  628 	mov	dpl,r3
-      0001A7 8C 83            [24]  629 	mov	dph,r4
-      0001A9 8D F0            [24]  630 	mov	b,r5
-      0001AB 12 08 B9         [24]  631 	lcall	__gptrput
-                                    632 ;	Computer.c:41: for (char i = 49; i > 0; i--)
-      0001AE 1E               [12]  633 	dec	r6
-      0001AF 80 CB            [24]  634 	sjmp	00103$
-      0001B1                        635 00101$:
-                                    636 ;	Computer.c:45: b[0] = n;
-      0001B1 AC 69            [24]  637 	mov	r4,_SaveAns_PARM_2
-      0001B3 AD 6A            [24]  638 	mov	r5,(_SaveAns_PARM_2 + 1)
-      0001B5 AE 6B            [24]  639 	mov	r6,(_SaveAns_PARM_2 + 2)
-      0001B7 8C 82            [24]  640 	mov	dpl,r4
-      0001B9 8D 83            [24]  641 	mov	dph,r5
-      0001BB 8E F0            [24]  642 	mov	b,r6
-      0001BD EF               [12]  643 	mov	a,r7
-                                    644 ;	Computer.c:46: }
-      0001BE 02 08 B9         [24]  645 	ljmp	__gptrput
-                                    646 ;------------------------------------------------------------
-                                    647 ;Allocation info for local variables in function 'Update_Expression'
-                                    648 ;------------------------------------------------------------
-                                    649 ;num_2                     Allocated with name '_Update_Expression_PARM_2'
-                                    650 ;op                        Allocated with name '_Update_Expression_PARM_3'
-                                    651 ;negative_num1             Allocated with name '_Update_Expression_PARM_4'
-                                    652 ;negative_num2             Allocated with name '_Update_Expression_PARM_5'
-                                    653 ;num_1                     Allocated with name '_Update_Expression_num_1_10000_17'
-                                    654 ;sloc0                     Allocated with name '_Update_Expression_sloc0_1_0'
-                                    655 ;------------------------------------------------------------
-                                    656 ;	Computer.c:50: void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int *negative_num2)
-                                    657 ;	-----------------------------------------
-                                    658 ;	 function Update_Expression
-                                    659 ;	-----------------------------------------
-      0001C1                        660 _Update_Expression:
-      0001C1 85 82 1F         [24]  661 	mov	_Update_Expression_num_1_10000_17,dpl
-      0001C4 85 83 20         [24]  662 	mov	(_Update_Expression_num_1_10000_17 + 1),dph
-      0001C7 85 F0 21         [24]  663 	mov	(_Update_Expression_num_1_10000_17 + 2),b
-                                    664 ;	Computer.c:53: if (buffer[0] >= 0 && buffer[0] <= 9)
-      0001CA 78 7B            [12]  665 	mov	r0,#_buffer
-      0001CC E6               [12]  666 	mov	a,@r0
-      0001CD FC               [12]  667 	mov	r4,a
-      0001CE 24 F6            [12]  668 	add	a,#0xff - 0x09
-      0001D0 50 03            [24]  669 	jnc	00199$
-      0001D2 02 02 8B         [24]  670 	ljmp	00122$
-      0001D5                        671 00199$:
-                                    672 ;	Computer.c:55: if (*op == '$')
-      0001D5 85 16 22         [24]  673 	mov	_Update_Expression_sloc0_1_0,_Update_Expression_PARM_3
-      0001D8 85 17 23         [24]  674 	mov	(_Update_Expression_sloc0_1_0 + 1),(_Update_Expression_PARM_3 + 1)
-      0001DB 85 18 24         [24]  675 	mov	(_Update_Expression_sloc0_1_0 + 2),(_Update_Expression_PARM_3 + 2)
-      0001DE 85 22 82         [24]  676 	mov	dpl,_Update_Expression_sloc0_1_0
-      0001E1 85 23 83         [24]  677 	mov	dph,(_Update_Expression_sloc0_1_0 + 1)
-      0001E4 85 24 F0         [24]  678 	mov	b,(_Update_Expression_sloc0_1_0 + 2)
-      0001E7 12 09 FC         [24]  679 	lcall	__gptrget
-      0001EA FB               [12]  680 	mov	r3,a
-      0001EB BB 24 40         [24]  681 	cjne	r3,#0x24,00102$
-                                    682 ;	Computer.c:57: *num_1 = *num_1 * 10 + (int)buffer[0];
-      0001EE 85 1F 82         [24]  683 	mov	dpl,_Update_Expression_num_1_10000_17
-      0001F1 85 20 83         [24]  684 	mov	dph,(_Update_Expression_num_1_10000_17 + 1)
-      0001F4 85 21 F0         [24]  685 	mov	b,(_Update_Expression_num_1_10000_17 + 2)
-      0001F7 12 09 FC         [24]  686 	lcall	__gptrget
-      0001FA F5 69            [12]  687 	mov	__mulint_PARM_2,a
-      0001FC A3               [24]  688 	inc	dptr
-      0001FD 12 09 FC         [24]  689 	lcall	__gptrget
-      000200 F5 6A            [12]  690 	mov	(__mulint_PARM_2 + 1),a
-      000202 90 00 0A         [24]  691 	mov	dptr,#0x000a
-      000205 C0 04            [24]  692 	push	ar4
-      000207 12 08 D4         [24]  693 	lcall	__mulint
-      00020A AA 82            [24]  694 	mov	r2, dpl
-      00020C AB 83            [24]  695 	mov	r3, dph
-      00020E D0 04            [24]  696 	pop	ar4
-      000210 8C 06            [24]  697 	mov	ar6,r4
-      000212 7F 00            [12]  698 	mov	r7,#0x00
-      000214 EE               [12]  699 	mov	a,r6
-      000215 2A               [12]  700 	add	a, r2
-      000216 FA               [12]  701 	mov	r2,a
-      000217 EF               [12]  702 	mov	a,r7
-      000218 3B               [12]  703 	addc	a, r3
-      000219 FB               [12]  704 	mov	r3,a
-      00021A 85 1F 82         [24]  705 	mov	dpl,_Update_Expression_num_1_10000_17
-      00021D 85 20 83         [24]  706 	mov	dph,(_Update_Expression_num_1_10000_17 + 1)
-      000220 85 21 F0         [24]  707 	mov	b,(_Update_Expression_num_1_10000_17 + 2)
-      000223 EA               [12]  708 	mov	a,r2
-      000224 12 08 B9         [24]  709 	lcall	__gptrput
-      000227 A3               [24]  710 	inc	dptr
-      000228 EB               [12]  711 	mov	a,r3
-      000229 12 08 B9         [24]  712 	lcall	__gptrput
-                                    713 ;	Computer.c:58: num1_counter++;
-      00022C 05 12            [12]  714 	inc	_num1_counter
-      00022E                        715 00102$:
-                                    716 ;	Computer.c:60: if (*op != '$')
-      00022E 85 22 82         [24]  717 	mov	dpl,_Update_Expression_sloc0_1_0
-      000231 85 23 83         [24]  718 	mov	dph,(_Update_Expression_sloc0_1_0 + 1)
-      000234 85 24 F0         [24]  719 	mov	b,(_Update_Expression_sloc0_1_0 + 2)
-      000237 12 09 FC         [24]  720 	lcall	__gptrget
-      00023A FF               [12]  721 	mov	r7,a
-      00023B BF 24 01         [24]  722 	cjne	r7,#0x24,00202$
-      00023E 22               [24]  723 	ret
-      00023F                        724 00202$:
-                                    725 ;	Computer.c:62: *num_2 = *num_2 * 10 + (int)buffer[0];
-      00023F AD 13            [24]  726 	mov	r5,_Update_Expression_PARM_2
-      000241 AE 14            [24]  727 	mov	r6,(_Update_Expression_PARM_2 + 1)
-      000243 AF 15            [24]  728 	mov	r7,(_Update_Expression_PARM_2 + 2)
-      000245 8D 82            [24]  729 	mov	dpl,r5
-      000247 8E 83            [24]  730 	mov	dph,r6
-      000249 8F F0            [24]  731 	mov	b,r7
-      00024B 12 09 FC         [24]  732 	lcall	__gptrget
-      00024E F5 69            [12]  733 	mov	__mulint_PARM_2,a
-      000250 A3               [24]  734 	inc	dptr
-      000251 12 09 FC         [24]  735 	lcall	__gptrget
-      000254 F5 6A            [12]  736 	mov	(__mulint_PARM_2 + 1),a
-      000256 90 00 0A         [24]  737 	mov	dptr,#0x000a
-      000259 C0 07            [24]  738 	push	ar7
-      00025B C0 06            [24]  739 	push	ar6
-      00025D C0 05            [24]  740 	push	ar5
-      00025F 12 08 D4         [24]  741 	lcall	__mulint
-      000262 85 82 22         [24]  742 	mov	_Update_Expression_sloc0_1_0,dpl
-      000265 85 83 23         [24]  743 	mov	(_Update_Expression_sloc0_1_0 + 1),dph
-      000268 D0 05            [24]  744 	pop	ar5
-      00026A D0 06            [24]  745 	pop	ar6
-      00026C D0 07            [24]  746 	pop	ar7
-      00026E 78 7B            [12]  747 	mov	r0,#_buffer
-      000270 86 03            [24]  748 	mov	ar3,@r0
-      000272 7A 00            [12]  749 	mov	r2,#0x00
-      000274 EB               [12]  750 	mov	a,r3
-      000275 25 22            [12]  751 	add	a, _Update_Expression_sloc0_1_0
-      000277 FB               [12]  752 	mov	r3,a
-      000278 EA               [12]  753 	mov	a,r2
-      000279 35 23            [12]  754 	addc	a, (_Update_Expression_sloc0_1_0 + 1)
-      00027B FA               [12]  755 	mov	r2,a
-      00027C 8D 82            [24]  756 	mov	dpl,r5
-      00027E 8E 83            [24]  757 	mov	dph,r6
-      000280 8F F0            [24]  758 	mov	b,r7
-      000282 EB               [12]  759 	mov	a,r3
-      000283 12 08 B9         [24]  760 	lcall	__gptrput
-      000286 A3               [24]  761 	inc	dptr
-      000287 EA               [12]  762 	mov	a,r2
-      000288 02 08 B9         [24]  763 	ljmp	__gptrput
-      00028B                        764 00122$:
-                                    765 ;	Computer.c:65: else if (buffer[0] == 13 && num1_counter == 0)
-      00028B E4               [12]  766 	clr	a
-      00028C BC 0D 01         [24]  767 	cjne	r4,#0x0d,00203$
-      00028F 04               [12]  768 	inc	a
-      000290                        769 00203$:
-      000290 FF               [12]  770 	mov	r7,a
-      000291 60 1A            [24]  771 	jz	00118$
-      000293 E5 12            [12]  772 	mov	a,_num1_counter
-      000295 70 16            [24]  773 	jnz	00118$
-                                    774 ;	Computer.c:67: *negative_num1 = 1;
-      000297 AB 19            [24]  775 	mov	r3,_Update_Expression_PARM_4
-      000299 AD 1A            [24]  776 	mov	r5,(_Update_Expression_PARM_4 + 1)
-      00029B AE 1B            [24]  777 	mov	r6,(_Update_Expression_PARM_4 + 2)
-      00029D 8B 82            [24]  778 	mov	dpl,r3
-      00029F 8D 83            [24]  779 	mov	dph,r5
-      0002A1 8E F0            [24]  780 	mov	b,r6
-      0002A3 74 01            [12]  781 	mov	a,#0x01
-      0002A5 12 08 B9         [24]  782 	lcall	__gptrput
-      0002A8 A3               [24]  783 	inc	dptr
-      0002A9 E4               [12]  784 	clr	a
-      0002AA 02 08 B9         [24]  785 	ljmp	__gptrput
-      0002AD                        786 00118$:
-                                    787 ;	Computer.c:69: else if (buffer[0] >= 12 && buffer[0] <= 15 && num1_counter != 0 && *op == '$')
-      0002AD BC 0C 00         [24]  788 	cjne	r4,#0x0c,00207$
-      0002B0                        789 00207$:
-      0002B0 40 26            [24]  790 	jc	00112$
-      0002B2 EC               [12]  791 	mov	a,r4
-      0002B3 24 F0            [12]  792 	add	a,#0xff - 0x0f
-      0002B5 40 21            [24]  793 	jc	00112$
-      0002B7 E5 12            [12]  794 	mov	a,_num1_counter
-      0002B9 60 1D            [24]  795 	jz	00112$
-      0002BB AB 16            [24]  796 	mov	r3,_Update_Expression_PARM_3
-      0002BD AD 17            [24]  797 	mov	r5,(_Update_Expression_PARM_3 + 1)
-      0002BF AE 18            [24]  798 	mov	r6,(_Update_Expression_PARM_3 + 2)
-      0002C1 8B 82            [24]  799 	mov	dpl,r3
-      0002C3 8D 83            [24]  800 	mov	dph,r5
-      0002C5 8E F0            [24]  801 	mov	b,r6
-      0002C7 12 09 FC         [24]  802 	lcall	__gptrget
-      0002CA FA               [12]  803 	mov	r2,a
-      0002CB BA 24 0A         [24]  804 	cjne	r2,#0x24,00112$
-                                    805 ;	Computer.c:71: *op = buffer[0];
-      0002CE 8B 82            [24]  806 	mov	dpl,r3
-      0002D0 8D 83            [24]  807 	mov	dph,r5
-      0002D2 8E F0            [24]  808 	mov	b,r6
-      0002D4 EC               [12]  809 	mov	a,r4
-      0002D5 02 08 B9         [24]  810 	ljmp	__gptrput
-      0002D8                        811 00112$:
-                                    812 ;	Computer.c:73: else if (buffer[0] == 13 && *op != '$')
-      0002D8 EF               [12]  813 	mov	a,r7
-      0002D9 60 2B            [24]  814 	jz	00108$
-      0002DB AD 16            [24]  815 	mov	r5,_Update_Expression_PARM_3
-      0002DD AE 17            [24]  816 	mov	r6,(_Update_Expression_PARM_3 + 1)
-      0002DF AF 18            [24]  817 	mov	r7,(_Update_Expression_PARM_3 + 2)
-      0002E1 8D 82            [24]  818 	mov	dpl,r5
-      0002E3 8E 83            [24]  819 	mov	dph,r6
-      0002E5 8F F0            [24]  820 	mov	b,r7
-      0002E7 12 09 FC         [24]  821 	lcall	__gptrget
-      0002EA FD               [12]  822 	mov	r5,a
-      0002EB BD 24 02         [24]  823 	cjne	r5,#0x24,00214$
-      0002EE 80 16            [24]  824 	sjmp	00108$
-      0002F0                        825 00214$:
-                                    826 ;	Computer.c:75: *negative_num2 = 1;
-      0002F0 AD 1C            [24]  827 	mov	r5,_Update_Expression_PARM_5
-      0002F2 AE 1D            [24]  828 	mov	r6,(_Update_Expression_PARM_5 + 1)
-      0002F4 AF 1E            [24]  829 	mov	r7,(_Update_Expression_PARM_5 + 2)
-      0002F6 8D 82            [24]  830 	mov	dpl,r5
-      0002F8 8E 83            [24]  831 	mov	dph,r6
-      0002FA 8F F0            [24]  832 	mov	b,r7
-      0002FC 74 01            [12]  833 	mov	a,#0x01
-      0002FE 12 08 B9         [24]  834 	lcall	__gptrput
-      000301 A3               [24]  835 	inc	dptr
-      000302 E4               [12]  836 	clr	a
-      000303 02 08 B9         [24]  837 	ljmp	__gptrput
-      000306                        838 00108$:
-                                    839 ;	Computer.c:77: else if (buffer[0] == 11)
-      000306 BC 0B 02         [24]  840 	cjne	r4,#0x0b,00125$
-                                    841 ;	Computer.c:79: cal_flag = 1;
-                                    842 ;	assignBit
-      000309 D2 00            [12]  843 	setb	_cal_flag
-      00030B                        844 00125$:
-                                    845 ;	Computer.c:81: }
-      00030B 22               [24]  846 	ret
-                                    847 ;------------------------------------------------------------
-                                    848 ;Allocation info for local variables in function 'Calculate'
-                                    849 ;------------------------------------------------------------
-                                    850 ;num2                      Allocated with name '_Calculate_PARM_2'
-                                    851 ;op                        Allocated with name '_Calculate_PARM_3'
-                                    852 ;negative_num1             Allocated with name '_Calculate_PARM_4'
-                                    853 ;negative_num2             Allocated with name '_Calculate_PARM_5'
-                                    854 ;ans                       Allocated with name '_Calculate_PARM_6'
-                                    855 ;num1                      Allocated to registers r6 r7 
-                                    856 ;sloc0                     Allocated with name '_Calculate_sloc0_1_0'
-                                    857 ;------------------------------------------------------------
-                                    858 ;	Computer.c:84: void Calculate(int num1, int num2, char op, int negative_num1, int negative_num2, int *ans)
-                                    859 ;	-----------------------------------------
-                                    860 ;	 function Calculate
-                                    861 ;	-----------------------------------------
-      00030C                        862 _Calculate:
-      00030C AE 82            [24]  863 	mov	r6, dpl
-      00030E AF 83            [24]  864 	mov	r7, dph
-                                    865 ;	Computer.c:86: switch (op)
-      000310 74 0C            [12]  866 	mov	a,#0x0c
-      000312 B5 27 02         [24]  867 	cjne	a,_Calculate_PARM_3,00132$
-      000315 80 18            [24]  868 	sjmp	00101$
-      000317                        869 00132$:
-      000317 74 0D            [12]  870 	mov	a,#0x0d
-      000319 B5 27 02         [24]  871 	cjne	a,_Calculate_PARM_3,00133$
-      00031C 80 6A            [24]  872 	sjmp	00102$
-      00031E                        873 00133$:
-      00031E 74 0E            [12]  874 	mov	a,#0x0e
-      000320 B5 27 03         [24]  875 	cjne	a,_Calculate_PARM_3,00134$
-      000323 02 03 E2         [24]  876 	ljmp	00103$
-      000326                        877 00134$:
-      000326 74 0F            [12]  878 	mov	a,#0x0f
-      000328 B5 27 03         [24]  879 	cjne	a,_Calculate_PARM_3,00135$
-      00032B 02 04 46         [24]  880 	ljmp	00104$
-      00032E                        881 00135$:
-      00032E 22               [24]  882 	ret
-                                    883 ;	Computer.c:88: case 12:
-      00032F                        884 00101$:
-                                    885 ;	Computer.c:89: *ans = (((-1) * negative_num1) * num1) + (((-1) * negative_num2) * num2);
-      00032F AB 2C            [24]  886 	mov	r3,_Calculate_PARM_6
-      000331 AC 2D            [24]  887 	mov	r4,(_Calculate_PARM_6 + 1)
-      000333 AD 2E            [24]  888 	mov	r5,(_Calculate_PARM_6 + 2)
-      000335 C3               [12]  889 	clr	c
-      000336 E4               [12]  890 	clr	a
-      000337 95 28            [12]  891 	subb	a,_Calculate_PARM_4
-      000339 F5 82            [12]  892 	mov	dpl,a
-      00033B E4               [12]  893 	clr	a
-      00033C 95 29            [12]  894 	subb	a,(_Calculate_PARM_4 + 1)
-      00033E F5 83            [12]  895 	mov	dph,a
-      000340 8E 69            [24]  896 	mov	__mulint_PARM_2,r6
-      000342 8F 6A            [24]  897 	mov	(__mulint_PARM_2 + 1),r7
-      000344 C0 05            [24]  898 	push	ar5
-      000346 C0 04            [24]  899 	push	ar4
-      000348 C0 03            [24]  900 	push	ar3
-      00034A 12 08 D4         [24]  901 	lcall	__mulint
-      00034D 85 82 2F         [24]  902 	mov	_Calculate_sloc0_1_0,dpl
-      000350 85 83 30         [24]  903 	mov	(_Calculate_sloc0_1_0 + 1),dph
-      000353 C3               [12]  904 	clr	c
-      000354 E4               [12]  905 	clr	a
-      000355 95 2A            [12]  906 	subb	a,_Calculate_PARM_5
-      000357 F5 82            [12]  907 	mov	dpl,a
-      000359 E4               [12]  908 	clr	a
-      00035A 95 2B            [12]  909 	subb	a,(_Calculate_PARM_5 + 1)
-      00035C F5 83            [12]  910 	mov	dph,a
-      00035E 85 25 69         [24]  911 	mov	__mulint_PARM_2,_Calculate_PARM_2
-      000361 85 26 6A         [24]  912 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
-      000364 12 08 D4         [24]  913 	lcall	__mulint
-      000367 A8 82            [24]  914 	mov	r0, dpl
-      000369 AA 83            [24]  915 	mov	r2, dph
-      00036B D0 03            [24]  916 	pop	ar3
-      00036D D0 04            [24]  917 	pop	ar4
-      00036F D0 05            [24]  918 	pop	ar5
-      000371 E8               [12]  919 	mov	a,r0
-      000372 25 2F            [12]  920 	add	a, _Calculate_sloc0_1_0
-      000374 F8               [12]  921 	mov	r0,a
-      000375 EA               [12]  922 	mov	a,r2
-      000376 35 30            [12]  923 	addc	a, (_Calculate_sloc0_1_0 + 1)
-      000378 FA               [12]  924 	mov	r2,a
-      000379 8B 82            [24]  925 	mov	dpl,r3
-      00037B 8C 83            [24]  926 	mov	dph,r4
-      00037D 8D F0            [24]  927 	mov	b,r5
-      00037F E8               [12]  928 	mov	a,r0
-      000380 12 08 B9         [24]  929 	lcall	__gptrput
-      000383 A3               [24]  930 	inc	dptr
-      000384 EA               [12]  931 	mov	a,r2
-                                    932 ;	Computer.c:90: break;
-      000385 02 08 B9         [24]  933 	ljmp	__gptrput
-                                    934 ;	Computer.c:91: case 13:
-      000388                        935 00102$:
-                                    936 ;	Computer.c:92: *ans = (((-1) * negative_num1) * num1) - (((-1) * negative_num2) * num2);
-      000388 AB 2C            [24]  937 	mov	r3,_Calculate_PARM_6
-      00038A AC 2D            [24]  938 	mov	r4,(_Calculate_PARM_6 + 1)
-      00038C AD 2E            [24]  939 	mov	r5,(_Calculate_PARM_6 + 2)
-      00038E C3               [12]  940 	clr	c
-      00038F E4               [12]  941 	clr	a
-      000390 95 28            [12]  942 	subb	a,_Calculate_PARM_4
-      000392 F5 82            [12]  943 	mov	dpl,a
-      000394 E4               [12]  944 	clr	a
-      000395 95 29            [12]  945 	subb	a,(_Calculate_PARM_4 + 1)
-      000397 F5 83            [12]  946 	mov	dph,a
-      000399 8E 69            [24]  947 	mov	__mulint_PARM_2,r6
-      00039B 8F 6A            [24]  948 	mov	(__mulint_PARM_2 + 1),r7
-      00039D C0 05            [24]  949 	push	ar5
-      00039F C0 04            [24]  950 	push	ar4
-      0003A1 C0 03            [24]  951 	push	ar3
-      0003A3 12 08 D4         [24]  952 	lcall	__mulint
-      0003A6 85 82 2F         [24]  953 	mov	_Calculate_sloc0_1_0,dpl
-      0003A9 85 83 30         [24]  954 	mov	(_Calculate_sloc0_1_0 + 1),dph
-      0003AC C3               [12]  955 	clr	c
-      0003AD E4               [12]  956 	clr	a
-      0003AE 95 2A            [12]  957 	subb	a,_Calculate_PARM_5
-      0003B0 F5 82            [12]  958 	mov	dpl,a
-      0003B2 E4               [12]  959 	clr	a
-      0003B3 95 2B            [12]  960 	subb	a,(_Calculate_PARM_5 + 1)
-      0003B5 F5 83            [12]  961 	mov	dph,a
-      0003B7 85 25 69         [24]  962 	mov	__mulint_PARM_2,_Calculate_PARM_2
-      0003BA 85 26 6A         [24]  963 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
-      0003BD 12 08 D4         [24]  964 	lcall	__mulint
-      0003C0 A8 82            [24]  965 	mov	r0, dpl
-      0003C2 AA 83            [24]  966 	mov	r2, dph
-      0003C4 D0 03            [24]  967 	pop	ar3
-      0003C6 D0 04            [24]  968 	pop	ar4
-      0003C8 D0 05            [24]  969 	pop	ar5
-      0003CA E5 2F            [12]  970 	mov	a,_Calculate_sloc0_1_0
-      0003CC C3               [12]  971 	clr	c
-      0003CD 98               [12]  972 	subb	a,r0
-      0003CE F8               [12]  973 	mov	r0,a
-      0003CF E5 30            [12]  974 	mov	a,(_Calculate_sloc0_1_0 + 1)
-      0003D1 9A               [12]  975 	subb	a,r2
-      0003D2 FA               [12]  976 	mov	r2,a
-      0003D3 8B 82            [24]  977 	mov	dpl,r3
-      0003D5 8C 83            [24]  978 	mov	dph,r4
-      0003D7 8D F0            [24]  979 	mov	b,r5
-      0003D9 E8               [12]  980 	mov	a,r0
-      0003DA 12 08 B9         [24]  981 	lcall	__gptrput
-      0003DD A3               [24]  982 	inc	dptr
-      0003DE EA               [12]  983 	mov	a,r2
-                                    984 ;	Computer.c:93: break;
-      0003DF 02 08 B9         [24]  985 	ljmp	__gptrput
-                                    986 ;	Computer.c:94: case 14:
-      0003E2                        987 00103$:
-                                    988 ;	Computer.c:95: *ans = (((-1) * negative_num1) * num1) * (((-1) * negative_num2) * num2);
-      0003E2 AB 2C            [24]  989 	mov	r3,_Calculate_PARM_6
-      0003E4 AC 2D            [24]  990 	mov	r4,(_Calculate_PARM_6 + 1)
-      0003E6 AD 2E            [24]  991 	mov	r5,(_Calculate_PARM_6 + 2)
-      0003E8 C3               [12]  992 	clr	c
-      0003E9 E4               [12]  993 	clr	a
-      0003EA 95 28            [12]  994 	subb	a,_Calculate_PARM_4
-      0003EC F5 82            [12]  995 	mov	dpl,a
-      0003EE E4               [12]  996 	clr	a
-      0003EF 95 29            [12]  997 	subb	a,(_Calculate_PARM_4 + 1)
-      0003F1 F5 83            [12]  998 	mov	dph,a
-      0003F3 8E 69            [24]  999 	mov	__mulint_PARM_2,r6
-      0003F5 8F 6A            [24] 1000 	mov	(__mulint_PARM_2 + 1),r7
-      0003F7 C0 05            [24] 1001 	push	ar5
-      0003F9 C0 04            [24] 1002 	push	ar4
-      0003FB C0 03            [24] 1003 	push	ar3
-      0003FD 12 08 D4         [24] 1004 	lcall	__mulint
-      000400 A9 82            [24] 1005 	mov	r1, dpl
-      000402 AA 83            [24] 1006 	mov	r2, dph
-      000404 C3               [12] 1007 	clr	c
-      000405 E4               [12] 1008 	clr	a
-      000406 95 2A            [12] 1009 	subb	a,_Calculate_PARM_5
-      000408 F5 82            [12] 1010 	mov	dpl,a
-      00040A E4               [12] 1011 	clr	a
-      00040B 95 2B            [12] 1012 	subb	a,(_Calculate_PARM_5 + 1)
-      00040D F5 83            [12] 1013 	mov	dph,a
-      00040F 85 25 69         [24] 1014 	mov	__mulint_PARM_2,_Calculate_PARM_2
-      000412 85 26 6A         [24] 1015 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
-      000415 C0 02            [24] 1016 	push	ar2
-      000417 C0 01            [24] 1017 	push	ar1
-      000419 12 08 D4         [24] 1018 	lcall	__mulint
-      00041C 85 82 69         [24] 1019 	mov	__mulint_PARM_2,dpl
-      00041F 85 83 6A         [24] 1020 	mov	(__mulint_PARM_2 + 1),dph
-      000422 D0 01            [24] 1021 	pop	ar1
-      000424 D0 02            [24] 1022 	pop	ar2
-      000426 89 82            [24] 1023 	mov	dpl, r1
-      000428 8A 83            [24] 1024 	mov	dph, r2
-      00042A 12 08 D4         [24] 1025 	lcall	__mulint
-      00042D A9 82            [24] 1026 	mov	r1, dpl
-      00042F AA 83            [24] 1027 	mov	r2, dph
-      000431 D0 03            [24] 1028 	pop	ar3
-      000433 D0 04            [24] 1029 	pop	ar4
-      000435 D0 05            [24] 1030 	pop	ar5
-      000437 8B 82            [24] 1031 	mov	dpl,r3
-      000439 8C 83            [24] 1032 	mov	dph,r4
-      00043B 8D F0            [24] 1033 	mov	b,r5
-      00043D E9               [12] 1034 	mov	a,r1
-      00043E 12 08 B9         [24] 1035 	lcall	__gptrput
-      000441 A3               [24] 1036 	inc	dptr
-      000442 EA               [12] 1037 	mov	a,r2
-                                   1038 ;	Computer.c:96: break;
-      000443 02 08 B9         [24] 1039 	ljmp	__gptrput
-                                   1040 ;	Computer.c:97: case 15:
-      000446                       1041 00104$:
-                                   1042 ;	Computer.c:98: *ans = (((-1) * negative_num1) * num1) / (((-1) * negative_num2) * num2);
-      000446 AB 2C            [24] 1043 	mov	r3,_Calculate_PARM_6
-      000448 AC 2D            [24] 1044 	mov	r4,(_Calculate_PARM_6 + 1)
-      00044A AD 2E            [24] 1045 	mov	r5,(_Calculate_PARM_6 + 2)
-      00044C C3               [12] 1046 	clr	c
-      00044D E4               [12] 1047 	clr	a
-      00044E 95 28            [12] 1048 	subb	a,_Calculate_PARM_4
-      000450 F5 82            [12] 1049 	mov	dpl,a
-      000452 E4               [12] 1050 	clr	a
-      000453 95 29            [12] 1051 	subb	a,(_Calculate_PARM_4 + 1)
-      000455 F5 83            [12] 1052 	mov	dph,a
-      000457 8E 69            [24] 1053 	mov	__mulint_PARM_2,r6
-      000459 8F 6A            [24] 1054 	mov	(__mulint_PARM_2 + 1),r7
-      00045B C0 05            [24] 1055 	push	ar5
-      00045D C0 04            [24] 1056 	push	ar4
-      00045F C0 03            [24] 1057 	push	ar3
-      000461 12 08 D4         [24] 1058 	lcall	__mulint
-      000464 AE 82            [24] 1059 	mov	r6, dpl
-      000466 AF 83            [24] 1060 	mov	r7, dph
-      000468 D0 03            [24] 1061 	pop	ar3
-      00046A D0 04            [24] 1062 	pop	ar4
-      00046C D0 05            [24] 1063 	pop	ar5
-      00046E C3               [12] 1064 	clr	c
-      00046F E4               [12] 1065 	clr	a
-      000470 95 2A            [12] 1066 	subb	a,_Calculate_PARM_5
-      000472 F5 82            [12] 1067 	mov	dpl,a
-      000474 E4               [12] 1068 	clr	a
-      000475 95 2B            [12] 1069 	subb	a,(_Calculate_PARM_5 + 1)
-      000477 F5 83            [12] 1070 	mov	dph,a
-      000479 85 25 69         [24] 1071 	mov	__mulint_PARM_2,_Calculate_PARM_2
-      00047C 85 26 6A         [24] 1072 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
-      00047F C0 07            [24] 1073 	push	ar7
-      000481 C0 06            [24] 1074 	push	ar6
-      000483 C0 05            [24] 1075 	push	ar5
-      000485 C0 04            [24] 1076 	push	ar4
-      000487 C0 03            [24] 1077 	push	ar3
-      000489 12 08 D4         [24] 1078 	lcall	__mulint
-      00048C 85 82 69         [24] 1079 	mov	__divsint_PARM_2,dpl
-      00048F 85 83 6A         [24] 1080 	mov	(__divsint_PARM_2 + 1),dph
-      000492 D0 03            [24] 1081 	pop	ar3
-      000494 D0 04            [24] 1082 	pop	ar4
-      000496 D0 05            [24] 1083 	pop	ar5
-      000498 D0 06            [24] 1084 	pop	ar6
-      00049A D0 07            [24] 1085 	pop	ar7
-      00049C 8E 82            [24] 1086 	mov	dpl, r6
-      00049E 8F 83            [24] 1087 	mov	dph, r7
-      0004A0 C0 05            [24] 1088 	push	ar5
-      0004A2 C0 04            [24] 1089 	push	ar4
-      0004A4 C0 03            [24] 1090 	push	ar3
-      0004A6 12 0A 4E         [24] 1091 	lcall	__divsint
-      0004A9 AE 82            [24] 1092 	mov	r6, dpl
-      0004AB AF 83            [24] 1093 	mov	r7, dph
-      0004AD D0 03            [24] 1094 	pop	ar3
-      0004AF D0 04            [24] 1095 	pop	ar4
-      0004B1 D0 05            [24] 1096 	pop	ar5
-      0004B3 8B 82            [24] 1097 	mov	dpl,r3
-      0004B5 8C 83            [24] 1098 	mov	dph,r4
-      0004B7 8D F0            [24] 1099 	mov	b,r5
-      0004B9 EE               [12] 1100 	mov	a,r6
-      0004BA 12 08 B9         [24] 1101 	lcall	__gptrput
-      0004BD A3               [24] 1102 	inc	dptr
-      0004BE EF               [12] 1103 	mov	a,r7
-                                   1104 ;	Computer.c:100: }
-                                   1105 ;	Computer.c:101: }
-      0004BF 02 08 B9         [24] 1106 	ljmp	__gptrput
-                                   1107 ;------------------------------------------------------------
-                                   1108 ;Allocation info for local variables in function 'Keypad_Debounce_init'
-                                   1109 ;------------------------------------------------------------
-                                   1110 ;	Computer.c:104: void Keypad_Debounce_init(void)
-                                   1111 ;	-----------------------------------------
-                                   1112 ;	 function Keypad_Debounce_init
-                                   1113 ;	-----------------------------------------
-      0004C2                       1114 _Keypad_Debounce_init:
-                                   1115 ;	Computer.c:106: IE = 0x8a;
-      0004C2 75 A8 8A         [24] 1116 	mov	_IE,#0x8a
-                                   1117 ;	Computer.c:108: TMOD = 0x01;
-      0004C5 75 89 01         [24] 1118 	mov	_TMOD,#0x01
-                                   1119 ;	Computer.c:110: }
-      0004C8 22               [24] 1120 	ret
-                                   1121 ;------------------------------------------------------------
-                                   1122 ;Allocation info for local variables in function 'Keypad_Debounce'
-                                   1123 ;------------------------------------------------------------
-                                   1124 ;	Computer.c:112: void Keypad_Debounce(void) __interrupt(1) __using(1)
-                                   1125 ;	-----------------------------------------
-                                   1126 ;	 function Keypad_Debounce
-                                   1127 ;	-----------------------------------------
-      0004C9                       1128 _Keypad_Debounce:
-                           00000F  1129 	ar7 = 0x0f
-                           00000E  1130 	ar6 = 0x0e
-                           00000D  1131 	ar5 = 0x0d
-                           00000C  1132 	ar4 = 0x0c
-                           00000B  1133 	ar3 = 0x0b
-                           00000A  1134 	ar2 = 0x0a
-                           000009  1135 	ar1 = 0x09
-                           000008  1136 	ar0 = 0x08
-      0004C9 C0 E0            [24] 1137 	push	acc
-      0004CB C0 D0            [24] 1138 	push	psw
-                                   1139 ;	Computer.c:114: TH0 = (65536 - 50000) / 256;
-      0004CD 75 8C 3C         [24] 1140 	mov	_TH0,#0x3c
-                                   1141 ;	Computer.c:115: TL0 = (65536 - 50000) % 256;
-      0004D0 75 8A B0         [24] 1142 	mov	_TL0,#0xb0
-                                   1143 ;	Computer.c:116: timer_count++;
-      0004D3 05 11            [12] 1144 	inc	_timer_count
-                                   1145 ;	Computer.c:117: if (timer_count == 20)
-      0004D5 74 14            [12] 1146 	mov	a,#0x14
-      0004D7 B5 11 09         [24] 1147 	cjne	a,_timer_count,00103$
-                                   1148 ;	Computer.c:119: Keypad_flag = 1;
-                                   1149 ;	assignBit
-      0004DA D2 01            [12] 1150 	setb	_Keypad_flag
-                                   1151 ;	Computer.c:120: TF0 = 0;
-                                   1152 ;	assignBit
-      0004DC C2 8D            [12] 1153 	clr	_TF0
-                                   1154 ;	Computer.c:122: TR0 = 0;
-                                   1155 ;	assignBit
-      0004DE C2 8C            [12] 1156 	clr	_TR0
-                                   1157 ;	Computer.c:123: timer_count = 0;
-      0004E0 75 11 00         [24] 1158 	mov	_timer_count,#0x00
-      0004E3                       1159 00103$:
-                                   1160 ;	Computer.c:125: }
-      0004E3 D0 D0            [24] 1161 	pop	psw
-      0004E5 D0 E0            [24] 1162 	pop	acc
-      0004E7 32               [24] 1163 	reti
-                                   1164 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                   1165 ;	eliminated unneeded push/pop dpl
-                                   1166 ;	eliminated unneeded push/pop dph
-                                   1167 ;	eliminated unneeded push/pop b
-                                   1168 ;------------------------------------------------------------
-                                   1169 ;Allocation info for local variables in function 'main'
-                                   1170 ;------------------------------------------------------------
-                                   1171 ;num_1                     Allocated with name '_main_num_1_10000_35'
-                                   1172 ;num_2                     Allocated with name '_main_num_2_10000_35'
-                                   1173 ;ans                       Allocated with name '_main_ans_10000_35'
-                                   1174 ;op                        Allocated with name '_main_op_10000_35'
-                                   1175 ;number                    Allocated to registers r7 
-                                   1176 ;old_number                Allocated to registers 
-                                   1177 ;negative_num1             Allocated with name '_main_negative_num1_10000_35'
-                                   1178 ;negative_num2             Allocated with name '_main_negative_num2_10000_35'
-                                   1179 ;negative_ans              Allocated with name '_main_negative_ans_10000_35'
-                                   1180 ;count                     Allocated to registers r6 
-                                   1181 ;m                         Allocated to registers r5 
-                                   1182 ;f                         Allocated to registers r7 
-                                   1183 ;m                         Allocated to registers r7 
-                                   1184 ;f                         Allocated to registers r7 
+                                    358 	.area IABS    (ABS,DATA)
+                                    359 	.area IABS    (ABS,DATA)
+                                    360 ;--------------------------------------------------------
+                                    361 ; bit data
+                                    362 ;--------------------------------------------------------
+                                    363 	.area BSEG    (BIT)
+                                    364 ;--------------------------------------------------------
+                                    365 ; paged external ram data
+                                    366 ;--------------------------------------------------------
+                                    367 	.area PSEG    (PAG,XDATA)
+                                    368 ;--------------------------------------------------------
+                                    369 ; uninitialized external ram data
+                                    370 ;--------------------------------------------------------
+                                    371 	.area XSEG    (XDATA)
+                                    372 ;--------------------------------------------------------
+                                    373 ; absolute external ram data
+                                    374 ;--------------------------------------------------------
+                                    375 	.area XABS    (ABS,XDATA)
+                                    376 ;--------------------------------------------------------
+                                    377 ; initialized external ram data
+                                    378 ;--------------------------------------------------------
+                                    379 	.area XISEG   (XDATA)
+                                    380 	.area HOME    (CODE)
+                                    381 	.area GSINIT0 (CODE)
+                                    382 	.area GSINIT1 (CODE)
+                                    383 	.area GSINIT2 (CODE)
+                                    384 	.area GSINIT3 (CODE)
+                                    385 	.area GSINIT4 (CODE)
+                                    386 	.area GSINIT5 (CODE)
+                                    387 	.area GSINIT  (CODE)
+                                    388 	.area GSFINAL (CODE)
+                                    389 	.area CSEG    (CODE)
+                                    390 ;--------------------------------------------------------
+                                    391 ; interrupt vector
+                                    392 ;--------------------------------------------------------
+                                    393 	.area HOME    (CODE)
+      000000                        394 __interrupt_vect:
+      000000 02 00 11         [24]  395 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  396 	reti
+      000004                        397 	.ds	7
+      00000B 02 05 0F         [24]  398 	ljmp	_Keypad_Debounce
+                                    399 ;--------------------------------------------------------
+                                    400 ; global & static initialisations
+                                    401 ;--------------------------------------------------------
+                                    402 	.area HOME    (CODE)
+                                    403 	.area GSINIT  (CODE)
+                                    404 	.area GSFINAL (CODE)
+                                    405 	.area GSINIT  (CODE)
+                                    406 	.globl __sdcc_gsinit_startup
+                                    407 	.globl __sdcc_program_startup
+                                    408 	.globl __start__stack
+                                    409 	.globl __mcs51_genXINIT
+                                    410 	.globl __mcs51_genXRAMCLEAR
+                                    411 	.globl __mcs51_genRAMCLEAR
+                                    412 ;	Computer.c:6: char flag = 0;
+      00006A 75 10 00         [24]  413 	mov	_flag,#0x00
+                                    414 ;	Computer.c:12: char timer_count = 0;
+      00006D 75 11 00         [24]  415 	mov	_timer_count,#0x00
+                                    416 ;	Computer.c:15: char num1_counter = 0;
+      000070 75 12 00         [24]  417 	mov	_num1_counter,#0x00
+                                    418 ;	Computer.c:5: __idata unsigned char buffer[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
+      000073 78 78            [12]  419 	mov	r0,#_buffer
+      000075 76 FF            [12]  420 	mov	@r0,#0xff
+      000077 78 79            [12]  421 	mov	r0,#(_buffer + 0x0001)
+      000079 76 FF            [12]  422 	mov	@r0,#0xff
+      00007B 78 7A            [12]  423 	mov	r0,#(_buffer + 0x0002)
+      00007D 76 FF            [12]  424 	mov	@r0,#0xff
+      00007F 78 7B            [12]  425 	mov	r0,#(_buffer + 0x0003)
+      000081 76 FF            [12]  426 	mov	@r0,#0xff
+      000083 78 7C            [12]  427 	mov	r0,#(_buffer + 0x0004)
+      000085 76 FF            [12]  428 	mov	@r0,#0xff
+      000087 78 7D            [12]  429 	mov	r0,#(_buffer + 0x0005)
+      000089 76 FF            [12]  430 	mov	@r0,#0xff
+      00008B 78 7E            [12]  431 	mov	r0,#(_buffer + 0x0006)
+      00008D 76 FF            [12]  432 	mov	@r0,#0xff
+      00008F 78 7F            [12]  433 	mov	r0,#(_buffer + 0x0007)
+      000091 76 FF            [12]  434 	mov	@r0,#0xff
+                                    435 ;	Computer.c:7: __idata unsigned char history[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+      000093 78 80            [12]  436 	mov	r0,#_history
+      000095 76 FF            [12]  437 	mov	@r0,#0xff
+      000097 78 81            [12]  438 	mov	r0,#(_history + 0x0001)
+      000099 76 FF            [12]  439 	mov	@r0,#0xff
+      00009B 78 82            [12]  440 	mov	r0,#(_history + 0x0002)
+      00009D 76 FF            [12]  441 	mov	@r0,#0xff
+      00009F 78 83            [12]  442 	mov	r0,#(_history + 0x0003)
+      0000A1 76 FF            [12]  443 	mov	@r0,#0xff
+      0000A3 78 84            [12]  444 	mov	r0,#(_history + 0x0004)
+      0000A5 76 FF            [12]  445 	mov	@r0,#0xff
+      0000A7 78 85            [12]  446 	mov	r0,#(_history + 0x0005)
+      0000A9 76 FF            [12]  447 	mov	@r0,#0xff
+      0000AB 78 86            [12]  448 	mov	r0,#(_history + 0x0006)
+      0000AD 76 FF            [12]  449 	mov	@r0,#0xff
+      0000AF 78 87            [12]  450 	mov	r0,#(_history + 0x0007)
+      0000B1 76 FF            [12]  451 	mov	@r0,#0xff
+      0000B3 78 88            [12]  452 	mov	r0,#(_history + 0x0008)
+      0000B5 76 FF            [12]  453 	mov	@r0,#0xff
+      0000B7 78 89            [12]  454 	mov	r0,#(_history + 0x0009)
+      0000B9 76 FF            [12]  455 	mov	@r0,#0xff
+                                    456 ;	Computer.c:8: __idata unsigned char start_count[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+      0000BB 78 8A            [12]  457 	mov	r0,#_start_count
+      0000BD 76 FF            [12]  458 	mov	@r0,#0xff
+      0000BF 78 8B            [12]  459 	mov	r0,#(_start_count + 0x0001)
+      0000C1 76 FF            [12]  460 	mov	@r0,#0xff
+      0000C3 78 8C            [12]  461 	mov	r0,#(_start_count + 0x0002)
+      0000C5 76 FF            [12]  462 	mov	@r0,#0xff
+      0000C7 78 8D            [12]  463 	mov	r0,#(_start_count + 0x0003)
+      0000C9 76 FF            [12]  464 	mov	@r0,#0xff
+      0000CB 78 8E            [12]  465 	mov	r0,#(_start_count + 0x0004)
+      0000CD 76 FF            [12]  466 	mov	@r0,#0xff
+      0000CF 78 8F            [12]  467 	mov	r0,#(_start_count + 0x0005)
+      0000D1 76 FF            [12]  468 	mov	@r0,#0xff
+      0000D3 78 90            [12]  469 	mov	r0,#(_start_count + 0x0006)
+      0000D5 76 FF            [12]  470 	mov	@r0,#0xff
+      0000D7 78 91            [12]  471 	mov	r0,#(_start_count + 0x0007)
+      0000D9 76 FF            [12]  472 	mov	@r0,#0xff
+      0000DB 78 92            [12]  473 	mov	r0,#(_start_count + 0x0008)
+      0000DD 76 FF            [12]  474 	mov	@r0,#0xff
+      0000DF 78 93            [12]  475 	mov	r0,#(_start_count + 0x0009)
+      0000E1 76 FF            [12]  476 	mov	@r0,#0xff
+                                    477 ;	Computer.c:9: __idata unsigned char history_count = 0;
+      0000E3 78 94            [12]  478 	mov	r0,#_history_count
+      0000E5 76 00            [12]  479 	mov	@r0,#0x00
+                                    480 ;	Computer.c:10: __idata unsigned char start = 0;
+      0000E7 78 95            [12]  481 	mov	r0,#_start
+      0000E9 76 00            [12]  482 	mov	@r0,#0x00
+                                    483 ;	Computer.c:13: __sbit cal_flag = 0;
+                                    484 ;	assignBit
+      0000EB C2 00            [12]  485 	clr	_cal_flag
+                                    486 ;	Computer.c:14: __sbit Keypad_flag = 0;
+                                    487 ;	assignBit
+      0000ED C2 01            [12]  488 	clr	_Keypad_flag
+                                    489 	.area GSFINAL (CODE)
+      00013A 02 00 0E         [24]  490 	ljmp	__sdcc_program_startup
+                                    491 ;--------------------------------------------------------
+                                    492 ; Home
+                                    493 ;--------------------------------------------------------
+                                    494 	.area HOME    (CODE)
+                                    495 	.area HOME    (CODE)
+      00000E                        496 __sdcc_program_startup:
+      00000E 02 05 42         [24]  497 	ljmp	_main
+                                    498 ;	return from main will return to caller
+                                    499 ;--------------------------------------------------------
+                                    500 ; code
+                                    501 ;--------------------------------------------------------
+                                    502 	.area CSEG    (CODE)
+                                    503 ;------------------------------------------------------------
+                                    504 ;Allocation info for local variables in function 'Restart'
+                                    505 ;------------------------------------------------------------
+                                    506 ;num_2                     Allocated with name '_Restart_PARM_2'
+                                    507 ;op                        Allocated with name '_Restart_PARM_3'
+                                    508 ;ans                       Allocated with name '_Restart_PARM_4'
+                                    509 ;negative_num1             Allocated with name '_Restart_PARM_5'
+                                    510 ;negative_num2             Allocated with name '_Restart_PARM_6'
+                                    511 ;negative_ans              Allocated with name '_Restart_PARM_7'
+                                    512 ;num_1                     Allocated to registers r5 r6 r7 
+                                    513 ;------------------------------------------------------------
+                                    514 ;	Computer.c:17: void Restart(int *num_1, int *num_2, char *op, int *ans, int *negative_num1, int *negative_num2, int *negative_ans)
+                                    515 ;	-----------------------------------------
+                                    516 ;	 function Restart
+                                    517 ;	-----------------------------------------
+      00013D                        518 _Restart:
+                           000007   519 	ar7 = 0x07
+                           000006   520 	ar6 = 0x06
+                           000005   521 	ar5 = 0x05
+                           000004   522 	ar4 = 0x04
+                           000003   523 	ar3 = 0x03
+                           000002   524 	ar2 = 0x02
+                           000001   525 	ar1 = 0x01
+                           000000   526 	ar0 = 0x00
+                                    527 ;	Computer.c:19: *num_1 = 0;
+      00013D E4               [12]  528 	clr	a
+      00013E 12 09 0E         [24]  529 	lcall	__gptrput
+      000141 A3               [24]  530 	inc	dptr
+      000142 12 09 0E         [24]  531 	lcall	__gptrput
+                                    532 ;	Computer.c:20: *num_2 = 0;
+      000145 AD 66            [24]  533 	mov	r5,_Restart_PARM_2
+      000147 AE 67            [24]  534 	mov	r6,(_Restart_PARM_2 + 1)
+      000149 AF 68            [24]  535 	mov	r7,(_Restart_PARM_2 + 2)
+      00014B 8D 82            [24]  536 	mov	dpl,r5
+      00014D 8E 83            [24]  537 	mov	dph,r6
+      00014F 8F F0            [24]  538 	mov	b,r7
+      000151 12 09 0E         [24]  539 	lcall	__gptrput
+      000154 A3               [24]  540 	inc	dptr
+      000155 12 09 0E         [24]  541 	lcall	__gptrput
+                                    542 ;	Computer.c:21: *op = '$';
+      000158 AD 69            [24]  543 	mov	r5,_Restart_PARM_3
+      00015A AE 6A            [24]  544 	mov	r6,(_Restart_PARM_3 + 1)
+      00015C AF 6B            [24]  545 	mov	r7,(_Restart_PARM_3 + 2)
+      00015E 8D 82            [24]  546 	mov	dpl,r5
+      000160 8E 83            [24]  547 	mov	dph,r6
+      000162 8F F0            [24]  548 	mov	b,r7
+      000164 74 24            [12]  549 	mov	a,#0x24
+      000166 12 09 0E         [24]  550 	lcall	__gptrput
+                                    551 ;	Computer.c:22: *ans = 0;
+      000169 AD 6C            [24]  552 	mov	r5,_Restart_PARM_4
+      00016B AE 6D            [24]  553 	mov	r6,(_Restart_PARM_4 + 1)
+      00016D AF 6E            [24]  554 	mov	r7,(_Restart_PARM_4 + 2)
+      00016F 8D 82            [24]  555 	mov	dpl,r5
+      000171 8E 83            [24]  556 	mov	dph,r6
+      000173 8F F0            [24]  557 	mov	b,r7
+      000175 E4               [12]  558 	clr	a
+      000176 12 09 0E         [24]  559 	lcall	__gptrput
+      000179 A3               [24]  560 	inc	dptr
+      00017A 12 09 0E         [24]  561 	lcall	__gptrput
+                                    562 ;	Computer.c:23: cal_flag = 0;
+                                    563 ;	assignBit
+      00017D C2 00            [12]  564 	clr	_cal_flag
+                                    565 ;	Computer.c:24: *negative_ans = 0;
+      00017F AD 75            [24]  566 	mov	r5,_Restart_PARM_7
+      000181 AE 76            [24]  567 	mov	r6,(_Restart_PARM_7 + 1)
+      000183 AF 77            [24]  568 	mov	r7,(_Restart_PARM_7 + 2)
+      000185 8D 82            [24]  569 	mov	dpl,r5
+      000187 8E 83            [24]  570 	mov	dph,r6
+      000189 8F F0            [24]  571 	mov	b,r7
+      00018B E4               [12]  572 	clr	a
+      00018C 12 09 0E         [24]  573 	lcall	__gptrput
+      00018F A3               [24]  574 	inc	dptr
+      000190 12 09 0E         [24]  575 	lcall	__gptrput
+                                    576 ;	Computer.c:25: *negative_num1 = -1;
+      000193 AD 6F            [24]  577 	mov	r5,_Restart_PARM_5
+      000195 AE 70            [24]  578 	mov	r6,(_Restart_PARM_5 + 1)
+      000197 AF 71            [24]  579 	mov	r7,(_Restart_PARM_5 + 2)
+      000199 8D 82            [24]  580 	mov	dpl,r5
+      00019B 8E 83            [24]  581 	mov	dph,r6
+      00019D 8F F0            [24]  582 	mov	b,r7
+      00019F 14               [12]  583 	dec	a
+      0001A0 12 09 0E         [24]  584 	lcall	__gptrput
+      0001A3 A3               [24]  585 	inc	dptr
+      0001A4 12 09 0E         [24]  586 	lcall	__gptrput
+                                    587 ;	Computer.c:26: *negative_num2 = -1;
+      0001A7 AD 72            [24]  588 	mov	r5,_Restart_PARM_6
+      0001A9 AE 73            [24]  589 	mov	r6,(_Restart_PARM_6 + 1)
+      0001AB AF 74            [24]  590 	mov	r7,(_Restart_PARM_6 + 2)
+      0001AD 8D 82            [24]  591 	mov	dpl,r5
+      0001AF 8E 83            [24]  592 	mov	dph,r6
+      0001B1 8F F0            [24]  593 	mov	b,r7
+      0001B3 12 09 0E         [24]  594 	lcall	__gptrput
+      0001B6 A3               [24]  595 	inc	dptr
+      0001B7 12 09 0E         [24]  596 	lcall	__gptrput
+                                    597 ;	Computer.c:27: num1_counter = 0;
+      0001BA 75 12 00         [24]  598 	mov	_num1_counter,#0x00
+                                    599 ;	Computer.c:28: }
+      0001BD 22               [24]  600 	ret
+                                    601 ;------------------------------------------------------------
+                                    602 ;Allocation info for local variables in function 'SaveNumber'
+                                    603 ;------------------------------------------------------------
+                                    604 ;start                     Allocated with name '_SaveNumber_PARM_2'
+                                    605 ;b                         Allocated with name '_SaveNumber_PARM_3'
+                                    606 ;n                         Allocated to registers r7 
+                                    607 ;i                         Allocated to registers 
+                                    608 ;------------------------------------------------------------
+                                    609 ;	Computer.c:29: void SaveNumber(char n, char start, char *b)
+                                    610 ;	-----------------------------------------
+                                    611 ;	 function SaveNumber
+                                    612 ;	-----------------------------------------
+      0001BE                        613 _SaveNumber:
+      0001BE AF 82            [24]  614 	mov	r7, dpl
+                                    615 ;	Computer.c:31: for (char i = start; i > 0; i--)
+      0001C0 AE 66            [24]  616 	mov	r6,_SaveNumber_PARM_2
+      0001C2                        617 00103$:
+      0001C2 EE               [12]  618 	mov	a,r6
+      0001C3 60 32            [24]  619 	jz	00101$
+                                    620 ;	Computer.c:33: b[i] = b[i - 1];
+      0001C5 EE               [12]  621 	mov	a,r6
+      0001C6 25 67            [12]  622 	add	a, _SaveNumber_PARM_3
+      0001C8 FB               [12]  623 	mov	r3,a
+      0001C9 E4               [12]  624 	clr	a
+      0001CA 35 68            [12]  625 	addc	a, (_SaveNumber_PARM_3 + 1)
+      0001CC FC               [12]  626 	mov	r4,a
+      0001CD AD 69            [24]  627 	mov	r5,(_SaveNumber_PARM_3 + 2)
+      0001CF 8E 01            [24]  628 	mov	ar1,r6
+      0001D1 7A 00            [12]  629 	mov	r2,#0x00
+      0001D3 19               [12]  630 	dec	r1
+      0001D4 B9 FF 01         [24]  631 	cjne	r1,#0xff,00123$
+      0001D7 1A               [12]  632 	dec	r2
+      0001D8                        633 00123$:
+      0001D8 E9               [12]  634 	mov	a,r1
+      0001D9 25 67            [12]  635 	add	a, _SaveNumber_PARM_3
+      0001DB F9               [12]  636 	mov	r1,a
+      0001DC EA               [12]  637 	mov	a,r2
+      0001DD 35 68            [12]  638 	addc	a, (_SaveNumber_PARM_3 + 1)
+      0001DF F8               [12]  639 	mov	r0,a
+      0001E0 AA 69            [24]  640 	mov	r2,(_SaveNumber_PARM_3 + 2)
+      0001E2 89 82            [24]  641 	mov	dpl,r1
+      0001E4 88 83            [24]  642 	mov	dph,r0
+      0001E6 8A F0            [24]  643 	mov	b,r2
+      0001E8 12 0A 51         [24]  644 	lcall	__gptrget
+      0001EB 8B 82            [24]  645 	mov	dpl,r3
+      0001ED 8C 83            [24]  646 	mov	dph,r4
+      0001EF 8D F0            [24]  647 	mov	b,r5
+      0001F1 12 09 0E         [24]  648 	lcall	__gptrput
+                                    649 ;	Computer.c:31: for (char i = start; i > 0; i--)
+      0001F4 1E               [12]  650 	dec	r6
+      0001F5 80 CB            [24]  651 	sjmp	00103$
+      0001F7                        652 00101$:
+                                    653 ;	Computer.c:35: b[0] = n;
+      0001F7 AC 67            [24]  654 	mov	r4,_SaveNumber_PARM_3
+      0001F9 AD 68            [24]  655 	mov	r5,(_SaveNumber_PARM_3 + 1)
+      0001FB AE 69            [24]  656 	mov	r6,(_SaveNumber_PARM_3 + 2)
+      0001FD 8C 82            [24]  657 	mov	dpl,r4
+      0001FF 8D 83            [24]  658 	mov	dph,r5
+      000201 8E F0            [24]  659 	mov	b,r6
+      000203 EF               [12]  660 	mov	a,r7
+                                    661 ;	Computer.c:36: }
+      000204 02 09 0E         [24]  662 	ljmp	__gptrput
+                                    663 ;------------------------------------------------------------
+                                    664 ;Allocation info for local variables in function 'Update_Expression'
+                                    665 ;------------------------------------------------------------
+                                    666 ;num_2                     Allocated with name '_Update_Expression_PARM_2'
+                                    667 ;op                        Allocated with name '_Update_Expression_PARM_3'
+                                    668 ;negative_num1             Allocated with name '_Update_Expression_PARM_4'
+                                    669 ;negative_num2             Allocated with name '_Update_Expression_PARM_5'
+                                    670 ;num_1                     Allocated with name '_Update_Expression_num_1_10000_13'
+                                    671 ;sloc0                     Allocated with name '_Update_Expression_sloc0_1_0'
+                                    672 ;------------------------------------------------------------
+                                    673 ;	Computer.c:39: void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int *negative_num2)
+                                    674 ;	-----------------------------------------
+                                    675 ;	 function Update_Expression
+                                    676 ;	-----------------------------------------
+      000207                        677 _Update_Expression:
+      000207 85 82 1F         [24]  678 	mov	_Update_Expression_num_1_10000_13,dpl
+      00020A 85 83 20         [24]  679 	mov	(_Update_Expression_num_1_10000_13 + 1),dph
+      00020D 85 F0 21         [24]  680 	mov	(_Update_Expression_num_1_10000_13 + 2),b
+                                    681 ;	Computer.c:42: if (buffer[0] >= 0 && buffer[0] <= 9)
+      000210 78 78            [12]  682 	mov	r0,#_buffer
+      000212 E6               [12]  683 	mov	a,@r0
+      000213 FC               [12]  684 	mov	r4,a
+      000214 24 F6            [12]  685 	add	a,#0xff - 0x09
+      000216 50 03            [24]  686 	jnc	00199$
+      000218 02 02 D1         [24]  687 	ljmp	00122$
+      00021B                        688 00199$:
+                                    689 ;	Computer.c:44: if (*op == '$')
+      00021B 85 16 22         [24]  690 	mov	_Update_Expression_sloc0_1_0,_Update_Expression_PARM_3
+      00021E 85 17 23         [24]  691 	mov	(_Update_Expression_sloc0_1_0 + 1),(_Update_Expression_PARM_3 + 1)
+      000221 85 18 24         [24]  692 	mov	(_Update_Expression_sloc0_1_0 + 2),(_Update_Expression_PARM_3 + 2)
+      000224 85 22 82         [24]  693 	mov	dpl,_Update_Expression_sloc0_1_0
+      000227 85 23 83         [24]  694 	mov	dph,(_Update_Expression_sloc0_1_0 + 1)
+      00022A 85 24 F0         [24]  695 	mov	b,(_Update_Expression_sloc0_1_0 + 2)
+      00022D 12 0A 51         [24]  696 	lcall	__gptrget
+      000230 FB               [12]  697 	mov	r3,a
+      000231 BB 24 40         [24]  698 	cjne	r3,#0x24,00102$
+                                    699 ;	Computer.c:46: *num_1 = *num_1 * 10 + (int)buffer[0];
+      000234 85 1F 82         [24]  700 	mov	dpl,_Update_Expression_num_1_10000_13
+      000237 85 20 83         [24]  701 	mov	dph,(_Update_Expression_num_1_10000_13 + 1)
+      00023A 85 21 F0         [24]  702 	mov	b,(_Update_Expression_num_1_10000_13 + 2)
+      00023D 12 0A 51         [24]  703 	lcall	__gptrget
+      000240 F5 66            [12]  704 	mov	__mulint_PARM_2,a
+      000242 A3               [24]  705 	inc	dptr
+      000243 12 0A 51         [24]  706 	lcall	__gptrget
+      000246 F5 67            [12]  707 	mov	(__mulint_PARM_2 + 1),a
+      000248 90 00 0A         [24]  708 	mov	dptr,#0x000a
+      00024B C0 04            [24]  709 	push	ar4
+      00024D 12 09 29         [24]  710 	lcall	__mulint
+      000250 AA 82            [24]  711 	mov	r2, dpl
+      000252 AB 83            [24]  712 	mov	r3, dph
+      000254 D0 04            [24]  713 	pop	ar4
+      000256 8C 06            [24]  714 	mov	ar6,r4
+      000258 7F 00            [12]  715 	mov	r7,#0x00
+      00025A EE               [12]  716 	mov	a,r6
+      00025B 2A               [12]  717 	add	a, r2
+      00025C FA               [12]  718 	mov	r2,a
+      00025D EF               [12]  719 	mov	a,r7
+      00025E 3B               [12]  720 	addc	a, r3
+      00025F FB               [12]  721 	mov	r3,a
+      000260 85 1F 82         [24]  722 	mov	dpl,_Update_Expression_num_1_10000_13
+      000263 85 20 83         [24]  723 	mov	dph,(_Update_Expression_num_1_10000_13 + 1)
+      000266 85 21 F0         [24]  724 	mov	b,(_Update_Expression_num_1_10000_13 + 2)
+      000269 EA               [12]  725 	mov	a,r2
+      00026A 12 09 0E         [24]  726 	lcall	__gptrput
+      00026D A3               [24]  727 	inc	dptr
+      00026E EB               [12]  728 	mov	a,r3
+      00026F 12 09 0E         [24]  729 	lcall	__gptrput
+                                    730 ;	Computer.c:47: num1_counter++;
+      000272 05 12            [12]  731 	inc	_num1_counter
+      000274                        732 00102$:
+                                    733 ;	Computer.c:49: if (*op != '$')
+      000274 85 22 82         [24]  734 	mov	dpl,_Update_Expression_sloc0_1_0
+      000277 85 23 83         [24]  735 	mov	dph,(_Update_Expression_sloc0_1_0 + 1)
+      00027A 85 24 F0         [24]  736 	mov	b,(_Update_Expression_sloc0_1_0 + 2)
+      00027D 12 0A 51         [24]  737 	lcall	__gptrget
+      000280 FF               [12]  738 	mov	r7,a
+      000281 BF 24 01         [24]  739 	cjne	r7,#0x24,00202$
+      000284 22               [24]  740 	ret
+      000285                        741 00202$:
+                                    742 ;	Computer.c:51: *num_2 = *num_2 * 10 + (int)buffer[0];
+      000285 AD 13            [24]  743 	mov	r5,_Update_Expression_PARM_2
+      000287 AE 14            [24]  744 	mov	r6,(_Update_Expression_PARM_2 + 1)
+      000289 AF 15            [24]  745 	mov	r7,(_Update_Expression_PARM_2 + 2)
+      00028B 8D 82            [24]  746 	mov	dpl,r5
+      00028D 8E 83            [24]  747 	mov	dph,r6
+      00028F 8F F0            [24]  748 	mov	b,r7
+      000291 12 0A 51         [24]  749 	lcall	__gptrget
+      000294 F5 66            [12]  750 	mov	__mulint_PARM_2,a
+      000296 A3               [24]  751 	inc	dptr
+      000297 12 0A 51         [24]  752 	lcall	__gptrget
+      00029A F5 67            [12]  753 	mov	(__mulint_PARM_2 + 1),a
+      00029C 90 00 0A         [24]  754 	mov	dptr,#0x000a
+      00029F C0 07            [24]  755 	push	ar7
+      0002A1 C0 06            [24]  756 	push	ar6
+      0002A3 C0 05            [24]  757 	push	ar5
+      0002A5 12 09 29         [24]  758 	lcall	__mulint
+      0002A8 85 82 22         [24]  759 	mov	_Update_Expression_sloc0_1_0,dpl
+      0002AB 85 83 23         [24]  760 	mov	(_Update_Expression_sloc0_1_0 + 1),dph
+      0002AE D0 05            [24]  761 	pop	ar5
+      0002B0 D0 06            [24]  762 	pop	ar6
+      0002B2 D0 07            [24]  763 	pop	ar7
+      0002B4 78 78            [12]  764 	mov	r0,#_buffer
+      0002B6 86 03            [24]  765 	mov	ar3,@r0
+      0002B8 7A 00            [12]  766 	mov	r2,#0x00
+      0002BA EB               [12]  767 	mov	a,r3
+      0002BB 25 22            [12]  768 	add	a, _Update_Expression_sloc0_1_0
+      0002BD FB               [12]  769 	mov	r3,a
+      0002BE EA               [12]  770 	mov	a,r2
+      0002BF 35 23            [12]  771 	addc	a, (_Update_Expression_sloc0_1_0 + 1)
+      0002C1 FA               [12]  772 	mov	r2,a
+      0002C2 8D 82            [24]  773 	mov	dpl,r5
+      0002C4 8E 83            [24]  774 	mov	dph,r6
+      0002C6 8F F0            [24]  775 	mov	b,r7
+      0002C8 EB               [12]  776 	mov	a,r3
+      0002C9 12 09 0E         [24]  777 	lcall	__gptrput
+      0002CC A3               [24]  778 	inc	dptr
+      0002CD EA               [12]  779 	mov	a,r2
+      0002CE 02 09 0E         [24]  780 	ljmp	__gptrput
+      0002D1                        781 00122$:
+                                    782 ;	Computer.c:54: else if (buffer[0] == 13 && num1_counter == 0)
+      0002D1 E4               [12]  783 	clr	a
+      0002D2 BC 0D 01         [24]  784 	cjne	r4,#0x0d,00203$
+      0002D5 04               [12]  785 	inc	a
+      0002D6                        786 00203$:
+      0002D6 FF               [12]  787 	mov	r7,a
+      0002D7 60 1A            [24]  788 	jz	00118$
+      0002D9 E5 12            [12]  789 	mov	a,_num1_counter
+      0002DB 70 16            [24]  790 	jnz	00118$
+                                    791 ;	Computer.c:56: *negative_num1 = 1;
+      0002DD AB 19            [24]  792 	mov	r3,_Update_Expression_PARM_4
+      0002DF AD 1A            [24]  793 	mov	r5,(_Update_Expression_PARM_4 + 1)
+      0002E1 AE 1B            [24]  794 	mov	r6,(_Update_Expression_PARM_4 + 2)
+      0002E3 8B 82            [24]  795 	mov	dpl,r3
+      0002E5 8D 83            [24]  796 	mov	dph,r5
+      0002E7 8E F0            [24]  797 	mov	b,r6
+      0002E9 74 01            [12]  798 	mov	a,#0x01
+      0002EB 12 09 0E         [24]  799 	lcall	__gptrput
+      0002EE A3               [24]  800 	inc	dptr
+      0002EF E4               [12]  801 	clr	a
+      0002F0 02 09 0E         [24]  802 	ljmp	__gptrput
+      0002F3                        803 00118$:
+                                    804 ;	Computer.c:58: else if (buffer[0] >= 12 && buffer[0] <= 15 && num1_counter != 0 && *op == '$')
+      0002F3 BC 0C 00         [24]  805 	cjne	r4,#0x0c,00207$
+      0002F6                        806 00207$:
+      0002F6 40 26            [24]  807 	jc	00112$
+      0002F8 EC               [12]  808 	mov	a,r4
+      0002F9 24 F0            [12]  809 	add	a,#0xff - 0x0f
+      0002FB 40 21            [24]  810 	jc	00112$
+      0002FD E5 12            [12]  811 	mov	a,_num1_counter
+      0002FF 60 1D            [24]  812 	jz	00112$
+      000301 AB 16            [24]  813 	mov	r3,_Update_Expression_PARM_3
+      000303 AD 17            [24]  814 	mov	r5,(_Update_Expression_PARM_3 + 1)
+      000305 AE 18            [24]  815 	mov	r6,(_Update_Expression_PARM_3 + 2)
+      000307 8B 82            [24]  816 	mov	dpl,r3
+      000309 8D 83            [24]  817 	mov	dph,r5
+      00030B 8E F0            [24]  818 	mov	b,r6
+      00030D 12 0A 51         [24]  819 	lcall	__gptrget
+      000310 FA               [12]  820 	mov	r2,a
+      000311 BA 24 0A         [24]  821 	cjne	r2,#0x24,00112$
+                                    822 ;	Computer.c:60: *op = buffer[0];
+      000314 8B 82            [24]  823 	mov	dpl,r3
+      000316 8D 83            [24]  824 	mov	dph,r5
+      000318 8E F0            [24]  825 	mov	b,r6
+      00031A EC               [12]  826 	mov	a,r4
+      00031B 02 09 0E         [24]  827 	ljmp	__gptrput
+      00031E                        828 00112$:
+                                    829 ;	Computer.c:62: else if (buffer[0] == 13 && *op != '$')
+      00031E EF               [12]  830 	mov	a,r7
+      00031F 60 2B            [24]  831 	jz	00108$
+      000321 AD 16            [24]  832 	mov	r5,_Update_Expression_PARM_3
+      000323 AE 17            [24]  833 	mov	r6,(_Update_Expression_PARM_3 + 1)
+      000325 AF 18            [24]  834 	mov	r7,(_Update_Expression_PARM_3 + 2)
+      000327 8D 82            [24]  835 	mov	dpl,r5
+      000329 8E 83            [24]  836 	mov	dph,r6
+      00032B 8F F0            [24]  837 	mov	b,r7
+      00032D 12 0A 51         [24]  838 	lcall	__gptrget
+      000330 FD               [12]  839 	mov	r5,a
+      000331 BD 24 02         [24]  840 	cjne	r5,#0x24,00214$
+      000334 80 16            [24]  841 	sjmp	00108$
+      000336                        842 00214$:
+                                    843 ;	Computer.c:64: *negative_num2 = 1;
+      000336 AD 1C            [24]  844 	mov	r5,_Update_Expression_PARM_5
+      000338 AE 1D            [24]  845 	mov	r6,(_Update_Expression_PARM_5 + 1)
+      00033A AF 1E            [24]  846 	mov	r7,(_Update_Expression_PARM_5 + 2)
+      00033C 8D 82            [24]  847 	mov	dpl,r5
+      00033E 8E 83            [24]  848 	mov	dph,r6
+      000340 8F F0            [24]  849 	mov	b,r7
+      000342 74 01            [12]  850 	mov	a,#0x01
+      000344 12 09 0E         [24]  851 	lcall	__gptrput
+      000347 A3               [24]  852 	inc	dptr
+      000348 E4               [12]  853 	clr	a
+      000349 02 09 0E         [24]  854 	ljmp	__gptrput
+      00034C                        855 00108$:
+                                    856 ;	Computer.c:66: else if (buffer[0] == 11)
+      00034C BC 0B 02         [24]  857 	cjne	r4,#0x0b,00125$
+                                    858 ;	Computer.c:68: cal_flag = 1;
+                                    859 ;	assignBit
+      00034F D2 00            [12]  860 	setb	_cal_flag
+      000351                        861 00125$:
+                                    862 ;	Computer.c:70: }
+      000351 22               [24]  863 	ret
+                                    864 ;------------------------------------------------------------
+                                    865 ;Allocation info for local variables in function 'Calculate'
+                                    866 ;------------------------------------------------------------
+                                    867 ;num2                      Allocated with name '_Calculate_PARM_2'
+                                    868 ;op                        Allocated with name '_Calculate_PARM_3'
+                                    869 ;negative_num1             Allocated with name '_Calculate_PARM_4'
+                                    870 ;negative_num2             Allocated with name '_Calculate_PARM_5'
+                                    871 ;ans                       Allocated with name '_Calculate_PARM_6'
+                                    872 ;num1                      Allocated to registers r6 r7 
+                                    873 ;sloc0                     Allocated with name '_Calculate_sloc0_1_0'
+                                    874 ;------------------------------------------------------------
+                                    875 ;	Computer.c:73: void Calculate(int num1, int num2, char op, int negative_num1, int negative_num2, int *ans)
+                                    876 ;	-----------------------------------------
+                                    877 ;	 function Calculate
+                                    878 ;	-----------------------------------------
+      000352                        879 _Calculate:
+      000352 AE 82            [24]  880 	mov	r6, dpl
+      000354 AF 83            [24]  881 	mov	r7, dph
+                                    882 ;	Computer.c:75: switch (op)
+      000356 74 0C            [12]  883 	mov	a,#0x0c
+      000358 B5 27 02         [24]  884 	cjne	a,_Calculate_PARM_3,00132$
+      00035B 80 18            [24]  885 	sjmp	00101$
+      00035D                        886 00132$:
+      00035D 74 0D            [12]  887 	mov	a,#0x0d
+      00035F B5 27 02         [24]  888 	cjne	a,_Calculate_PARM_3,00133$
+      000362 80 6A            [24]  889 	sjmp	00102$
+      000364                        890 00133$:
+      000364 74 0E            [12]  891 	mov	a,#0x0e
+      000366 B5 27 03         [24]  892 	cjne	a,_Calculate_PARM_3,00134$
+      000369 02 04 28         [24]  893 	ljmp	00103$
+      00036C                        894 00134$:
+      00036C 74 0F            [12]  895 	mov	a,#0x0f
+      00036E B5 27 03         [24]  896 	cjne	a,_Calculate_PARM_3,00135$
+      000371 02 04 8C         [24]  897 	ljmp	00104$
+      000374                        898 00135$:
+      000374 22               [24]  899 	ret
+                                    900 ;	Computer.c:77: case 12:
+      000375                        901 00101$:
+                                    902 ;	Computer.c:78: *ans = (((-1) * negative_num1) * num1) + (((-1) * negative_num2) * num2);
+      000375 AB 2C            [24]  903 	mov	r3,_Calculate_PARM_6
+      000377 AC 2D            [24]  904 	mov	r4,(_Calculate_PARM_6 + 1)
+      000379 AD 2E            [24]  905 	mov	r5,(_Calculate_PARM_6 + 2)
+      00037B C3               [12]  906 	clr	c
+      00037C E4               [12]  907 	clr	a
+      00037D 95 28            [12]  908 	subb	a,_Calculate_PARM_4
+      00037F F5 82            [12]  909 	mov	dpl,a
+      000381 E4               [12]  910 	clr	a
+      000382 95 29            [12]  911 	subb	a,(_Calculate_PARM_4 + 1)
+      000384 F5 83            [12]  912 	mov	dph,a
+      000386 8E 66            [24]  913 	mov	__mulint_PARM_2,r6
+      000388 8F 67            [24]  914 	mov	(__mulint_PARM_2 + 1),r7
+      00038A C0 05            [24]  915 	push	ar5
+      00038C C0 04            [24]  916 	push	ar4
+      00038E C0 03            [24]  917 	push	ar3
+      000390 12 09 29         [24]  918 	lcall	__mulint
+      000393 85 82 2F         [24]  919 	mov	_Calculate_sloc0_1_0,dpl
+      000396 85 83 30         [24]  920 	mov	(_Calculate_sloc0_1_0 + 1),dph
+      000399 C3               [12]  921 	clr	c
+      00039A E4               [12]  922 	clr	a
+      00039B 95 2A            [12]  923 	subb	a,_Calculate_PARM_5
+      00039D F5 82            [12]  924 	mov	dpl,a
+      00039F E4               [12]  925 	clr	a
+      0003A0 95 2B            [12]  926 	subb	a,(_Calculate_PARM_5 + 1)
+      0003A2 F5 83            [12]  927 	mov	dph,a
+      0003A4 85 25 66         [24]  928 	mov	__mulint_PARM_2,_Calculate_PARM_2
+      0003A7 85 26 67         [24]  929 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
+      0003AA 12 09 29         [24]  930 	lcall	__mulint
+      0003AD A8 82            [24]  931 	mov	r0, dpl
+      0003AF AA 83            [24]  932 	mov	r2, dph
+      0003B1 D0 03            [24]  933 	pop	ar3
+      0003B3 D0 04            [24]  934 	pop	ar4
+      0003B5 D0 05            [24]  935 	pop	ar5
+      0003B7 E8               [12]  936 	mov	a,r0
+      0003B8 25 2F            [12]  937 	add	a, _Calculate_sloc0_1_0
+      0003BA F8               [12]  938 	mov	r0,a
+      0003BB EA               [12]  939 	mov	a,r2
+      0003BC 35 30            [12]  940 	addc	a, (_Calculate_sloc0_1_0 + 1)
+      0003BE FA               [12]  941 	mov	r2,a
+      0003BF 8B 82            [24]  942 	mov	dpl,r3
+      0003C1 8C 83            [24]  943 	mov	dph,r4
+      0003C3 8D F0            [24]  944 	mov	b,r5
+      0003C5 E8               [12]  945 	mov	a,r0
+      0003C6 12 09 0E         [24]  946 	lcall	__gptrput
+      0003C9 A3               [24]  947 	inc	dptr
+      0003CA EA               [12]  948 	mov	a,r2
+                                    949 ;	Computer.c:79: break;
+      0003CB 02 09 0E         [24]  950 	ljmp	__gptrput
+                                    951 ;	Computer.c:80: case 13:
+      0003CE                        952 00102$:
+                                    953 ;	Computer.c:81: *ans = (((-1) * negative_num1) * num1) - (((-1) * negative_num2) * num2);
+      0003CE AB 2C            [24]  954 	mov	r3,_Calculate_PARM_6
+      0003D0 AC 2D            [24]  955 	mov	r4,(_Calculate_PARM_6 + 1)
+      0003D2 AD 2E            [24]  956 	mov	r5,(_Calculate_PARM_6 + 2)
+      0003D4 C3               [12]  957 	clr	c
+      0003D5 E4               [12]  958 	clr	a
+      0003D6 95 28            [12]  959 	subb	a,_Calculate_PARM_4
+      0003D8 F5 82            [12]  960 	mov	dpl,a
+      0003DA E4               [12]  961 	clr	a
+      0003DB 95 29            [12]  962 	subb	a,(_Calculate_PARM_4 + 1)
+      0003DD F5 83            [12]  963 	mov	dph,a
+      0003DF 8E 66            [24]  964 	mov	__mulint_PARM_2,r6
+      0003E1 8F 67            [24]  965 	mov	(__mulint_PARM_2 + 1),r7
+      0003E3 C0 05            [24]  966 	push	ar5
+      0003E5 C0 04            [24]  967 	push	ar4
+      0003E7 C0 03            [24]  968 	push	ar3
+      0003E9 12 09 29         [24]  969 	lcall	__mulint
+      0003EC 85 82 2F         [24]  970 	mov	_Calculate_sloc0_1_0,dpl
+      0003EF 85 83 30         [24]  971 	mov	(_Calculate_sloc0_1_0 + 1),dph
+      0003F2 C3               [12]  972 	clr	c
+      0003F3 E4               [12]  973 	clr	a
+      0003F4 95 2A            [12]  974 	subb	a,_Calculate_PARM_5
+      0003F6 F5 82            [12]  975 	mov	dpl,a
+      0003F8 E4               [12]  976 	clr	a
+      0003F9 95 2B            [12]  977 	subb	a,(_Calculate_PARM_5 + 1)
+      0003FB F5 83            [12]  978 	mov	dph,a
+      0003FD 85 25 66         [24]  979 	mov	__mulint_PARM_2,_Calculate_PARM_2
+      000400 85 26 67         [24]  980 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
+      000403 12 09 29         [24]  981 	lcall	__mulint
+      000406 A8 82            [24]  982 	mov	r0, dpl
+      000408 AA 83            [24]  983 	mov	r2, dph
+      00040A D0 03            [24]  984 	pop	ar3
+      00040C D0 04            [24]  985 	pop	ar4
+      00040E D0 05            [24]  986 	pop	ar5
+      000410 E5 2F            [12]  987 	mov	a,_Calculate_sloc0_1_0
+      000412 C3               [12]  988 	clr	c
+      000413 98               [12]  989 	subb	a,r0
+      000414 F8               [12]  990 	mov	r0,a
+      000415 E5 30            [12]  991 	mov	a,(_Calculate_sloc0_1_0 + 1)
+      000417 9A               [12]  992 	subb	a,r2
+      000418 FA               [12]  993 	mov	r2,a
+      000419 8B 82            [24]  994 	mov	dpl,r3
+      00041B 8C 83            [24]  995 	mov	dph,r4
+      00041D 8D F0            [24]  996 	mov	b,r5
+      00041F E8               [12]  997 	mov	a,r0
+      000420 12 09 0E         [24]  998 	lcall	__gptrput
+      000423 A3               [24]  999 	inc	dptr
+      000424 EA               [12] 1000 	mov	a,r2
+                                   1001 ;	Computer.c:82: break;
+      000425 02 09 0E         [24] 1002 	ljmp	__gptrput
+                                   1003 ;	Computer.c:83: case 14:
+      000428                       1004 00103$:
+                                   1005 ;	Computer.c:84: *ans = (((-1) * negative_num1) * num1) * (((-1) * negative_num2) * num2);
+      000428 AB 2C            [24] 1006 	mov	r3,_Calculate_PARM_6
+      00042A AC 2D            [24] 1007 	mov	r4,(_Calculate_PARM_6 + 1)
+      00042C AD 2E            [24] 1008 	mov	r5,(_Calculate_PARM_6 + 2)
+      00042E C3               [12] 1009 	clr	c
+      00042F E4               [12] 1010 	clr	a
+      000430 95 28            [12] 1011 	subb	a,_Calculate_PARM_4
+      000432 F5 82            [12] 1012 	mov	dpl,a
+      000434 E4               [12] 1013 	clr	a
+      000435 95 29            [12] 1014 	subb	a,(_Calculate_PARM_4 + 1)
+      000437 F5 83            [12] 1015 	mov	dph,a
+      000439 8E 66            [24] 1016 	mov	__mulint_PARM_2,r6
+      00043B 8F 67            [24] 1017 	mov	(__mulint_PARM_2 + 1),r7
+      00043D C0 05            [24] 1018 	push	ar5
+      00043F C0 04            [24] 1019 	push	ar4
+      000441 C0 03            [24] 1020 	push	ar3
+      000443 12 09 29         [24] 1021 	lcall	__mulint
+      000446 A9 82            [24] 1022 	mov	r1, dpl
+      000448 AA 83            [24] 1023 	mov	r2, dph
+      00044A C3               [12] 1024 	clr	c
+      00044B E4               [12] 1025 	clr	a
+      00044C 95 2A            [12] 1026 	subb	a,_Calculate_PARM_5
+      00044E F5 82            [12] 1027 	mov	dpl,a
+      000450 E4               [12] 1028 	clr	a
+      000451 95 2B            [12] 1029 	subb	a,(_Calculate_PARM_5 + 1)
+      000453 F5 83            [12] 1030 	mov	dph,a
+      000455 85 25 66         [24] 1031 	mov	__mulint_PARM_2,_Calculate_PARM_2
+      000458 85 26 67         [24] 1032 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
+      00045B C0 02            [24] 1033 	push	ar2
+      00045D C0 01            [24] 1034 	push	ar1
+      00045F 12 09 29         [24] 1035 	lcall	__mulint
+      000462 85 82 66         [24] 1036 	mov	__mulint_PARM_2,dpl
+      000465 85 83 67         [24] 1037 	mov	(__mulint_PARM_2 + 1),dph
+      000468 D0 01            [24] 1038 	pop	ar1
+      00046A D0 02            [24] 1039 	pop	ar2
+      00046C 89 82            [24] 1040 	mov	dpl, r1
+      00046E 8A 83            [24] 1041 	mov	dph, r2
+      000470 12 09 29         [24] 1042 	lcall	__mulint
+      000473 A9 82            [24] 1043 	mov	r1, dpl
+      000475 AA 83            [24] 1044 	mov	r2, dph
+      000477 D0 03            [24] 1045 	pop	ar3
+      000479 D0 04            [24] 1046 	pop	ar4
+      00047B D0 05            [24] 1047 	pop	ar5
+      00047D 8B 82            [24] 1048 	mov	dpl,r3
+      00047F 8C 83            [24] 1049 	mov	dph,r4
+      000481 8D F0            [24] 1050 	mov	b,r5
+      000483 E9               [12] 1051 	mov	a,r1
+      000484 12 09 0E         [24] 1052 	lcall	__gptrput
+      000487 A3               [24] 1053 	inc	dptr
+      000488 EA               [12] 1054 	mov	a,r2
+                                   1055 ;	Computer.c:85: break;
+      000489 02 09 0E         [24] 1056 	ljmp	__gptrput
+                                   1057 ;	Computer.c:86: case 15:
+      00048C                       1058 00104$:
+                                   1059 ;	Computer.c:87: *ans = (((-1) * negative_num1) * num1) / (((-1) * negative_num2) * num2);
+      00048C AB 2C            [24] 1060 	mov	r3,_Calculate_PARM_6
+      00048E AC 2D            [24] 1061 	mov	r4,(_Calculate_PARM_6 + 1)
+      000490 AD 2E            [24] 1062 	mov	r5,(_Calculate_PARM_6 + 2)
+      000492 C3               [12] 1063 	clr	c
+      000493 E4               [12] 1064 	clr	a
+      000494 95 28            [12] 1065 	subb	a,_Calculate_PARM_4
+      000496 F5 82            [12] 1066 	mov	dpl,a
+      000498 E4               [12] 1067 	clr	a
+      000499 95 29            [12] 1068 	subb	a,(_Calculate_PARM_4 + 1)
+      00049B F5 83            [12] 1069 	mov	dph,a
+      00049D 8E 66            [24] 1070 	mov	__mulint_PARM_2,r6
+      00049F 8F 67            [24] 1071 	mov	(__mulint_PARM_2 + 1),r7
+      0004A1 C0 05            [24] 1072 	push	ar5
+      0004A3 C0 04            [24] 1073 	push	ar4
+      0004A5 C0 03            [24] 1074 	push	ar3
+      0004A7 12 09 29         [24] 1075 	lcall	__mulint
+      0004AA AE 82            [24] 1076 	mov	r6, dpl
+      0004AC AF 83            [24] 1077 	mov	r7, dph
+      0004AE D0 03            [24] 1078 	pop	ar3
+      0004B0 D0 04            [24] 1079 	pop	ar4
+      0004B2 D0 05            [24] 1080 	pop	ar5
+      0004B4 C3               [12] 1081 	clr	c
+      0004B5 E4               [12] 1082 	clr	a
+      0004B6 95 2A            [12] 1083 	subb	a,_Calculate_PARM_5
+      0004B8 F5 82            [12] 1084 	mov	dpl,a
+      0004BA E4               [12] 1085 	clr	a
+      0004BB 95 2B            [12] 1086 	subb	a,(_Calculate_PARM_5 + 1)
+      0004BD F5 83            [12] 1087 	mov	dph,a
+      0004BF 85 25 66         [24] 1088 	mov	__mulint_PARM_2,_Calculate_PARM_2
+      0004C2 85 26 67         [24] 1089 	mov	(__mulint_PARM_2 + 1),(_Calculate_PARM_2 + 1)
+      0004C5 C0 07            [24] 1090 	push	ar7
+      0004C7 C0 06            [24] 1091 	push	ar6
+      0004C9 C0 05            [24] 1092 	push	ar5
+      0004CB C0 04            [24] 1093 	push	ar4
+      0004CD C0 03            [24] 1094 	push	ar3
+      0004CF 12 09 29         [24] 1095 	lcall	__mulint
+      0004D2 85 82 66         [24] 1096 	mov	__divsint_PARM_2,dpl
+      0004D5 85 83 67         [24] 1097 	mov	(__divsint_PARM_2 + 1),dph
+      0004D8 D0 03            [24] 1098 	pop	ar3
+      0004DA D0 04            [24] 1099 	pop	ar4
+      0004DC D0 05            [24] 1100 	pop	ar5
+      0004DE D0 06            [24] 1101 	pop	ar6
+      0004E0 D0 07            [24] 1102 	pop	ar7
+      0004E2 8E 82            [24] 1103 	mov	dpl, r6
+      0004E4 8F 83            [24] 1104 	mov	dph, r7
+      0004E6 C0 05            [24] 1105 	push	ar5
+      0004E8 C0 04            [24] 1106 	push	ar4
+      0004EA C0 03            [24] 1107 	push	ar3
+      0004EC 12 0A A3         [24] 1108 	lcall	__divsint
+      0004EF AE 82            [24] 1109 	mov	r6, dpl
+      0004F1 AF 83            [24] 1110 	mov	r7, dph
+      0004F3 D0 03            [24] 1111 	pop	ar3
+      0004F5 D0 04            [24] 1112 	pop	ar4
+      0004F7 D0 05            [24] 1113 	pop	ar5
+      0004F9 8B 82            [24] 1114 	mov	dpl,r3
+      0004FB 8C 83            [24] 1115 	mov	dph,r4
+      0004FD 8D F0            [24] 1116 	mov	b,r5
+      0004FF EE               [12] 1117 	mov	a,r6
+      000500 12 09 0E         [24] 1118 	lcall	__gptrput
+      000503 A3               [24] 1119 	inc	dptr
+      000504 EF               [12] 1120 	mov	a,r7
+                                   1121 ;	Computer.c:89: }
+                                   1122 ;	Computer.c:90: }
+      000505 02 09 0E         [24] 1123 	ljmp	__gptrput
+                                   1124 ;------------------------------------------------------------
+                                   1125 ;Allocation info for local variables in function 'Keypad_Debounce_init'
+                                   1126 ;------------------------------------------------------------
+                                   1127 ;	Computer.c:93: void Keypad_Debounce_init(void)
+                                   1128 ;	-----------------------------------------
+                                   1129 ;	 function Keypad_Debounce_init
+                                   1130 ;	-----------------------------------------
+      000508                       1131 _Keypad_Debounce_init:
+                                   1132 ;	Computer.c:95: IE = 0x8a;
+      000508 75 A8 8A         [24] 1133 	mov	_IE,#0x8a
+                                   1134 ;	Computer.c:97: TMOD = 0x01;
+      00050B 75 89 01         [24] 1135 	mov	_TMOD,#0x01
+                                   1136 ;	Computer.c:99: }
+      00050E 22               [24] 1137 	ret
+                                   1138 ;------------------------------------------------------------
+                                   1139 ;Allocation info for local variables in function 'Keypad_Debounce'
+                                   1140 ;------------------------------------------------------------
+                                   1141 ;	Computer.c:101: void Keypad_Debounce(void) __interrupt(1) __using(1)
+                                   1142 ;	-----------------------------------------
+                                   1143 ;	 function Keypad_Debounce
+                                   1144 ;	-----------------------------------------
+      00050F                       1145 _Keypad_Debounce:
+                           00000F  1146 	ar7 = 0x0f
+                           00000E  1147 	ar6 = 0x0e
+                           00000D  1148 	ar5 = 0x0d
+                           00000C  1149 	ar4 = 0x0c
+                           00000B  1150 	ar3 = 0x0b
+                           00000A  1151 	ar2 = 0x0a
+                           000009  1152 	ar1 = 0x09
+                           000008  1153 	ar0 = 0x08
+      00050F C0 E0            [24] 1154 	push	acc
+      000511 C0 D0            [24] 1155 	push	psw
+                                   1156 ;	Computer.c:103: TH0 = (65536 - 50000) / 256;
+      000513 75 8C 3C         [24] 1157 	mov	_TH0,#0x3c
+                                   1158 ;	Computer.c:104: TL0 = (65536 - 50000) % 256;
+      000516 75 8A B0         [24] 1159 	mov	_TL0,#0xb0
+                                   1160 ;	Computer.c:105: timer_count++;
+      000519 05 11            [12] 1161 	inc	_timer_count
+                                   1162 ;	Computer.c:106: if (timer_count == 20)
+      00051B 74 14            [12] 1163 	mov	a,#0x14
+      00051D B5 11 09         [24] 1164 	cjne	a,_timer_count,00103$
+                                   1165 ;	Computer.c:108: Keypad_flag = 1;
+                                   1166 ;	assignBit
+      000520 D2 01            [12] 1167 	setb	_Keypad_flag
+                                   1168 ;	Computer.c:109: TF0 = 0;
+                                   1169 ;	assignBit
+      000522 C2 8D            [12] 1170 	clr	_TF0
+                                   1171 ;	Computer.c:111: TR0 = 0;
+                                   1172 ;	assignBit
+      000524 C2 8C            [12] 1173 	clr	_TR0
+                                   1174 ;	Computer.c:112: timer_count = 0;
+      000526 75 11 00         [24] 1175 	mov	_timer_count,#0x00
+      000529                       1176 00103$:
+                                   1177 ;	Computer.c:114: }
+      000529 D0 D0            [24] 1178 	pop	psw
+      00052B D0 E0            [24] 1179 	pop	acc
+      00052D 32               [24] 1180 	reti
+                                   1181 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                   1182 ;	eliminated unneeded push/pop dpl
+                                   1183 ;	eliminated unneeded push/pop dph
+                                   1184 ;	eliminated unneeded push/pop b
                                    1185 ;------------------------------------------------------------
-                                   1186 ;	Computer.c:127: void main(void)
-                                   1187 ;	-----------------------------------------
-                                   1188 ;	 function main
-                                   1189 ;	-----------------------------------------
-      0004E8                       1190 _main:
-                           000007  1191 	ar7 = 0x07
-                           000006  1192 	ar6 = 0x06
-                           000005  1193 	ar5 = 0x05
-                           000004  1194 	ar4 = 0x04
-                           000003  1195 	ar3 = 0x03
-                           000002  1196 	ar2 = 0x02
-                           000001  1197 	ar1 = 0x01
-                           000000  1198 	ar0 = 0x00
-                                   1199 ;	Computer.c:129: int num_1 = 0, num_2 = 0, ans = 0;
-      0004E8 E4               [12] 1200 	clr	a
-      0004E9 F5 31            [12] 1201 	mov	_main_num_1_10000_35,a
-      0004EB F5 32            [12] 1202 	mov	(_main_num_1_10000_35 + 1),a
-      0004ED F5 33            [12] 1203 	mov	_main_num_2_10000_35,a
-      0004EF F5 34            [12] 1204 	mov	(_main_num_2_10000_35 + 1),a
-      0004F1 F5 35            [12] 1205 	mov	_main_ans_10000_35,a
-      0004F3 F5 36            [12] 1206 	mov	(_main_ans_10000_35 + 1),a
-                                   1207 ;	Computer.c:130: char op = '$';
-      0004F5 75 37 24         [24] 1208 	mov	_main_op_10000_35,#0x24
-                                   1209 ;	Computer.c:132: int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
-      0004F8 75 38 FF         [24] 1210 	mov	_main_negative_num1_10000_35,#0xff
-      0004FB 75 39 FF         [24] 1211 	mov	(_main_negative_num1_10000_35 + 1),#0xff
-      0004FE 75 3A FF         [24] 1212 	mov	_main_negative_num2_10000_35,#0xff
-      000501 75 3B FF         [24] 1213 	mov	(_main_negative_num2_10000_35 + 1),#0xff
-      000504 F5 3C            [12] 1214 	mov	_main_negative_ans_10000_35,a
-      000506 F5 3D            [12] 1215 	mov	(_main_negative_ans_10000_35 + 1),a
-                                   1216 ;	Computer.c:133: Keypad_Debounce_init();
-      000508 12 04 C2         [24] 1217 	lcall	_Keypad_Debounce_init
-                                   1218 ;	Computer.c:135: while (1)
-      00050B                       1219 00123$:
-                                   1220 ;	Computer.c:137: TR0 = 1;
-                                   1221 ;	assignBit
-      00050B D2 8C            [12] 1222 	setb	_TR0
-                                   1223 ;	Computer.c:139: number = ReadKeypad();
-      00050D 12 09 67         [24] 1224 	lcall	_ReadKeypad
-                                   1225 ;	Computer.c:140: if (number >= 0 && number <= 15)
-      000510 E5 82            [12] 1226 	mov	a,dpl
-      000512 FF               [12] 1227 	mov	r7,a
-      000513 24 F0            [12] 1228 	add	a,#0xff - 0x0f
-      000515 50 03            [24] 1229 	jnc	00245$
-      000517 02 06 E9         [24] 1230 	ljmp	00120$
-      00051A                       1231 00245$:
-                                   1232 ;	Computer.c:144: if (Keypad_flag == 1)
-      00051A 20 01 03         [24] 1233 	jb	_Keypad_flag,00246$
-      00051D 02 06 E9         [24] 1234 	ljmp	00120$
-      000520                       1235 00246$:
-                                   1236 ;	Computer.c:146: if (old_number == 10)
-      000520 BF 0A 3C         [24] 1237 	cjne	r7,#0x0a,00115$
-                                   1238 ;	Computer.c:148: char count = Counter(start_count[history_count]);
-      000523 78 E7            [12] 1239 	mov	r0,#_history_count
-      000525 E6               [12] 1240 	mov	a,@r0
-      000526 24 B5            [12] 1241 	add	a, #_start_count
-      000528 F9               [12] 1242 	mov	r1,a
-      000529 87 82            [24] 1243 	mov	dpl,@r1
-      00052B 12 08 7C         [24] 1244 	lcall	_Counter
-      00052E AE 82            [24] 1245 	mov	r6, dpl
-                                   1246 ;	Computer.c:149: for (char m = 0; m < 100; m++)
-      000530 7D 00            [12] 1247 	mov	r5,#0x00
-      000532                       1248 00126$:
-      000532 BD 64 00         [24] 1249 	cjne	r5,#0x64,00249$
-      000535                       1250 00249$:
-      000535 50 1E            [24] 1251 	jnc	00101$
-                                   1252 ;	Computer.c:151: Show_Ans(history, start, start+count);
-      000537 78 E8            [12] 1253 	mov	r0,#_start
-      000539 EE               [12] 1254 	mov	a,r6
-      00053A 26               [12] 1255 	add	a, @r0
-      00053B F5 61            [12] 1256 	mov	_Show_Ans_PARM_3,a
-      00053D 78 E8            [12] 1257 	mov	r0,#_start
-      00053F 86 60            [24] 1258 	mov	_Show_Ans_PARM_2,@r0
-      000541 90 00 83         [24] 1259 	mov	dptr,#_history
-      000544 75 F0 40         [24] 1260 	mov	b, #0x40
-      000547 C0 06            [24] 1261 	push	ar6
-      000549 C0 05            [24] 1262 	push	ar5
-      00054B 12 08 05         [24] 1263 	lcall	_Show_Ans
-      00054E D0 05            [24] 1264 	pop	ar5
-      000550 D0 06            [24] 1265 	pop	ar6
-                                   1266 ;	Computer.c:149: for (char m = 0; m < 100; m++)
-      000552 0D               [12] 1267 	inc	r5
-      000553 80 DD            [24] 1268 	sjmp	00126$
-      000555                       1269 00101$:
-                                   1270 ;	Computer.c:153: start = count;
-      000555 78 E8            [12] 1271 	mov	r0,#_start
-      000557 A6 06            [24] 1272 	mov	@r0,ar6
-                                   1273 ;	Computer.c:154: history_count++;
-      000559 78 E7            [12] 1274 	mov	r0,#_history_count
-      00055B 06               [12] 1275 	inc	@r0
-      00055C 02 06 E9         [24] 1276 	ljmp	00120$
-      00055F                       1277 00115$:
-                                   1278 ;	Computer.c:159: flag <<= 1;
-      00055F E5 10            [12] 1279 	mov	a,_flag
-      000561 25 10            [12] 1280 	add	a,_flag
-      000563 F5 10            [12] 1281 	mov	_flag,a
-                                   1282 ;	Computer.c:160: flag |= 0x01;
-      000565 43 10 01         [24] 1283 	orl	_flag,#0x01
-                                   1284 ;	Computer.c:162: SaveNumber(old_number);
-      000568 8F 82            [24] 1285 	mov	dpl, r7
-      00056A 12 01 5A         [24] 1286 	lcall	_SaveNumber
-                                   1287 ;	Computer.c:164: Update_Expression(&num_1, &num_2, &op, &negative_num1, &negative_num2);
-      00056D 75 13 33         [24] 1288 	mov	_Update_Expression_PARM_2,#_main_num_2_10000_35
-      000570 75 14 00         [24] 1289 	mov	(_Update_Expression_PARM_2 + 1),#0x00
-      000573 75 15 40         [24] 1290 	mov	(_Update_Expression_PARM_2 + 2),#0x40
-      000576 75 16 37         [24] 1291 	mov	_Update_Expression_PARM_3,#_main_op_10000_35
-      000579 75 17 00         [24] 1292 	mov	(_Update_Expression_PARM_3 + 1),#0x00
-      00057C 75 18 40         [24] 1293 	mov	(_Update_Expression_PARM_3 + 2),#0x40
-      00057F 75 19 38         [24] 1294 	mov	_Update_Expression_PARM_4,#_main_negative_num1_10000_35
-      000582 75 1A 00         [24] 1295 	mov	(_Update_Expression_PARM_4 + 1),#0x00
-      000585 75 1B 40         [24] 1296 	mov	(_Update_Expression_PARM_4 + 2),#0x40
-      000588 75 1C 3A         [24] 1297 	mov	_Update_Expression_PARM_5,#_main_negative_num2_10000_35
-      00058B 75 1D 00         [24] 1298 	mov	(_Update_Expression_PARM_5 + 1),#0x00
-      00058E 75 1E 40         [24] 1299 	mov	(_Update_Expression_PARM_5 + 2),#0x40
-      000591 90 00 31         [24] 1300 	mov	dptr,#_main_num_1_10000_35
-      000594 75 F0 40         [24] 1301 	mov	b, #0x40
-      000597 12 01 C1         [24] 1302 	lcall	_Update_Expression
-                                   1303 ;	Computer.c:166: if (cal_flag == 1)
-      00059A 20 00 03         [24] 1304 	jb	_cal_flag,00251$
-      00059D 02 06 E7         [24] 1305 	ljmp	00113$
-      0005A0                       1306 00251$:
-                                   1307 ;	Computer.c:169: Calculate(num_1, num_2, op, negative_num1, negative_num2, &ans);
-      0005A0 75 2C 35         [24] 1308 	mov	_Calculate_PARM_6,#_main_ans_10000_35
-      0005A3 75 2D 00         [24] 1309 	mov	(_Calculate_PARM_6 + 1),#0x00
-      0005A6 75 2E 40         [24] 1310 	mov	(_Calculate_PARM_6 + 2),#0x40
-      0005A9 85 33 25         [24] 1311 	mov	_Calculate_PARM_2,_main_num_2_10000_35
-      0005AC 85 34 26         [24] 1312 	mov	(_Calculate_PARM_2 + 1),(_main_num_2_10000_35 + 1)
-      0005AF 85 37 27         [24] 1313 	mov	_Calculate_PARM_3,_main_op_10000_35
-      0005B2 85 38 28         [24] 1314 	mov	_Calculate_PARM_4,_main_negative_num1_10000_35
-      0005B5 85 39 29         [24] 1315 	mov	(_Calculate_PARM_4 + 1),(_main_negative_num1_10000_35 + 1)
-      0005B8 85 3A 2A         [24] 1316 	mov	_Calculate_PARM_5,_main_negative_num2_10000_35
-      0005BB 85 3B 2B         [24] 1317 	mov	(_Calculate_PARM_5 + 1),(_main_negative_num2_10000_35 + 1)
-      0005BE 85 31 82         [24] 1318 	mov	dpl, _main_num_1_10000_35
-      0005C1 85 32 83         [24] 1319 	mov	dph, (_main_num_1_10000_35 + 1)
-      0005C4 12 03 0C         [24] 1320 	lcall	_Calculate
-                                   1321 ;	Computer.c:171: if (ans < 0)
-      0005C7 E5 36            [12] 1322 	mov	a,(_main_ans_10000_35 + 1)
-      0005C9 30 E7 11         [24] 1323 	jnb	acc.7,00103$
-                                   1324 ;	Computer.c:173: ans = -ans;
-      0005CC C3               [12] 1325 	clr	c
-      0005CD E4               [12] 1326 	clr	a
-      0005CE 95 35            [12] 1327 	subb	a,_main_ans_10000_35
-      0005D0 F5 35            [12] 1328 	mov	_main_ans_10000_35,a
-      0005D2 E4               [12] 1329 	clr	a
-      0005D3 95 36            [12] 1330 	subb	a,(_main_ans_10000_35 + 1)
-      0005D5 F5 36            [12] 1331 	mov	(_main_ans_10000_35 + 1),a
-                                   1332 ;	Computer.c:174: negative_ans = 1;
-      0005D7 75 3C 01         [24] 1333 	mov	_main_negative_ans_10000_35,#0x01
-      0005DA 75 3D 00         [24] 1334 	mov	(_main_negative_ans_10000_35 + 1),#0x00
-      0005DD                       1335 00103$:
-                                   1336 ;	Computer.c:177: flag = 0;
-      0005DD 75 10 00         [24] 1337 	mov	_flag,#0x00
-                                   1338 ;	Computer.c:178: for (char f = 0; f < 8; f++)
-      0005E0 7F 00            [12] 1339 	mov	r7,#0x00
-      0005E2                       1340 00129$:
-      0005E2 BF 08 00         [24] 1341 	cjne	r7,#0x08,00253$
-      0005E5                       1342 00253$:
-      0005E5 50 09            [24] 1343 	jnc	00148$
-                                   1344 ;	Computer.c:180: buffer[f] = -1;
-      0005E7 EF               [12] 1345 	mov	a,r7
-      0005E8 24 7B            [12] 1346 	add	a, #_buffer
-      0005EA F8               [12] 1347 	mov	r0,a
-      0005EB 76 FF            [12] 1348 	mov	@r0,#0xff
-                                   1349 ;	Computer.c:178: for (char f = 0; f < 8; f++)
-      0005ED 0F               [12] 1350 	inc	r7
-                                   1351 ;	Computer.c:183: do
-      0005EE 80 F2            [24] 1352 	sjmp	00129$
-      0005F0                       1353 00148$:
-      0005F0                       1354 00105$:
-                                   1355 ;	Computer.c:185: SaveAns(ans % 10, history);
-      0005F0 75 69 0A         [24] 1356 	mov	__modsint_PARM_2,#0x0a
-      0005F3 75 6A 00         [24] 1357 	mov	(__modsint_PARM_2 + 1),#0x00
-      0005F6 85 35 82         [24] 1358 	mov	dpl, _main_ans_10000_35
-      0005F9 85 36 83         [24] 1359 	mov	dph, (_main_ans_10000_35 + 1)
-      0005FC 12 0A 18         [24] 1360 	lcall	__modsint
-      0005FF 75 69 83         [24] 1361 	mov	_SaveAns_PARM_2,#_history
-      000602 75 6A 00         [24] 1362 	mov	(_SaveAns_PARM_2 + 1),#0x00
-      000605 75 6B 40         [24] 1363 	mov	(_SaveAns_PARM_2 + 2),#0x40
-      000608 12 01 78         [24] 1364 	lcall	_SaveAns
-                                   1365 ;	Computer.c:186: SaveNumber(ans % 10);
-      00060B 75 69 0A         [24] 1366 	mov	__modsint_PARM_2,#0x0a
-      00060E 75 6A 00         [24] 1367 	mov	(__modsint_PARM_2 + 1),#0x00
-      000611 85 35 82         [24] 1368 	mov	dpl, _main_ans_10000_35
-      000614 85 36 83         [24] 1369 	mov	dph, (_main_ans_10000_35 + 1)
-      000617 12 0A 18         [24] 1370 	lcall	__modsint
-      00061A 12 01 5A         [24] 1371 	lcall	_SaveNumber
-                                   1372 ;	Computer.c:187: ans /= 10;
-      00061D 75 69 0A         [24] 1373 	mov	__divsint_PARM_2,#0x0a
-      000620 75 6A 00         [24] 1374 	mov	(__divsint_PARM_2 + 1),#0x00
-      000623 85 35 82         [24] 1375 	mov	dpl, _main_ans_10000_35
-      000626 85 36 83         [24] 1376 	mov	dph, (_main_ans_10000_35 + 1)
-      000629 12 0A 4E         [24] 1377 	lcall	__divsint
-      00062C 85 82 35         [24] 1378 	mov	_main_ans_10000_35,dpl
-      00062F 85 83 36         [24] 1379 	mov	(_main_ans_10000_35 + 1),dph
-                                   1380 ;	Computer.c:188: flag <<= 1;
-      000632 E5 10            [12] 1381 	mov	a,_flag
-      000634 25 10            [12] 1382 	add	a,_flag
-      000636 F5 10            [12] 1383 	mov	_flag,a
-                                   1384 ;	Computer.c:189: flag |= 0x01;
-      000638 43 10 01         [24] 1385 	orl	_flag,#0x01
-                                   1386 ;	Computer.c:190: } while (ans);
-      00063B E5 35            [12] 1387 	mov	a,_main_ans_10000_35
-      00063D 45 36            [12] 1388 	orl	a,(_main_ans_10000_35 + 1)
-      00063F 70 AF            [24] 1389 	jnz	00105$
-                                   1390 ;	Computer.c:192: if (negative_ans == 1)
-      000641 74 01            [12] 1391 	mov	a,#0x01
-      000643 B5 3C 06         [24] 1392 	cjne	a,_main_negative_ans_10000_35,00256$
-      000646 14               [12] 1393 	dec	a
-      000647 B5 3D 02         [24] 1394 	cjne	a,(_main_negative_ans_10000_35 + 1),00256$
-      00064A 80 02            [24] 1395 	sjmp	00257$
-      00064C                       1396 00256$:
-      00064C 80 1E            [24] 1397 	sjmp	00109$
-      00064E                       1398 00257$:
-                                   1399 ;	Computer.c:194: SaveAns(13, history);
-      00064E 75 69 83         [24] 1400 	mov	_SaveAns_PARM_2,#_history
-      000651 75 6A 00         [24] 1401 	mov	(_SaveAns_PARM_2 + 1),#0x00
-      000654 75 6B 40         [24] 1402 	mov	(_SaveAns_PARM_2 + 2),#0x40
-      000657 75 82 0D         [24] 1403 	mov	dpl, #0x0d
-      00065A 12 01 78         [24] 1404 	lcall	_SaveAns
-                                   1405 ;	Computer.c:195: SaveNumber(13);
-      00065D 75 82 0D         [24] 1406 	mov	dpl, #0x0d
-      000660 12 01 5A         [24] 1407 	lcall	_SaveNumber
-                                   1408 ;	Computer.c:196: flag <<= 1;
-      000663 E5 10            [12] 1409 	mov	a,_flag
-      000665 25 10            [12] 1410 	add	a,_flag
-      000667 F5 10            [12] 1411 	mov	_flag,a
-                                   1412 ;	Computer.c:197: flag |= 0x01;
-      000669 43 10 01         [24] 1413 	orl	_flag,#0x01
-      00066C                       1414 00109$:
-                                   1415 ;	Computer.c:199: SaveAns(flag, start_count);
-      00066C 75 69 B5         [24] 1416 	mov	_SaveAns_PARM_2,#_start_count
-      00066F 75 6A 00         [24] 1417 	mov	(_SaveAns_PARM_2 + 1),#0x00
-      000672 75 6B 40         [24] 1418 	mov	(_SaveAns_PARM_2 + 2),#0x40
-      000675 85 10 82         [24] 1419 	mov	dpl, _flag
-      000678 12 01 78         [24] 1420 	lcall	_SaveAns
-                                   1421 ;	Computer.c:201: for (char m = 0; m < 100; m++)
-      00067B 7F 00            [12] 1422 	mov	r7,#0x00
-      00067D                       1423 00132$:
-      00067D BF 64 00         [24] 1424 	cjne	r7,#0x64,00258$
-      000680                       1425 00258$:
-      000680 50 13            [24] 1426 	jnc	00110$
-                                   1427 ;	Computer.c:203: Show_Reverse(buffer, flag);
-      000682 85 10 5B         [24] 1428 	mov	_Show_Reverse_PARM_2,_flag
-      000685 90 00 7B         [24] 1429 	mov	dptr,#_buffer
-      000688 75 F0 40         [24] 1430 	mov	b, #0x40
-      00068B C0 07            [24] 1431 	push	ar7
-      00068D 12 07 7A         [24] 1432 	lcall	_Show_Reverse
-      000690 D0 07            [24] 1433 	pop	ar7
-                                   1434 ;	Computer.c:201: for (char m = 0; m < 100; m++)
-      000692 0F               [12] 1435 	inc	r7
-      000693 80 E8            [24] 1436 	sjmp	00132$
-      000695                       1437 00110$:
-                                   1438 ;	Computer.c:206: for (char f = 0; f < 8; f++)
-      000695 7F 00            [12] 1439 	mov	r7,#0x00
-      000697                       1440 00135$:
-      000697 BF 08 00         [24] 1441 	cjne	r7,#0x08,00260$
-      00069A                       1442 00260$:
-      00069A 50 09            [24] 1443 	jnc	00111$
-                                   1444 ;	Computer.c:208: buffer[f] = -1;
-      00069C EF               [12] 1445 	mov	a,r7
-      00069D 24 7B            [12] 1446 	add	a, #_buffer
-      00069F F8               [12] 1447 	mov	r0,a
-      0006A0 76 FF            [12] 1448 	mov	@r0,#0xff
-                                   1449 ;	Computer.c:206: for (char f = 0; f < 8; f++)
-      0006A2 0F               [12] 1450 	inc	r7
-      0006A3 80 F2            [24] 1451 	sjmp	00135$
-      0006A5                       1452 00111$:
-                                   1453 ;	Computer.c:210: flag = 0;
-      0006A5 75 10 00         [24] 1454 	mov	_flag,#0x00
-                                   1455 ;	Computer.c:212: Restart(&num_1, &num_2, &op, &ans, &negative_num1, &negative_num2, &negative_ans);
-      0006A8 75 69 33         [24] 1456 	mov	_Restart_PARM_2,#_main_num_2_10000_35
-      0006AB 75 6A 00         [24] 1457 	mov	(_Restart_PARM_2 + 1),#0x00
-      0006AE 75 6B 40         [24] 1458 	mov	(_Restart_PARM_2 + 2),#0x40
-      0006B1 75 6C 37         [24] 1459 	mov	_Restart_PARM_3,#_main_op_10000_35
-      0006B4 75 6D 00         [24] 1460 	mov	(_Restart_PARM_3 + 1),#0x00
-      0006B7 75 6E 40         [24] 1461 	mov	(_Restart_PARM_3 + 2),#0x40
-      0006BA 75 6F 35         [24] 1462 	mov	_Restart_PARM_4,#_main_ans_10000_35
-      0006BD 75 70 00         [24] 1463 	mov	(_Restart_PARM_4 + 1),#0x00
-      0006C0 75 71 40         [24] 1464 	mov	(_Restart_PARM_4 + 2),#0x40
-      0006C3 75 72 38         [24] 1465 	mov	_Restart_PARM_5,#_main_negative_num1_10000_35
-      0006C6 75 73 00         [24] 1466 	mov	(_Restart_PARM_5 + 1),#0x00
-      0006C9 75 74 40         [24] 1467 	mov	(_Restart_PARM_5 + 2),#0x40
-      0006CC 75 75 3A         [24] 1468 	mov	_Restart_PARM_6,#_main_negative_num2_10000_35
-      0006CF 75 76 00         [24] 1469 	mov	(_Restart_PARM_6 + 1),#0x00
-      0006D2 75 77 40         [24] 1470 	mov	(_Restart_PARM_6 + 2),#0x40
-      0006D5 75 78 3C         [24] 1471 	mov	_Restart_PARM_7,#_main_negative_ans_10000_35
-      0006D8 75 79 00         [24] 1472 	mov	(_Restart_PARM_7 + 1),#0x00
-      0006DB 75 7A 40         [24] 1473 	mov	(_Restart_PARM_7 + 2),#0x40
-      0006DE 90 00 31         [24] 1474 	mov	dptr,#_main_num_1_10000_35
-      0006E1 75 F0 40         [24] 1475 	mov	b, #0x40
-      0006E4 12 00 D9         [24] 1476 	lcall	_Restart
-      0006E7                       1477 00113$:
-                                   1478 ;	Computer.c:215: Keypad_flag = 0;
-                                   1479 ;	assignBit
-      0006E7 C2 01            [12] 1480 	clr	_Keypad_flag
-      0006E9                       1481 00120$:
-                                   1482 ;	Computer.c:219: Show(buffer, flag);
-      0006E9 85 10 57         [24] 1483 	mov	_Show_PARM_2,_flag
-      0006EC 90 00 7B         [24] 1484 	mov	dptr,#_buffer
-      0006EF 75 F0 40         [24] 1485 	mov	b, #0x40
-      0006F2 12 07 0A         [24] 1486 	lcall	_Show
-                                   1487 ;	Computer.c:221: }
-      0006F5 02 05 0B         [24] 1488 	ljmp	00123$
-                                   1489 	.area CSEG    (CODE)
-                                   1490 	.area CONST   (CODE)
-                                   1491 	.area XINIT   (CODE)
-                                   1492 	.area CABS    (ABS,CODE)
+                                   1186 ;Allocation info for local variables in function 'clean'
+                                   1187 ;------------------------------------------------------------
+                                   1188 ;f                         Allocated to registers r7 
+                                   1189 ;------------------------------------------------------------
+                                   1190 ;	Computer.c:116: void clean()
+                                   1191 ;	-----------------------------------------
+                                   1192 ;	 function clean
+                                   1193 ;	-----------------------------------------
+      00052E                       1194 _clean:
+                           000007  1195 	ar7 = 0x07
+                           000006  1196 	ar6 = 0x06
+                           000005  1197 	ar5 = 0x05
+                           000004  1198 	ar4 = 0x04
+                           000003  1199 	ar3 = 0x03
+                           000002  1200 	ar2 = 0x02
+                           000001  1201 	ar1 = 0x01
+                           000000  1202 	ar0 = 0x00
+                                   1203 ;	Computer.c:118: flag = 0;
+      00052E 75 10 00         [24] 1204 	mov	_flag,#0x00
+                                   1205 ;	Computer.c:119: for (char f = 0; f < 8; f++)
+      000531 7F 00            [12] 1206 	mov	r7,#0x00
+      000533                       1207 00103$:
+      000533 BF 08 00         [24] 1208 	cjne	r7,#0x08,00120$
+      000536                       1209 00120$:
+      000536 50 09            [24] 1210 	jnc	00105$
+                                   1211 ;	Computer.c:121: buffer[f] = -1;
+      000538 EF               [12] 1212 	mov	a,r7
+      000539 24 78            [12] 1213 	add	a, #_buffer
+      00053B F8               [12] 1214 	mov	r0,a
+      00053C 76 FF            [12] 1215 	mov	@r0,#0xff
+                                   1216 ;	Computer.c:119: for (char f = 0; f < 8; f++)
+      00053E 0F               [12] 1217 	inc	r7
+      00053F 80 F2            [24] 1218 	sjmp	00103$
+      000541                       1219 00105$:
+                                   1220 ;	Computer.c:124: }
+      000541 22               [24] 1221 	ret
+                                   1222 ;------------------------------------------------------------
+                                   1223 ;Allocation info for local variables in function 'main'
+                                   1224 ;------------------------------------------------------------
+                                   1225 ;num_1                     Allocated with name '_main_num_1_10000_34'
+                                   1226 ;num_2                     Allocated with name '_main_num_2_10000_34'
+                                   1227 ;ans                       Allocated with name '_main_ans_10000_34'
+                                   1228 ;op                        Allocated with name '_main_op_10000_34'
+                                   1229 ;number                    Allocated to registers r7 
+                                   1230 ;old_number                Allocated to registers 
+                                   1231 ;negative_num1             Allocated with name '_main_negative_num1_10000_34'
+                                   1232 ;negative_num2             Allocated with name '_main_negative_num2_10000_34'
+                                   1233 ;negative_ans              Allocated with name '_main_negative_ans_10000_34'
+                                   1234 ;count                     Allocated to registers r6 
+                                   1235 ;m                         Allocated to registers r5 
+                                   1236 ;count                     Allocated to registers 
+                                   1237 ;m                         Allocated to registers r7 
+                                   1238 ;------------------------------------------------------------
+                                   1239 ;	Computer.c:125: void main(void)
+                                   1240 ;	-----------------------------------------
+                                   1241 ;	 function main
+                                   1242 ;	-----------------------------------------
+      000542                       1243 _main:
+                                   1244 ;	Computer.c:127: int num_1 = 0, num_2 = 0, ans = 0;
+      000542 E4               [12] 1245 	clr	a
+      000543 F5 31            [12] 1246 	mov	_main_num_1_10000_34,a
+      000545 F5 32            [12] 1247 	mov	(_main_num_1_10000_34 + 1),a
+      000547 F5 33            [12] 1248 	mov	_main_num_2_10000_34,a
+      000549 F5 34            [12] 1249 	mov	(_main_num_2_10000_34 + 1),a
+      00054B F5 35            [12] 1250 	mov	_main_ans_10000_34,a
+      00054D F5 36            [12] 1251 	mov	(_main_ans_10000_34 + 1),a
+                                   1252 ;	Computer.c:128: char op = '$';
+      00054F 75 37 24         [24] 1253 	mov	_main_op_10000_34,#0x24
+                                   1254 ;	Computer.c:130: int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
+      000552 75 38 FF         [24] 1255 	mov	_main_negative_num1_10000_34,#0xff
+      000555 75 39 FF         [24] 1256 	mov	(_main_negative_num1_10000_34 + 1),#0xff
+      000558 75 3A FF         [24] 1257 	mov	_main_negative_num2_10000_34,#0xff
+      00055B 75 3B FF         [24] 1258 	mov	(_main_negative_num2_10000_34 + 1),#0xff
+      00055E F5 3C            [12] 1259 	mov	_main_negative_ans_10000_34,a
+      000560 F5 3D            [12] 1260 	mov	(_main_negative_ans_10000_34 + 1),a
+                                   1261 ;	Computer.c:131: Keypad_Debounce_init();
+      000562 12 05 08         [24] 1262 	lcall	_Keypad_Debounce_init
+                                   1263 ;	Computer.c:133: while (1)
+      000565                       1264 00121$:
+                                   1265 ;	Computer.c:135: TR0 = 1;
+                                   1266 ;	assignBit
+      000565 D2 8C            [12] 1267 	setb	_TR0
+                                   1268 ;	Computer.c:137: number = ReadKeypad();
+      000567 12 09 BC         [24] 1269 	lcall	_ReadKeypad
+                                   1270 ;	Computer.c:138: if (number >= 0 && number <= 15)
+      00056A E5 82            [12] 1271 	mov	a,dpl
+      00056C FF               [12] 1272 	mov	r7,a
+      00056D 24 F0            [12] 1273 	add	a,#0xff - 0x0f
+      00056F 50 03            [24] 1274 	jnc	00211$
+      000571 02 07 4B         [24] 1275 	ljmp	00118$
+      000574                       1276 00211$:
+                                   1277 ;	Computer.c:142: if (Keypad_flag == 1)
+      000574 20 01 03         [24] 1278 	jb	_Keypad_flag,00212$
+      000577 02 07 4B         [24] 1279 	ljmp	00118$
+      00057A                       1280 00212$:
+                                   1281 ;	Computer.c:144: if (old_number == 10)
+      00057A BF 0A 34         [24] 1282 	cjne	r7,#0x0a,00113$
+                                   1283 ;	Computer.c:146: char count = start_count[history_count];
+      00057D 78 94            [12] 1284 	mov	r0,#_history_count
+      00057F E6               [12] 1285 	mov	a,@r0
+      000580 24 8A            [12] 1286 	add	a, #_start_count
+      000582 F9               [12] 1287 	mov	r1,a
+      000583 87 06            [24] 1288 	mov	ar6,@r1
+                                   1289 ;	Computer.c:147: for (char m = 0; m < 100; m++)
+      000585 7D 00            [12] 1290 	mov	r5,#0x00
+      000587                       1291 00124$:
+      000587 BD 64 00         [24] 1292 	cjne	r5,#0x64,00215$
+      00058A                       1293 00215$:
+      00058A 50 1A            [24] 1294 	jnc	00101$
+                                   1295 ;	Computer.c:149: Show_Ans(history, start, count);
+      00058C 78 95            [12] 1296 	mov	r0,#_start
+      00058E 86 60            [24] 1297 	mov	_Show_Ans_PARM_2,@r0
+      000590 8E 61            [24] 1298 	mov	_Show_Ans_PARM_3,r6
+      000592 90 00 80         [24] 1299 	mov	dptr,#_history
+      000595 75 F0 40         [24] 1300 	mov	b, #0x40
+      000598 C0 06            [24] 1301 	push	ar6
+      00059A C0 05            [24] 1302 	push	ar5
+      00059C 12 08 67         [24] 1303 	lcall	_Show_Ans
+      00059F D0 05            [24] 1304 	pop	ar5
+      0005A1 D0 06            [24] 1305 	pop	ar6
+                                   1306 ;	Computer.c:147: for (char m = 0; m < 100; m++)
+      0005A3 0D               [12] 1307 	inc	r5
+      0005A4 80 E1            [24] 1308 	sjmp	00124$
+      0005A6                       1309 00101$:
+                                   1310 ;	Computer.c:151: start += count;
+      0005A6 78 95            [12] 1311 	mov	r0,#_start
+      0005A8 EE               [12] 1312 	mov	a,r6
+      0005A9 26               [12] 1313 	add	a, @r0
+      0005AA F6               [12] 1314 	mov	@r0,a
+                                   1315 ;	Computer.c:152: history_count++;
+      0005AB 78 94            [12] 1316 	mov	r0,#_history_count
+      0005AD 06               [12] 1317 	inc	@r0
+      0005AE 02 07 4B         [24] 1318 	ljmp	00118$
+      0005B1                       1319 00113$:
+                                   1320 ;	Computer.c:157: flag <<= 1;
+      0005B1 E5 10            [12] 1321 	mov	a,_flag
+      0005B3 25 10            [12] 1322 	add	a,_flag
+      0005B5 F5 10            [12] 1323 	mov	_flag,a
+                                   1324 ;	Computer.c:158: flag |= 0x01;
+      0005B7 43 10 01         [24] 1325 	orl	_flag,#0x01
+                                   1326 ;	Computer.c:160: SaveNumber(old_number, 7, buffer);
+      0005BA 75 67 78         [24] 1327 	mov	_SaveNumber_PARM_3,#_buffer
+      0005BD 75 68 00         [24] 1328 	mov	(_SaveNumber_PARM_3 + 1),#0x00
+      0005C0 75 69 40         [24] 1329 	mov	(_SaveNumber_PARM_3 + 2),#0x40
+      0005C3 75 66 07         [24] 1330 	mov	_SaveNumber_PARM_2,#0x07
+      0005C6 8F 82            [24] 1331 	mov	dpl, r7
+      0005C8 12 01 BE         [24] 1332 	lcall	_SaveNumber
+                                   1333 ;	Computer.c:162: Update_Expression(&num_1, &num_2, &op, &negative_num1, &negative_num2);
+      0005CB 75 13 33         [24] 1334 	mov	_Update_Expression_PARM_2,#_main_num_2_10000_34
+      0005CE 75 14 00         [24] 1335 	mov	(_Update_Expression_PARM_2 + 1),#0x00
+      0005D1 75 15 40         [24] 1336 	mov	(_Update_Expression_PARM_2 + 2),#0x40
+      0005D4 75 16 37         [24] 1337 	mov	_Update_Expression_PARM_3,#_main_op_10000_34
+      0005D7 75 17 00         [24] 1338 	mov	(_Update_Expression_PARM_3 + 1),#0x00
+      0005DA 75 18 40         [24] 1339 	mov	(_Update_Expression_PARM_3 + 2),#0x40
+      0005DD 75 19 38         [24] 1340 	mov	_Update_Expression_PARM_4,#_main_negative_num1_10000_34
+      0005E0 75 1A 00         [24] 1341 	mov	(_Update_Expression_PARM_4 + 1),#0x00
+      0005E3 75 1B 40         [24] 1342 	mov	(_Update_Expression_PARM_4 + 2),#0x40
+      0005E6 75 1C 3A         [24] 1343 	mov	_Update_Expression_PARM_5,#_main_negative_num2_10000_34
+      0005E9 75 1D 00         [24] 1344 	mov	(_Update_Expression_PARM_5 + 1),#0x00
+      0005EC 75 1E 40         [24] 1345 	mov	(_Update_Expression_PARM_5 + 2),#0x40
+      0005EF 90 00 31         [24] 1346 	mov	dptr,#_main_num_1_10000_34
+      0005F2 75 F0 40         [24] 1347 	mov	b, #0x40
+      0005F5 12 02 07         [24] 1348 	lcall	_Update_Expression
+                                   1349 ;	Computer.c:164: if (cal_flag == 1)
+      0005F8 20 00 03         [24] 1350 	jb	_cal_flag,00217$
+      0005FB 02 07 49         [24] 1351 	ljmp	00111$
+      0005FE                       1352 00217$:
+                                   1353 ;	Computer.c:167: Calculate(num_1, num_2, op, negative_num1, negative_num2, &ans);
+      0005FE 75 2C 35         [24] 1354 	mov	_Calculate_PARM_6,#_main_ans_10000_34
+      000601 75 2D 00         [24] 1355 	mov	(_Calculate_PARM_6 + 1),#0x00
+      000604 75 2E 40         [24] 1356 	mov	(_Calculate_PARM_6 + 2),#0x40
+      000607 85 33 25         [24] 1357 	mov	_Calculate_PARM_2,_main_num_2_10000_34
+      00060A 85 34 26         [24] 1358 	mov	(_Calculate_PARM_2 + 1),(_main_num_2_10000_34 + 1)
+      00060D 85 37 27         [24] 1359 	mov	_Calculate_PARM_3,_main_op_10000_34
+      000610 85 38 28         [24] 1360 	mov	_Calculate_PARM_4,_main_negative_num1_10000_34
+      000613 85 39 29         [24] 1361 	mov	(_Calculate_PARM_4 + 1),(_main_negative_num1_10000_34 + 1)
+      000616 85 3A 2A         [24] 1362 	mov	_Calculate_PARM_5,_main_negative_num2_10000_34
+      000619 85 3B 2B         [24] 1363 	mov	(_Calculate_PARM_5 + 1),(_main_negative_num2_10000_34 + 1)
+      00061C 85 31 82         [24] 1364 	mov	dpl, _main_num_1_10000_34
+      00061F 85 32 83         [24] 1365 	mov	dph, (_main_num_1_10000_34 + 1)
+      000622 12 03 52         [24] 1366 	lcall	_Calculate
+                                   1367 ;	Computer.c:169: if (ans < 0)
+      000625 E5 36            [12] 1368 	mov	a,(_main_ans_10000_34 + 1)
+      000627 30 E7 11         [24] 1369 	jnb	acc.7,00103$
+                                   1370 ;	Computer.c:171: ans = -ans;
+      00062A C3               [12] 1371 	clr	c
+      00062B E4               [12] 1372 	clr	a
+      00062C 95 35            [12] 1373 	subb	a,_main_ans_10000_34
+      00062E F5 35            [12] 1374 	mov	_main_ans_10000_34,a
+      000630 E4               [12] 1375 	clr	a
+      000631 95 36            [12] 1376 	subb	a,(_main_ans_10000_34 + 1)
+      000633 F5 36            [12] 1377 	mov	(_main_ans_10000_34 + 1),a
+                                   1378 ;	Computer.c:172: negative_ans = 1;
+      000635 75 3C 01         [24] 1379 	mov	_main_negative_ans_10000_34,#0x01
+      000638 75 3D 00         [24] 1380 	mov	(_main_negative_ans_10000_34 + 1),#0x00
+      00063B                       1381 00103$:
+                                   1382 ;	Computer.c:175: clean();
+      00063B 12 05 2E         [24] 1383 	lcall	_clean
+                                   1384 ;	Computer.c:176: do
+      00063E                       1385 00104$:
+                                   1386 ;	Computer.c:178: SaveNumber(ans % 10, 9, history);
+      00063E 75 66 0A         [24] 1387 	mov	__modsint_PARM_2,#0x0a
+      000641 75 67 00         [24] 1388 	mov	(__modsint_PARM_2 + 1),#0x00
+      000644 85 35 82         [24] 1389 	mov	dpl, _main_ans_10000_34
+      000647 85 36 83         [24] 1390 	mov	dph, (_main_ans_10000_34 + 1)
+      00064A 12 0A 6D         [24] 1391 	lcall	__modsint
+      00064D 75 67 80         [24] 1392 	mov	_SaveNumber_PARM_3,#_history
+      000650 75 68 00         [24] 1393 	mov	(_SaveNumber_PARM_3 + 1),#0x00
+      000653 75 69 40         [24] 1394 	mov	(_SaveNumber_PARM_3 + 2),#0x40
+      000656 75 66 09         [24] 1395 	mov	_SaveNumber_PARM_2,#0x09
+      000659 12 01 BE         [24] 1396 	lcall	_SaveNumber
+                                   1397 ;	Computer.c:179: SaveNumber(ans % 10, 7, buffer);
+      00065C 75 66 0A         [24] 1398 	mov	__modsint_PARM_2,#0x0a
+      00065F 75 67 00         [24] 1399 	mov	(__modsint_PARM_2 + 1),#0x00
+      000662 85 35 82         [24] 1400 	mov	dpl, _main_ans_10000_34
+      000665 85 36 83         [24] 1401 	mov	dph, (_main_ans_10000_34 + 1)
+      000668 12 0A 6D         [24] 1402 	lcall	__modsint
+      00066B 75 67 78         [24] 1403 	mov	_SaveNumber_PARM_3,#_buffer
+      00066E 75 68 00         [24] 1404 	mov	(_SaveNumber_PARM_3 + 1),#0x00
+      000671 75 69 40         [24] 1405 	mov	(_SaveNumber_PARM_3 + 2),#0x40
+      000674 75 66 07         [24] 1406 	mov	_SaveNumber_PARM_2,#0x07
+      000677 12 01 BE         [24] 1407 	lcall	_SaveNumber
+                                   1408 ;	Computer.c:180: ans /= 10;
+      00067A 75 66 0A         [24] 1409 	mov	__divsint_PARM_2,#0x0a
+      00067D 75 67 00         [24] 1410 	mov	(__divsint_PARM_2 + 1),#0x00
+      000680 85 35 82         [24] 1411 	mov	dpl, _main_ans_10000_34
+      000683 85 36 83         [24] 1412 	mov	dph, (_main_ans_10000_34 + 1)
+      000686 12 0A A3         [24] 1413 	lcall	__divsint
+      000689 85 82 35         [24] 1414 	mov	_main_ans_10000_34,dpl
+      00068C 85 83 36         [24] 1415 	mov	(_main_ans_10000_34 + 1),dph
+                                   1416 ;	Computer.c:181: flag <<= 1;
+      00068F E5 10            [12] 1417 	mov	a,_flag
+      000691 25 10            [12] 1418 	add	a,_flag
+      000693 F5 10            [12] 1419 	mov	_flag,a
+                                   1420 ;	Computer.c:182: flag |= 0x01;
+      000695 43 10 01         [24] 1421 	orl	_flag,#0x01
+                                   1422 ;	Computer.c:183: } while (ans);
+      000698 E5 35            [12] 1423 	mov	a,_main_ans_10000_34
+      00069A 45 36            [12] 1424 	orl	a,(_main_ans_10000_34 + 1)
+      00069C 70 A0            [24] 1425 	jnz	00104$
+                                   1426 ;	Computer.c:185: if (negative_ans == 1)
+      00069E 74 01            [12] 1427 	mov	a,#0x01
+      0006A0 B5 3C 06         [24] 1428 	cjne	a,_main_negative_ans_10000_34,00220$
+      0006A3 14               [12] 1429 	dec	a
+      0006A4 B5 3D 02         [24] 1430 	cjne	a,(_main_negative_ans_10000_34 + 1),00220$
+      0006A7 80 02            [24] 1431 	sjmp	00221$
+      0006A9                       1432 00220$:
+      0006A9 80 2D            [24] 1433 	sjmp	00108$
+      0006AB                       1434 00221$:
+                                   1435 ;	Computer.c:187: SaveNumber(13, 9, history);
+      0006AB 75 67 80         [24] 1436 	mov	_SaveNumber_PARM_3,#_history
+      0006AE 75 68 00         [24] 1437 	mov	(_SaveNumber_PARM_3 + 1),#0x00
+      0006B1 75 69 40         [24] 1438 	mov	(_SaveNumber_PARM_3 + 2),#0x40
+      0006B4 75 66 09         [24] 1439 	mov	_SaveNumber_PARM_2,#0x09
+      0006B7 75 82 0D         [24] 1440 	mov	dpl, #0x0d
+      0006BA 12 01 BE         [24] 1441 	lcall	_SaveNumber
+                                   1442 ;	Computer.c:188: SaveNumber(13, 7, buffer);
+      0006BD 75 67 78         [24] 1443 	mov	_SaveNumber_PARM_3,#_buffer
+      0006C0 75 68 00         [24] 1444 	mov	(_SaveNumber_PARM_3 + 1),#0x00
+      0006C3 75 69 40         [24] 1445 	mov	(_SaveNumber_PARM_3 + 2),#0x40
+      0006C6 75 66 07         [24] 1446 	mov	_SaveNumber_PARM_2,#0x07
+      0006C9 75 82 0D         [24] 1447 	mov	dpl, #0x0d
+      0006CC 12 01 BE         [24] 1448 	lcall	_SaveNumber
+                                   1449 ;	Computer.c:189: flag <<= 1;
+      0006CF E5 10            [12] 1450 	mov	a,_flag
+      0006D1 25 10            [12] 1451 	add	a,_flag
+      0006D3 F5 10            [12] 1452 	mov	_flag,a
+                                   1453 ;	Computer.c:190: flag |= 0x01;
+      0006D5 43 10 01         [24] 1454 	orl	_flag,#0x01
+      0006D8                       1455 00108$:
+                                   1456 ;	Computer.c:192: char count = Counter(flag);
+      0006D8 85 10 82         [24] 1457 	mov	dpl, _flag
+      0006DB 12 08 D1         [24] 1458 	lcall	_Counter
+                                   1459 ;	Computer.c:193: SaveNumber(count, 9, start_count);
+      0006DE 75 67 8A         [24] 1460 	mov	_SaveNumber_PARM_3,#_start_count
+      0006E1 75 68 00         [24] 1461 	mov	(_SaveNumber_PARM_3 + 1),#0x00
+      0006E4 75 69 40         [24] 1462 	mov	(_SaveNumber_PARM_3 + 2),#0x40
+      0006E7 75 66 09         [24] 1463 	mov	_SaveNumber_PARM_2,#0x09
+      0006EA 12 01 BE         [24] 1464 	lcall	_SaveNumber
+                                   1465 ;	Computer.c:195: for (char m = 0; m < 100; m++)
+      0006ED 7F 00            [12] 1466 	mov	r7,#0x00
+      0006EF                       1467 00127$:
+      0006EF BF 64 00         [24] 1468 	cjne	r7,#0x64,00222$
+      0006F2                       1469 00222$:
+      0006F2 50 13            [24] 1470 	jnc	00109$
+                                   1471 ;	Computer.c:197: Show_Reverse(buffer, flag);
+      0006F4 85 10 5B         [24] 1472 	mov	_Show_Reverse_PARM_2,_flag
+      0006F7 90 00 78         [24] 1473 	mov	dptr,#_buffer
+      0006FA 75 F0 40         [24] 1474 	mov	b, #0x40
+      0006FD C0 07            [24] 1475 	push	ar7
+      0006FF 12 07 DC         [24] 1476 	lcall	_Show_Reverse
+      000702 D0 07            [24] 1477 	pop	ar7
+                                   1478 ;	Computer.c:195: for (char m = 0; m < 100; m++)
+      000704 0F               [12] 1479 	inc	r7
+      000705 80 E8            [24] 1480 	sjmp	00127$
+      000707                       1481 00109$:
+                                   1482 ;	Computer.c:200: clean();
+      000707 12 05 2E         [24] 1483 	lcall	_clean
+                                   1484 ;	Computer.c:201: Restart(&num_1, &num_2, &op, &ans, &negative_num1, &negative_num2, &negative_ans);
+      00070A 75 66 33         [24] 1485 	mov	_Restart_PARM_2,#_main_num_2_10000_34
+      00070D 75 67 00         [24] 1486 	mov	(_Restart_PARM_2 + 1),#0x00
+      000710 75 68 40         [24] 1487 	mov	(_Restart_PARM_2 + 2),#0x40
+      000713 75 69 37         [24] 1488 	mov	_Restart_PARM_3,#_main_op_10000_34
+      000716 75 6A 00         [24] 1489 	mov	(_Restart_PARM_3 + 1),#0x00
+      000719 75 6B 40         [24] 1490 	mov	(_Restart_PARM_3 + 2),#0x40
+      00071C 75 6C 35         [24] 1491 	mov	_Restart_PARM_4,#_main_ans_10000_34
+      00071F 75 6D 00         [24] 1492 	mov	(_Restart_PARM_4 + 1),#0x00
+      000722 75 6E 40         [24] 1493 	mov	(_Restart_PARM_4 + 2),#0x40
+      000725 75 6F 38         [24] 1494 	mov	_Restart_PARM_5,#_main_negative_num1_10000_34
+      000728 75 70 00         [24] 1495 	mov	(_Restart_PARM_5 + 1),#0x00
+      00072B 75 71 40         [24] 1496 	mov	(_Restart_PARM_5 + 2),#0x40
+      00072E 75 72 3A         [24] 1497 	mov	_Restart_PARM_6,#_main_negative_num2_10000_34
+      000731 75 73 00         [24] 1498 	mov	(_Restart_PARM_6 + 1),#0x00
+      000734 75 74 40         [24] 1499 	mov	(_Restart_PARM_6 + 2),#0x40
+      000737 75 75 3C         [24] 1500 	mov	_Restart_PARM_7,#_main_negative_ans_10000_34
+      00073A 75 76 00         [24] 1501 	mov	(_Restart_PARM_7 + 1),#0x00
+      00073D 75 77 40         [24] 1502 	mov	(_Restart_PARM_7 + 2),#0x40
+      000740 90 00 31         [24] 1503 	mov	dptr,#_main_num_1_10000_34
+      000743 75 F0 40         [24] 1504 	mov	b, #0x40
+      000746 12 01 3D         [24] 1505 	lcall	_Restart
+      000749                       1506 00111$:
+                                   1507 ;	Computer.c:204: Keypad_flag = 0;
+                                   1508 ;	assignBit
+      000749 C2 01            [12] 1509 	clr	_Keypad_flag
+      00074B                       1510 00118$:
+                                   1511 ;	Computer.c:208: Show(buffer, flag);
+      00074B 85 10 57         [24] 1512 	mov	_Show_PARM_2,_flag
+      00074E 90 00 78         [24] 1513 	mov	dptr,#_buffer
+      000751 75 F0 40         [24] 1514 	mov	b, #0x40
+      000754 12 07 6C         [24] 1515 	lcall	_Show
+                                   1516 ;	Computer.c:210: }
+      000757 02 05 65         [24] 1517 	ljmp	00121$
+                                   1518 	.area CSEG    (CODE)
+                                   1519 	.area CONST   (CODE)
+                                   1520 	.area XINIT   (CODE)
+                                   1521 	.area CABS    (ABS,CODE)

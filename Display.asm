@@ -250,10 +250,8 @@ _Show_Ans_PARM_3:
 	.ds 1
 _Show_Ans_buffer_10000_20:
 	.ds 3
-_Show_Ans_sloc0_1_0:
-	.ds 2
-_Show_Ans_sloc1_1_0:
-	.ds 2
+_Show_Ans_i_20000_22:
+	.ds 1
 ;--------------------------------------------------------
 ; overlayable items in internal ram
 ;--------------------------------------------------------
@@ -327,10 +325,10 @@ _Show_Ans_sloc1_1_0:
 	mov	(_numbers + 0x0009),#0x90
 	mov	(_numbers + 0x000a),#0x88
 	mov	(_numbers + 0x000b),#0x83
-	mov	(_numbers + 0x000c),#0xa7
-	mov	(_numbers + 0x000d),#0xa1
-	mov	(_numbers + 0x000e),#0x86
-	mov	(_numbers + 0x000f),#0x8e
+	mov	(_numbers + 0x000c),#0x88
+	mov	(_numbers + 0x000d),#0xbf
+	mov	(_numbers + 0x000e),#0x89
+	mov	(_numbers + 0x000f),#0xa1
 	mov	(_numbers + 0x0010),#0xff
 ;--------------------------------------------------------
 ; Home
@@ -576,13 +574,11 @@ _Show_Reverse:
 ;Allocation info for local variables in function 'Show_Ans'
 ;------------------------------------------------------------
 ;start                     Allocated with name '_Show_Ans_PARM_2'
-;end                       Allocated with name '_Show_Ans_PARM_3'
+;count                     Allocated with name '_Show_Ans_PARM_3'
 ;buffer                    Allocated with name '_Show_Ans_buffer_10000_20'
-;i                         Allocated to registers r4 
-;sloc0                     Allocated with name '_Show_Ans_sloc0_1_0'
-;sloc1                     Allocated with name '_Show_Ans_sloc1_1_0'
+;i                         Allocated with name '_Show_Ans_i_20000_22'
 ;------------------------------------------------------------
-;	Display.c:48: void Show_Ans(char *buffer, char start, char end)
+;	Display.c:48: void Show_Ans(char *buffer, char start, char count)
 ;	-----------------------------------------
 ;	 function Show_Ans
 ;	-----------------------------------------
@@ -590,46 +586,45 @@ _Show_Ans:
 	mov	_Show_Ans_buffer_10000_20,dpl
 	mov	(_Show_Ans_buffer_10000_20 + 1),dph
 	mov	(_Show_Ans_buffer_10000_20 + 2),b
-;	Display.c:50: for (char i = 0; i < 8; i++)
-	mov	r4,#0x00
+;	Display.c:51: for (char i = 0; i < 8; i++)
+	mov	_Show_Ans_i_20000_22,#0x00
 00106$:
-	cjne	r4,#0x08,00129$
-00129$:
-	jnc	00108$
-;	Display.c:52: P1 = control[i];
-	mov	a,r4
+	mov	a,#0x100 - 0x08
+	add	a,_Show_Ans_i_20000_22
+	jc	00108$
+;	Display.c:53: P1 = control[i];
+	mov	a,_Show_Ans_i_20000_22
 	add	a, #_control
 	mov	r1,a
 	mov	_P1,@r1
-;	Display.c:53: if (i<(end-start))
-	mov	r2,_Show_Ans_PARM_3
-	mov	r3,#0x00
-	mov	_Show_Ans_sloc0_1_0,_Show_Ans_PARM_2
-	mov	(_Show_Ans_sloc0_1_0 + 1),r3
-	mov	a,r2
+;	Display.c:54: if (i<count)
 	clr	c
-	subb	a,_Show_Ans_sloc0_1_0
-	mov	r2,a
-	mov	a,r3
-	subb	a,(_Show_Ans_sloc0_1_0 + 1)
-	mov	r3,a
-	mov	_Show_Ans_sloc1_1_0,r4
-	mov	(_Show_Ans_sloc1_1_0 + 1),#0x00
-	clr	c
-	mov	a,_Show_Ans_sloc1_1_0
-	subb	a,r2
-	mov	a,(_Show_Ans_sloc1_1_0 + 1)
-	xrl	a,#0x80
-	mov	b,r3
-	xrl	b,#0x80
-	subb	a,b
+	mov	a,_Show_Ans_i_20000_22
+	subb	a,_Show_Ans_PARM_3
 	jnc	00102$
-;	Display.c:55: P2 = ~numbers[buffer[start+i]];
-	mov	a,_Show_Ans_sloc1_1_0
-	add	a, _Show_Ans_sloc0_1_0
+;	Display.c:56: P2 = ~numbers[buffer[start+(count-1-i)]];
+	mov	r2,_Show_Ans_PARM_2
+	mov	r3,#0x00
+	mov	r6,_Show_Ans_PARM_3
+	mov	r7,#0x00
+	dec	r6
+	cjne	r6,#0xff,00131$
+	dec	r7
+00131$:
+	mov	r4,_Show_Ans_i_20000_22
+	mov	r5,#0x00
+	mov	a,r6
+	clr	c
+	subb	a,r4
+	mov	r6,a
+	mov	a,r7
+	subb	a,r5
+	mov	r7,a
+	mov	a,r6
+	add	a, r2
 	mov	r2,a
-	mov	a,(_Show_Ans_sloc1_1_0 + 1)
-	addc	a, (_Show_Ans_sloc0_1_0 + 1)
+	mov	a,r7
+	addc	a, r3
 	mov	r3,a
 	mov	a,r2
 	add	a, _Show_Ans_buffer_10000_20
@@ -649,21 +644,19 @@ _Show_Ans:
 	mov	_P2,a
 	sjmp	00103$
 00102$:
-;	Display.c:59: P2 = ~numbers[16];
+;	Display.c:60: P2 = ~numbers[16];
 	mov	a,(_numbers + 0x0010)
 	cpl	a
 	mov	_P2,a
 00103$:
-;	Display.c:61: delay(280);
+;	Display.c:62: delay(280);
 	mov	dptr,#0x0118
-	push	ar4
 	lcall	_delay
-	pop	ar4
-;	Display.c:50: for (char i = 0; i < 8; i++)
-	inc	r4
+;	Display.c:51: for (char i = 0; i < 8; i++)
+	inc	_Show_Ans_i_20000_22
 	sjmp	00106$
 00108$:
-;	Display.c:63: }
+;	Display.c:64: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Counter'
@@ -672,20 +665,20 @@ _Show_Ans:
 ;count                     Allocated to registers r6 
 ;i                         Allocated to registers r5 
 ;------------------------------------------------------------
-;	Display.c:65: char Counter(char flag)
+;	Display.c:66: char Counter(char flag)
 ;	-----------------------------------------
 ;	 function Counter
 ;	-----------------------------------------
 _Counter:
 	mov	r7, dpl
-;	Display.c:68: for (char i = 0; i < 8; i++)
+;	Display.c:69: for (char i = 0; i < 8; i++)
 	mov	r6,#0x00
 	mov	r5,#0x00
 00105$:
 	cjne	r5,#0x08,00128$
 00128$:
 	jnc	00103$
-;	Display.c:70: if ((flag & (1 << i)) > 0)
+;	Display.c:71: if ((flag & (1 << i)) > 0)
 	mov	b,r5
 	inc	b
 	mov	r3,#0x01
@@ -714,16 +707,16 @@ _Counter:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00106$
-;	Display.c:72: count++;
+;	Display.c:73: count++;
 	inc	r6
 00106$:
-;	Display.c:68: for (char i = 0; i < 8; i++)
+;	Display.c:69: for (char i = 0; i < 8; i++)
 	inc	r5
 	sjmp	00105$
 00103$:
-;	Display.c:75: return count;
+;	Display.c:76: return count;
 	mov	dpl, r6
-;	Display.c:76: }
+;	Display.c:77: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

@@ -2,10 +2,10 @@
 #include "Keypad.h"
 #include "Display.h"
 
-__idata unsigned char buffer[8] = {-1};
+__idata unsigned char buffer[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
 char flag = 0;
-__idata unsigned char history[50] = {0};
-__idata unsigned char start_count[50] = {0};
+__idata unsigned char history[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+__idata unsigned char start_count[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 __idata unsigned char history_count = 0;
 __idata unsigned char start = 0;
 // 宣告外部記憶體
@@ -26,26 +26,15 @@ void Restart(int *num_1, int *num_2, char *op, int *ans, int *negative_num1, int
 	*negative_num2 = -1;
 	num1_counter = 0;
 }
-void SaveNumber(char n)
+void SaveNumber(char n, char start, char *b)
 {
-	for (char i = 7; i > 0; i--)
-	{
-		buffer[i] = buffer[i - 1];
-	}
-	buffer[0] = n;
-}
-// 儲存當下的計算
-
-void SaveAns(char n, char* b)
-{
-	for (char i = 49; i > 0; i--)
+	for (char i = start; i > 0; i--)
 	{
 		b[i] = b[i - 1];
 	}
 	b[0] = n;
 }
-// 儲存每次的答案
-
+// 儲存數字
 
 void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int *negative_num2)
 {
@@ -124,6 +113,15 @@ void Keypad_Debounce(void) __interrupt(1) __using(1)
 	}
 }
 
+void clean()
+{
+	flag = 0;
+	for (char f = 0; f < 8; f++)
+	{
+		buffer[f] = -1;
+	}
+	// 清空buffer
+}
 void main(void)
 {
 	int num_1 = 0, num_2 = 0, ans = 0;
@@ -145,12 +143,12 @@ void main(void)
 			{
 				if (old_number == 10)
 				{
-					char count = Counter(start_count[history_count]);
+					char count = start_count[history_count];
 					for (char m = 0; m < 100; m++)
 					{
-						Show_Ans(history, start, start+count);
+						Show_Ans(history, start, count);
 					}
-					start = count;
+					start += count;
 					history_count++;
 				}
 				else
@@ -159,7 +157,7 @@ void main(void)
 					flag <<= 1;
 					flag |= 0x01;
 					// flag 每個bit對應每個七段顯示器，如果bit為1表示該七段顯示器要亮
-					SaveNumber(old_number);
+					SaveNumber(old_number, 7, buffer);
 					// 將輸入的數字儲存進buffer
 					Update_Expression(&num_1, &num_2, &op, &negative_num1, &negative_num2);
 					// 更新當下的運算式
@@ -174,16 +172,11 @@ void main(void)
 							negative_ans = 1;
 						}
 						// 統一將答案轉成正數，如果答案本身是負數將negative_ans設為1
-						flag = 0;
-						for (char f = 0; f < 8; f++)
-						{
-							buffer[f] = -1;
-						}
-						// 清空顯示中的畫面
+						clean();
 						do
 						{
-							SaveAns(ans % 10, history);
-							SaveNumber(ans % 10);
+							SaveNumber(ans % 10, 9, history);
+							SaveNumber(ans % 10, 7, buffer);
 							ans /= 10;
 							flag <<= 1;
 							flag |= 0x01;
@@ -191,24 +184,20 @@ void main(void)
 						// 將答案放進buffer
 						if (negative_ans == 1)
 						{
-							SaveAns(13, history);
-							SaveNumber(13);
+							SaveNumber(13, 9, history);
+							SaveNumber(13, 7, buffer);
 							flag <<= 1;
 							flag |= 0x01;
 						}
-						SaveAns(flag, start_count);
+						char count = Counter(flag);
+						SaveNumber(count, 9, start_count);
 						// 如果答案是負的需再放負號進去
 						for (char m = 0; m < 100; m++)
 						{
 							Show_Reverse(buffer, flag);
 						}
 						// 顯示答案
-						for (char f = 0; f < 8; f++)
-						{
-							buffer[f] = -1;
-						}
-						flag = 0;
-						// 清空顯示中的畫面
+						clean();
 						Restart(&num_1, &num_2, &op, &ans, &negative_num1, &negative_num2, &negative_ans);
 						// 將變數歸零重新準備計算
 					}

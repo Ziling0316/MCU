@@ -250,482 +250,475 @@
       000023                        250 	.ds 1
       000024                        251 _Show_Ans_buffer_10000_20:
       000024                        252 	.ds 3
-      000027                        253 _Show_Ans_sloc0_1_0:
-      000027                        254 	.ds 2
-      000029                        255 _Show_Ans_sloc1_1_0:
-      000029                        256 	.ds 2
+      000027                        253 _Show_Ans_i_20000_22:
+      000027                        254 	.ds 1
+                                    255 ;--------------------------------------------------------
+                                    256 ; overlayable items in internal ram
                                     257 ;--------------------------------------------------------
-                                    258 ; overlayable items in internal ram
-                                    259 ;--------------------------------------------------------
-                                    260 	.area	OSEG    (OVR,DATA)
-                                    261 	.area	OSEG    (OVR,DATA)
+                                    258 	.area	OSEG    (OVR,DATA)
+                                    259 	.area	OSEG    (OVR,DATA)
+                                    260 ;--------------------------------------------------------
+                                    261 ; indirectly addressable internal ram data
                                     262 ;--------------------------------------------------------
-                                    263 ; indirectly addressable internal ram data
+                                    263 	.area ISEG    (DATA)
                                     264 ;--------------------------------------------------------
-                                    265 	.area ISEG    (DATA)
+                                    265 ; absolute internal ram data
                                     266 ;--------------------------------------------------------
-                                    267 ; absolute internal ram data
-                                    268 ;--------------------------------------------------------
-                                    269 	.area IABS    (ABS,DATA)
-                                    270 	.area IABS    (ABS,DATA)
+                                    267 	.area IABS    (ABS,DATA)
+                                    268 	.area IABS    (ABS,DATA)
+                                    269 ;--------------------------------------------------------
+                                    270 ; bit data
                                     271 ;--------------------------------------------------------
-                                    272 ; bit data
+                                    272 	.area BSEG    (BIT)
                                     273 ;--------------------------------------------------------
-                                    274 	.area BSEG    (BIT)
+                                    274 ; paged external ram data
                                     275 ;--------------------------------------------------------
-                                    276 ; paged external ram data
+                                    276 	.area PSEG    (PAG,XDATA)
                                     277 ;--------------------------------------------------------
-                                    278 	.area PSEG    (PAG,XDATA)
+                                    278 ; uninitialized external ram data
                                     279 ;--------------------------------------------------------
-                                    280 ; uninitialized external ram data
+                                    280 	.area XSEG    (XDATA)
                                     281 ;--------------------------------------------------------
-                                    282 	.area XSEG    (XDATA)
+                                    282 ; absolute external ram data
                                     283 ;--------------------------------------------------------
-                                    284 ; absolute external ram data
+                                    284 	.area XABS    (ABS,XDATA)
                                     285 ;--------------------------------------------------------
-                                    286 	.area XABS    (ABS,XDATA)
+                                    286 ; initialized external ram data
                                     287 ;--------------------------------------------------------
-                                    288 ; initialized external ram data
-                                    289 ;--------------------------------------------------------
-                                    290 	.area XISEG   (XDATA)
-                                    291 	.area HOME    (CODE)
-                                    292 	.area GSINIT0 (CODE)
-                                    293 	.area GSINIT1 (CODE)
-                                    294 	.area GSINIT2 (CODE)
-                                    295 	.area GSINIT3 (CODE)
-                                    296 	.area GSINIT4 (CODE)
-                                    297 	.area GSINIT5 (CODE)
-                                    298 	.area GSINIT  (CODE)
-                                    299 	.area GSFINAL (CODE)
-                                    300 	.area CSEG    (CODE)
+                                    288 	.area XISEG   (XDATA)
+                                    289 	.area HOME    (CODE)
+                                    290 	.area GSINIT0 (CODE)
+                                    291 	.area GSINIT1 (CODE)
+                                    292 	.area GSINIT2 (CODE)
+                                    293 	.area GSINIT3 (CODE)
+                                    294 	.area GSINIT4 (CODE)
+                                    295 	.area GSINIT5 (CODE)
+                                    296 	.area GSINIT  (CODE)
+                                    297 	.area GSFINAL (CODE)
+                                    298 	.area CSEG    (CODE)
+                                    299 ;--------------------------------------------------------
+                                    300 ; global & static initialisations
                                     301 ;--------------------------------------------------------
-                                    302 ; global & static initialisations
-                                    303 ;--------------------------------------------------------
-                                    304 	.area HOME    (CODE)
+                                    302 	.area HOME    (CODE)
+                                    303 	.area GSINIT  (CODE)
+                                    304 	.area GSFINAL (CODE)
                                     305 	.area GSINIT  (CODE)
-                                    306 	.area GSFINAL (CODE)
-                                    307 	.area GSINIT  (CODE)
-                                    308 ;	Display.c:3: char control[8] = {0b00000111, 0b00000110, 0b00000101, 0b00000100, 0b00000011, 0b00000010, 0b00000001, 0b0000000};
-      000000 75*00 07         [24]  309 	mov	_control,#0x07
-      000003 75*01 06         [24]  310 	mov	(_control + 0x0001),#0x06
-      000006 75*02 05         [24]  311 	mov	(_control + 0x0002),#0x05
-      000009 75*03 04         [24]  312 	mov	(_control + 0x0003),#0x04
-      00000C 75*04 03         [24]  313 	mov	(_control + 0x0004),#0x03
-      00000F 75*05 02         [24]  314 	mov	(_control + 0x0005),#0x02
-      000012 75*06 01         [24]  315 	mov	(_control + 0x0006),#0x01
-      000015 75*07 00         [24]  316 	mov	(_control + 0x0007),#0x00
-                                    317 ;	Display.c:4: char numbers[17] = {0b11000000, 0b11111001, 0b10100100, 0b10110000, 0b10011001, 0b10010010, 0b10000010, 0b11111000, 0b10000000, 0b10010000,
-      000018 75*08 C0         [24]  318 	mov	_numbers,#0xc0
-      00001B 75*09 F9         [24]  319 	mov	(_numbers + 0x0001),#0xf9
-      00001E 75*0A A4         [24]  320 	mov	(_numbers + 0x0002),#0xa4
-      000021 75*0B B0         [24]  321 	mov	(_numbers + 0x0003),#0xb0
-      000024 75*0C 99         [24]  322 	mov	(_numbers + 0x0004),#0x99
-      000027 75*0D 92         [24]  323 	mov	(_numbers + 0x0005),#0x92
-      00002A 75*0E 82         [24]  324 	mov	(_numbers + 0x0006),#0x82
-      00002D 75*0F F8         [24]  325 	mov	(_numbers + 0x0007),#0xf8
-      000030 75*10 80         [24]  326 	mov	(_numbers + 0x0008),#0x80
-      000033 75*11 90         [24]  327 	mov	(_numbers + 0x0009),#0x90
-      000036 75*12 88         [24]  328 	mov	(_numbers + 0x000a),#0x88
-      000039 75*13 83         [24]  329 	mov	(_numbers + 0x000b),#0x83
-      00003C 75*14 A7         [24]  330 	mov	(_numbers + 0x000c),#0xa7
-      00003F 75*15 A1         [24]  331 	mov	(_numbers + 0x000d),#0xa1
-      000042 75*16 86         [24]  332 	mov	(_numbers + 0x000e),#0x86
-      000045 75*17 8E         [24]  333 	mov	(_numbers + 0x000f),#0x8e
-      000048 75*18 FF         [24]  334 	mov	(_numbers + 0x0010),#0xff
+                                    306 ;	Display.c:3: char control[8] = {0b00000111, 0b00000110, 0b00000101, 0b00000100, 0b00000011, 0b00000010, 0b00000001, 0b0000000};
+      000000 75*00 07         [24]  307 	mov	_control,#0x07
+      000003 75*01 06         [24]  308 	mov	(_control + 0x0001),#0x06
+      000006 75*02 05         [24]  309 	mov	(_control + 0x0002),#0x05
+      000009 75*03 04         [24]  310 	mov	(_control + 0x0003),#0x04
+      00000C 75*04 03         [24]  311 	mov	(_control + 0x0004),#0x03
+      00000F 75*05 02         [24]  312 	mov	(_control + 0x0005),#0x02
+      000012 75*06 01         [24]  313 	mov	(_control + 0x0006),#0x01
+      000015 75*07 00         [24]  314 	mov	(_control + 0x0007),#0x00
+                                    315 ;	Display.c:4: char numbers[17] = {0b11000000, 0b11111001, 0b10100100, 0b10110000, 0b10011001, 0b10010010, 0b10000010, 0b11111000, 0b10000000, 0b10010000,
+      000018 75*08 C0         [24]  316 	mov	_numbers,#0xc0
+      00001B 75*09 F9         [24]  317 	mov	(_numbers + 0x0001),#0xf9
+      00001E 75*0A A4         [24]  318 	mov	(_numbers + 0x0002),#0xa4
+      000021 75*0B B0         [24]  319 	mov	(_numbers + 0x0003),#0xb0
+      000024 75*0C 99         [24]  320 	mov	(_numbers + 0x0004),#0x99
+      000027 75*0D 92         [24]  321 	mov	(_numbers + 0x0005),#0x92
+      00002A 75*0E 82         [24]  322 	mov	(_numbers + 0x0006),#0x82
+      00002D 75*0F F8         [24]  323 	mov	(_numbers + 0x0007),#0xf8
+      000030 75*10 80         [24]  324 	mov	(_numbers + 0x0008),#0x80
+      000033 75*11 90         [24]  325 	mov	(_numbers + 0x0009),#0x90
+      000036 75*12 88         [24]  326 	mov	(_numbers + 0x000a),#0x88
+      000039 75*13 83         [24]  327 	mov	(_numbers + 0x000b),#0x83
+      00003C 75*14 88         [24]  328 	mov	(_numbers + 0x000c),#0x88
+      00003F 75*15 BF         [24]  329 	mov	(_numbers + 0x000d),#0xbf
+      000042 75*16 89         [24]  330 	mov	(_numbers + 0x000e),#0x89
+      000045 75*17 A1         [24]  331 	mov	(_numbers + 0x000f),#0xa1
+      000048 75*18 FF         [24]  332 	mov	(_numbers + 0x0010),#0xff
+                                    333 ;--------------------------------------------------------
+                                    334 ; Home
                                     335 ;--------------------------------------------------------
-                                    336 ; Home
-                                    337 ;--------------------------------------------------------
-                                    338 	.area HOME    (CODE)
-                                    339 	.area HOME    (CODE)
+                                    336 	.area HOME    (CODE)
+                                    337 	.area HOME    (CODE)
+                                    338 ;--------------------------------------------------------
+                                    339 ; code
                                     340 ;--------------------------------------------------------
-                                    341 ; code
-                                    342 ;--------------------------------------------------------
-                                    343 	.area CSEG    (CODE)
+                                    341 	.area CSEG    (CODE)
+                                    342 ;------------------------------------------------------------
+                                    343 ;Allocation info for local variables in function 'delay'
                                     344 ;------------------------------------------------------------
-                                    345 ;Allocation info for local variables in function 'delay'
+                                    345 ;i                         Allocated to registers 
                                     346 ;------------------------------------------------------------
-                                    347 ;i                         Allocated to registers 
-                                    348 ;------------------------------------------------------------
-                                    349 ;	Display.c:7: void delay(int i)
+                                    347 ;	Display.c:7: void delay(int i)
+                                    348 ;	-----------------------------------------
+                                    349 ;	 function delay
                                     350 ;	-----------------------------------------
-                                    351 ;	 function delay
-                                    352 ;	-----------------------------------------
-      000000                        353 _delay:
-                           000007   354 	ar7 = 0x07
-                           000006   355 	ar6 = 0x06
-                           000005   356 	ar5 = 0x05
-                           000004   357 	ar4 = 0x04
-                           000003   358 	ar3 = 0x03
-                           000002   359 	ar2 = 0x02
-                           000001   360 	ar1 = 0x01
-                           000000   361 	ar0 = 0x00
-      000000 AE 82            [24]  362 	mov	r6, dpl
-      000002 AF 83            [24]  363 	mov	r7, dph
-                                    364 ;	Display.c:9: while (i--)
-      000004                        365 00101$:
-      000004 8E 04            [24]  366 	mov	ar4,r6
-      000006 8F 05            [24]  367 	mov	ar5,r7
-      000008 1E               [12]  368 	dec	r6
-      000009 BE FF 01         [24]  369 	cjne	r6,#0xff,00113$
-      00000C 1F               [12]  370 	dec	r7
-      00000D                        371 00113$:
-      00000D EC               [12]  372 	mov	a,r4
-      00000E 4D               [12]  373 	orl	a,r5
-      00000F 70 F3            [24]  374 	jnz	00101$
-                                    375 ;	Display.c:11: }
-      000011 22               [24]  376 	ret
+      000000                        351 _delay:
+                           000007   352 	ar7 = 0x07
+                           000006   353 	ar6 = 0x06
+                           000005   354 	ar5 = 0x05
+                           000004   355 	ar4 = 0x04
+                           000003   356 	ar3 = 0x03
+                           000002   357 	ar2 = 0x02
+                           000001   358 	ar1 = 0x01
+                           000000   359 	ar0 = 0x00
+      000000 AE 82            [24]  360 	mov	r6, dpl
+      000002 AF 83            [24]  361 	mov	r7, dph
+                                    362 ;	Display.c:9: while (i--)
+      000004                        363 00101$:
+      000004 8E 04            [24]  364 	mov	ar4,r6
+      000006 8F 05            [24]  365 	mov	ar5,r7
+      000008 1E               [12]  366 	dec	r6
+      000009 BE FF 01         [24]  367 	cjne	r6,#0xff,00113$
+      00000C 1F               [12]  368 	dec	r7
+      00000D                        369 00113$:
+      00000D EC               [12]  370 	mov	a,r4
+      00000E 4D               [12]  371 	orl	a,r5
+      00000F 70 F3            [24]  372 	jnz	00101$
+                                    373 ;	Display.c:11: }
+      000011 22               [24]  374 	ret
+                                    375 ;------------------------------------------------------------
+                                    376 ;Allocation info for local variables in function 'Show'
                                     377 ;------------------------------------------------------------
-                                    378 ;Allocation info for local variables in function 'Show'
-                                    379 ;------------------------------------------------------------
-                                    380 ;flag                      Allocated with name '_Show_PARM_2'
-                                    381 ;buffer                    Allocated with name '_Show_buffer_10000_8'
-                                    382 ;i                         Allocated to registers r4 
-                                    383 ;------------------------------------------------------------
-                                    384 ;	Display.c:13: void Show(char *buffer, char flag)
+                                    378 ;flag                      Allocated with name '_Show_PARM_2'
+                                    379 ;buffer                    Allocated with name '_Show_buffer_10000_8'
+                                    380 ;i                         Allocated to registers r4 
+                                    381 ;------------------------------------------------------------
+                                    382 ;	Display.c:13: void Show(char *buffer, char flag)
+                                    383 ;	-----------------------------------------
+                                    384 ;	 function Show
                                     385 ;	-----------------------------------------
-                                    386 ;	 function Show
-                                    387 ;	-----------------------------------------
-      000012                        388 _Show:
-      000012 85 82*1A         [24]  389 	mov	_Show_buffer_10000_8,dpl
-      000015 85 83*1B         [24]  390 	mov	(_Show_buffer_10000_8 + 1),dph
-      000018 85 F0*1C         [24]  391 	mov	(_Show_buffer_10000_8 + 2),b
-                                    392 ;	Display.c:15: for (char i = 0; i < 8; i++)
-      00001B 7C 00            [12]  393 	mov	r4,#0x00
-      00001D                        394 00106$:
-      00001D BC 08 00         [24]  395 	cjne	r4,#0x08,00129$
-      000020                        396 00129$:
-      000020 50 5F            [24]  397 	jnc	00108$
-                                    398 ;	Display.c:17: P1 = control[i];
-      000022 EC               [12]  399 	mov	a,r4
-      000023 24r00            [12]  400 	add	a, #_control
-      000025 F9               [12]  401 	mov	r1,a
-      000026 87 90            [24]  402 	mov	_P1,@r1
-                                    403 ;	Display.c:18: if ((flag & (1 << i)) > 0)
-      000028 8C F0            [24]  404 	mov	b,r4
-      00002A 05 F0            [12]  405 	inc	b
-      00002C 7A 01            [12]  406 	mov	r2,#0x01
-      00002E 7B 00            [12]  407 	mov	r3,#0x00
-      000030 80 06            [24]  408 	sjmp	00132$
-      000032                        409 00131$:
-      000032 EA               [12]  410 	mov	a,r2
-      000033 2A               [12]  411 	add	a,r2
-      000034 FA               [12]  412 	mov	r2,a
-      000035 EB               [12]  413 	mov	a,r3
-      000036 33               [12]  414 	rlc	a
-      000037 FB               [12]  415 	mov	r3,a
-      000038                        416 00132$:
-      000038 D5 F0 F7         [24]  417 	djnz	b,00131$
-      00003B AE*19            [24]  418 	mov	r6,_Show_PARM_2
-      00003D 7F 00            [12]  419 	mov	r7,#0x00
-      00003F EE               [12]  420 	mov	a,r6
-      000040 52 02            [12]  421 	anl	ar2,a
-      000042 EF               [12]  422 	mov	a,r7
-      000043 52 03            [12]  423 	anl	ar3,a
-      000045 C3               [12]  424 	clr	c
-      000046 E4               [12]  425 	clr	a
-      000047 9A               [12]  426 	subb	a,r2
-      000048 74 80            [12]  427 	mov	a,#(0x00 ^ 0x80)
-      00004A 8B F0            [24]  428 	mov	b,r3
-      00004C 63 F0 80         [24]  429 	xrl	b,#0x80
-      00004F 95 F0            [12]  430 	subb	a,b
-      000051 50 1C            [24]  431 	jnc	00102$
-                                    432 ;	Display.c:20: P2 = ~numbers[buffer[i]];
-      000053 EC               [12]  433 	mov	a,r4
-      000054 25*1A            [12]  434 	add	a, _Show_buffer_10000_8
-      000056 FD               [12]  435 	mov	r5,a
-      000057 E4               [12]  436 	clr	a
-      000058 35*1B            [12]  437 	addc	a, (_Show_buffer_10000_8 + 1)
-      00005A FE               [12]  438 	mov	r6,a
-      00005B AF*1C            [24]  439 	mov	r7,(_Show_buffer_10000_8 + 2)
-      00005D 8D 82            [24]  440 	mov	dpl,r5
-      00005F 8E 83            [24]  441 	mov	dph,r6
-      000061 8F F0            [24]  442 	mov	b,r7
-      000063 12r00r00         [24]  443 	lcall	__gptrget
-      000066 24r08            [12]  444 	add	a, #_numbers
-      000068 F9               [12]  445 	mov	r1,a
-      000069 E7               [12]  446 	mov	a,@r1
-      00006A F4               [12]  447 	cpl	a
-      00006B F5 A0            [12]  448 	mov	_P2,a
-      00006D 80 05            [24]  449 	sjmp	00103$
-      00006F                        450 00102$:
-                                    451 ;	Display.c:24: P2 = ~numbers[16];
-      00006F E5*18            [12]  452 	mov	a,(_numbers + 0x0010)
-      000071 F4               [12]  453 	cpl	a
-      000072 F5 A0            [12]  454 	mov	_P2,a
-      000074                        455 00103$:
-                                    456 ;	Display.c:26: delay(280);
-      000074 90 01 18         [24]  457 	mov	dptr,#0x0118
-      000077 C0 04            [24]  458 	push	ar4
-      000079 12r00r00         [24]  459 	lcall	_delay
-      00007C D0 04            [24]  460 	pop	ar4
-                                    461 ;	Display.c:15: for (char i = 0; i < 8; i++)
-      00007E 0C               [12]  462 	inc	r4
-      00007F 80 9C            [24]  463 	sjmp	00106$
-      000081                        464 00108$:
-                                    465 ;	Display.c:28: }
-      000081 22               [24]  466 	ret
+      000012                        386 _Show:
+      000012 85 82*1A         [24]  387 	mov	_Show_buffer_10000_8,dpl
+      000015 85 83*1B         [24]  388 	mov	(_Show_buffer_10000_8 + 1),dph
+      000018 85 F0*1C         [24]  389 	mov	(_Show_buffer_10000_8 + 2),b
+                                    390 ;	Display.c:15: for (char i = 0; i < 8; i++)
+      00001B 7C 00            [12]  391 	mov	r4,#0x00
+      00001D                        392 00106$:
+      00001D BC 08 00         [24]  393 	cjne	r4,#0x08,00129$
+      000020                        394 00129$:
+      000020 50 5F            [24]  395 	jnc	00108$
+                                    396 ;	Display.c:17: P1 = control[i];
+      000022 EC               [12]  397 	mov	a,r4
+      000023 24r00            [12]  398 	add	a, #_control
+      000025 F9               [12]  399 	mov	r1,a
+      000026 87 90            [24]  400 	mov	_P1,@r1
+                                    401 ;	Display.c:18: if ((flag & (1 << i)) > 0)
+      000028 8C F0            [24]  402 	mov	b,r4
+      00002A 05 F0            [12]  403 	inc	b
+      00002C 7A 01            [12]  404 	mov	r2,#0x01
+      00002E 7B 00            [12]  405 	mov	r3,#0x00
+      000030 80 06            [24]  406 	sjmp	00132$
+      000032                        407 00131$:
+      000032 EA               [12]  408 	mov	a,r2
+      000033 2A               [12]  409 	add	a,r2
+      000034 FA               [12]  410 	mov	r2,a
+      000035 EB               [12]  411 	mov	a,r3
+      000036 33               [12]  412 	rlc	a
+      000037 FB               [12]  413 	mov	r3,a
+      000038                        414 00132$:
+      000038 D5 F0 F7         [24]  415 	djnz	b,00131$
+      00003B AE*19            [24]  416 	mov	r6,_Show_PARM_2
+      00003D 7F 00            [12]  417 	mov	r7,#0x00
+      00003F EE               [12]  418 	mov	a,r6
+      000040 52 02            [12]  419 	anl	ar2,a
+      000042 EF               [12]  420 	mov	a,r7
+      000043 52 03            [12]  421 	anl	ar3,a
+      000045 C3               [12]  422 	clr	c
+      000046 E4               [12]  423 	clr	a
+      000047 9A               [12]  424 	subb	a,r2
+      000048 74 80            [12]  425 	mov	a,#(0x00 ^ 0x80)
+      00004A 8B F0            [24]  426 	mov	b,r3
+      00004C 63 F0 80         [24]  427 	xrl	b,#0x80
+      00004F 95 F0            [12]  428 	subb	a,b
+      000051 50 1C            [24]  429 	jnc	00102$
+                                    430 ;	Display.c:20: P2 = ~numbers[buffer[i]];
+      000053 EC               [12]  431 	mov	a,r4
+      000054 25*1A            [12]  432 	add	a, _Show_buffer_10000_8
+      000056 FD               [12]  433 	mov	r5,a
+      000057 E4               [12]  434 	clr	a
+      000058 35*1B            [12]  435 	addc	a, (_Show_buffer_10000_8 + 1)
+      00005A FE               [12]  436 	mov	r6,a
+      00005B AF*1C            [24]  437 	mov	r7,(_Show_buffer_10000_8 + 2)
+      00005D 8D 82            [24]  438 	mov	dpl,r5
+      00005F 8E 83            [24]  439 	mov	dph,r6
+      000061 8F F0            [24]  440 	mov	b,r7
+      000063 12r00r00         [24]  441 	lcall	__gptrget
+      000066 24r08            [12]  442 	add	a, #_numbers
+      000068 F9               [12]  443 	mov	r1,a
+      000069 E7               [12]  444 	mov	a,@r1
+      00006A F4               [12]  445 	cpl	a
+      00006B F5 A0            [12]  446 	mov	_P2,a
+      00006D 80 05            [24]  447 	sjmp	00103$
+      00006F                        448 00102$:
+                                    449 ;	Display.c:24: P2 = ~numbers[16];
+      00006F E5*18            [12]  450 	mov	a,(_numbers + 0x0010)
+      000071 F4               [12]  451 	cpl	a
+      000072 F5 A0            [12]  452 	mov	_P2,a
+      000074                        453 00103$:
+                                    454 ;	Display.c:26: delay(280);
+      000074 90 01 18         [24]  455 	mov	dptr,#0x0118
+      000077 C0 04            [24]  456 	push	ar4
+      000079 12r00r00         [24]  457 	lcall	_delay
+      00007C D0 04            [24]  458 	pop	ar4
+                                    459 ;	Display.c:15: for (char i = 0; i < 8; i++)
+      00007E 0C               [12]  460 	inc	r4
+      00007F 80 9C            [24]  461 	sjmp	00106$
+      000081                        462 00108$:
+                                    463 ;	Display.c:28: }
+      000081 22               [24]  464 	ret
+                                    465 ;------------------------------------------------------------
+                                    466 ;Allocation info for local variables in function 'Show_Reverse'
                                     467 ;------------------------------------------------------------
-                                    468 ;Allocation info for local variables in function 'Show_Reverse'
-                                    469 ;------------------------------------------------------------
-                                    470 ;flag                      Allocated with name '_Show_Reverse_PARM_2'
-                                    471 ;buffer                    Allocated with name '_Show_Reverse_buffer_10000_14'
-                                    472 ;count                     Allocated with name '_Show_Reverse_count_10000_15'
-                                    473 ;i                         Allocated to registers r3 
-                                    474 ;------------------------------------------------------------
-                                    475 ;	Display.c:30: void Show_Reverse(char *buffer, char flag)
+                                    468 ;flag                      Allocated with name '_Show_Reverse_PARM_2'
+                                    469 ;buffer                    Allocated with name '_Show_Reverse_buffer_10000_14'
+                                    470 ;count                     Allocated with name '_Show_Reverse_count_10000_15'
+                                    471 ;i                         Allocated to registers r3 
+                                    472 ;------------------------------------------------------------
+                                    473 ;	Display.c:30: void Show_Reverse(char *buffer, char flag)
+                                    474 ;	-----------------------------------------
+                                    475 ;	 function Show_Reverse
                                     476 ;	-----------------------------------------
-                                    477 ;	 function Show_Reverse
-                                    478 ;	-----------------------------------------
-      000082                        479 _Show_Reverse:
-      000082 85 82*1E         [24]  480 	mov	_Show_Reverse_buffer_10000_14,dpl
-      000085 85 83*1F         [24]  481 	mov	(_Show_Reverse_buffer_10000_14 + 1),dph
-      000088 85 F0*20         [24]  482 	mov	(_Show_Reverse_buffer_10000_14 + 2),b
-                                    483 ;	Display.c:32: char count = Counter(flag)-1;
-      00008B 85*1D 82         [24]  484 	mov	dpl, _Show_Reverse_PARM_2
-      00008E 12r01r84         [24]  485 	lcall	_Counter
-      000091 E5 82            [12]  486 	mov	a,dpl
-      000093 14               [12]  487 	dec	a
-      000094 F5*21            [12]  488 	mov	_Show_Reverse_count_10000_15,a
-                                    489 ;	Display.c:33: for (char i = 0; i < 8; i++)
-      000096 7B 00            [12]  490 	mov	r3,#0x00
-      000098                        491 00106$:
-      000098 BB 08 00         [24]  492 	cjne	r3,#0x08,00129$
-      00009B                        493 00129$:
-      00009B 50 6F            [24]  494 	jnc	00108$
-                                    495 ;	Display.c:35: P1 = control[i];
-      00009D EB               [12]  496 	mov	a,r3
-      00009E 24r00            [12]  497 	add	a, #_control
-      0000A0 F9               [12]  498 	mov	r1,a
-      0000A1 87 90            [24]  499 	mov	_P1,@r1
-                                    500 ;	Display.c:36: if ((flag & (1 << i)) > 0)
-      0000A3 8B F0            [24]  501 	mov	b,r3
-      0000A5 05 F0            [12]  502 	inc	b
-      0000A7 7A 01            [12]  503 	mov	r2,#0x01
-      0000A9 7C 00            [12]  504 	mov	r4,#0x00
-      0000AB 80 06            [24]  505 	sjmp	00132$
-      0000AD                        506 00131$:
-      0000AD EA               [12]  507 	mov	a,r2
-      0000AE 2A               [12]  508 	add	a,r2
-      0000AF FA               [12]  509 	mov	r2,a
-      0000B0 EC               [12]  510 	mov	a,r4
-      0000B1 33               [12]  511 	rlc	a
-      0000B2 FC               [12]  512 	mov	r4,a
-      0000B3                        513 00132$:
-      0000B3 D5 F0 F7         [24]  514 	djnz	b,00131$
-      0000B6 AE*1D            [24]  515 	mov	r6,_Show_Reverse_PARM_2
-      0000B8 7F 00            [12]  516 	mov	r7,#0x00
-      0000BA EE               [12]  517 	mov	a,r6
-      0000BB 52 02            [12]  518 	anl	ar2,a
-      0000BD EF               [12]  519 	mov	a,r7
-      0000BE 52 04            [12]  520 	anl	ar4,a
-      0000C0 C3               [12]  521 	clr	c
-      0000C1 E4               [12]  522 	clr	a
-      0000C2 9A               [12]  523 	subb	a,r2
-      0000C3 74 80            [12]  524 	mov	a,#(0x00 ^ 0x80)
-      0000C5 8C F0            [24]  525 	mov	b,r4
-      0000C7 63 F0 80         [24]  526 	xrl	b,#0x80
-      0000CA 95 F0            [12]  527 	subb	a,b
-      0000CC 50 2B            [24]  528 	jnc	00102$
-                                    529 ;	Display.c:38: P2 = ~numbers[buffer[count - i]];
-      0000CE AC*21            [24]  530 	mov	r4,_Show_Reverse_count_10000_15
-      0000D0 7F 00            [12]  531 	mov	r7,#0x00
-      0000D2 8B 05            [24]  532 	mov	ar5,r3
-      0000D4 7E 00            [12]  533 	mov	r6,#0x00
-      0000D6 EC               [12]  534 	mov	a,r4
-      0000D7 C3               [12]  535 	clr	c
-      0000D8 9D               [12]  536 	subb	a,r5
-      0000D9 FC               [12]  537 	mov	r4,a
-      0000DA EF               [12]  538 	mov	a,r7
-      0000DB 9E               [12]  539 	subb	a,r6
-      0000DC FF               [12]  540 	mov	r7,a
-      0000DD EC               [12]  541 	mov	a,r4
-      0000DE 25*1E            [12]  542 	add	a, _Show_Reverse_buffer_10000_14
-      0000E0 FC               [12]  543 	mov	r4,a
-      0000E1 EF               [12]  544 	mov	a,r7
-      0000E2 35*1F            [12]  545 	addc	a, (_Show_Reverse_buffer_10000_14 + 1)
-      0000E4 FF               [12]  546 	mov	r7,a
-      0000E5 AE*20            [24]  547 	mov	r6,(_Show_Reverse_buffer_10000_14 + 2)
-      0000E7 8C 82            [24]  548 	mov	dpl,r4
-      0000E9 8F 83            [24]  549 	mov	dph,r7
-      0000EB 8E F0            [24]  550 	mov	b,r6
-      0000ED 12r00r00         [24]  551 	lcall	__gptrget
-      0000F0 24r08            [12]  552 	add	a, #_numbers
-      0000F2 F9               [12]  553 	mov	r1,a
-      0000F3 E7               [12]  554 	mov	a,@r1
-      0000F4 F4               [12]  555 	cpl	a
-      0000F5 F5 A0            [12]  556 	mov	_P2,a
-      0000F7 80 05            [24]  557 	sjmp	00103$
-      0000F9                        558 00102$:
-                                    559 ;	Display.c:42: P2 = ~numbers[16];
-      0000F9 E5*18            [12]  560 	mov	a,(_numbers + 0x0010)
-      0000FB F4               [12]  561 	cpl	a
-      0000FC F5 A0            [12]  562 	mov	_P2,a
-      0000FE                        563 00103$:
-                                    564 ;	Display.c:44: delay(280);
-      0000FE 90 01 18         [24]  565 	mov	dptr,#0x0118
-      000101 C0 03            [24]  566 	push	ar3
-      000103 12r00r00         [24]  567 	lcall	_delay
-      000106 D0 03            [24]  568 	pop	ar3
-                                    569 ;	Display.c:33: for (char i = 0; i < 8; i++)
-      000108 0B               [12]  570 	inc	r3
-      000109 02r00r98         [24]  571 	ljmp	00106$
-      00010C                        572 00108$:
-                                    573 ;	Display.c:46: }
-      00010C 22               [24]  574 	ret
+      000082                        477 _Show_Reverse:
+      000082 85 82*1E         [24]  478 	mov	_Show_Reverse_buffer_10000_14,dpl
+      000085 85 83*1F         [24]  479 	mov	(_Show_Reverse_buffer_10000_14 + 1),dph
+      000088 85 F0*20         [24]  480 	mov	(_Show_Reverse_buffer_10000_14 + 2),b
+                                    481 ;	Display.c:32: char count = Counter(flag)-1;
+      00008B 85*1D 82         [24]  482 	mov	dpl, _Show_Reverse_PARM_2
+      00008E 12r01r77         [24]  483 	lcall	_Counter
+      000091 E5 82            [12]  484 	mov	a,dpl
+      000093 14               [12]  485 	dec	a
+      000094 F5*21            [12]  486 	mov	_Show_Reverse_count_10000_15,a
+                                    487 ;	Display.c:33: for (char i = 0; i < 8; i++)
+      000096 7B 00            [12]  488 	mov	r3,#0x00
+      000098                        489 00106$:
+      000098 BB 08 00         [24]  490 	cjne	r3,#0x08,00129$
+      00009B                        491 00129$:
+      00009B 50 6F            [24]  492 	jnc	00108$
+                                    493 ;	Display.c:35: P1 = control[i];
+      00009D EB               [12]  494 	mov	a,r3
+      00009E 24r00            [12]  495 	add	a, #_control
+      0000A0 F9               [12]  496 	mov	r1,a
+      0000A1 87 90            [24]  497 	mov	_P1,@r1
+                                    498 ;	Display.c:36: if ((flag & (1 << i)) > 0)
+      0000A3 8B F0            [24]  499 	mov	b,r3
+      0000A5 05 F0            [12]  500 	inc	b
+      0000A7 7A 01            [12]  501 	mov	r2,#0x01
+      0000A9 7C 00            [12]  502 	mov	r4,#0x00
+      0000AB 80 06            [24]  503 	sjmp	00132$
+      0000AD                        504 00131$:
+      0000AD EA               [12]  505 	mov	a,r2
+      0000AE 2A               [12]  506 	add	a,r2
+      0000AF FA               [12]  507 	mov	r2,a
+      0000B0 EC               [12]  508 	mov	a,r4
+      0000B1 33               [12]  509 	rlc	a
+      0000B2 FC               [12]  510 	mov	r4,a
+      0000B3                        511 00132$:
+      0000B3 D5 F0 F7         [24]  512 	djnz	b,00131$
+      0000B6 AE*1D            [24]  513 	mov	r6,_Show_Reverse_PARM_2
+      0000B8 7F 00            [12]  514 	mov	r7,#0x00
+      0000BA EE               [12]  515 	mov	a,r6
+      0000BB 52 02            [12]  516 	anl	ar2,a
+      0000BD EF               [12]  517 	mov	a,r7
+      0000BE 52 04            [12]  518 	anl	ar4,a
+      0000C0 C3               [12]  519 	clr	c
+      0000C1 E4               [12]  520 	clr	a
+      0000C2 9A               [12]  521 	subb	a,r2
+      0000C3 74 80            [12]  522 	mov	a,#(0x00 ^ 0x80)
+      0000C5 8C F0            [24]  523 	mov	b,r4
+      0000C7 63 F0 80         [24]  524 	xrl	b,#0x80
+      0000CA 95 F0            [12]  525 	subb	a,b
+      0000CC 50 2B            [24]  526 	jnc	00102$
+                                    527 ;	Display.c:38: P2 = ~numbers[buffer[count - i]];
+      0000CE AC*21            [24]  528 	mov	r4,_Show_Reverse_count_10000_15
+      0000D0 7F 00            [12]  529 	mov	r7,#0x00
+      0000D2 8B 05            [24]  530 	mov	ar5,r3
+      0000D4 7E 00            [12]  531 	mov	r6,#0x00
+      0000D6 EC               [12]  532 	mov	a,r4
+      0000D7 C3               [12]  533 	clr	c
+      0000D8 9D               [12]  534 	subb	a,r5
+      0000D9 FC               [12]  535 	mov	r4,a
+      0000DA EF               [12]  536 	mov	a,r7
+      0000DB 9E               [12]  537 	subb	a,r6
+      0000DC FF               [12]  538 	mov	r7,a
+      0000DD EC               [12]  539 	mov	a,r4
+      0000DE 25*1E            [12]  540 	add	a, _Show_Reverse_buffer_10000_14
+      0000E0 FC               [12]  541 	mov	r4,a
+      0000E1 EF               [12]  542 	mov	a,r7
+      0000E2 35*1F            [12]  543 	addc	a, (_Show_Reverse_buffer_10000_14 + 1)
+      0000E4 FF               [12]  544 	mov	r7,a
+      0000E5 AE*20            [24]  545 	mov	r6,(_Show_Reverse_buffer_10000_14 + 2)
+      0000E7 8C 82            [24]  546 	mov	dpl,r4
+      0000E9 8F 83            [24]  547 	mov	dph,r7
+      0000EB 8E F0            [24]  548 	mov	b,r6
+      0000ED 12r00r00         [24]  549 	lcall	__gptrget
+      0000F0 24r08            [12]  550 	add	a, #_numbers
+      0000F2 F9               [12]  551 	mov	r1,a
+      0000F3 E7               [12]  552 	mov	a,@r1
+      0000F4 F4               [12]  553 	cpl	a
+      0000F5 F5 A0            [12]  554 	mov	_P2,a
+      0000F7 80 05            [24]  555 	sjmp	00103$
+      0000F9                        556 00102$:
+                                    557 ;	Display.c:42: P2 = ~numbers[16];
+      0000F9 E5*18            [12]  558 	mov	a,(_numbers + 0x0010)
+      0000FB F4               [12]  559 	cpl	a
+      0000FC F5 A0            [12]  560 	mov	_P2,a
+      0000FE                        561 00103$:
+                                    562 ;	Display.c:44: delay(280);
+      0000FE 90 01 18         [24]  563 	mov	dptr,#0x0118
+      000101 C0 03            [24]  564 	push	ar3
+      000103 12r00r00         [24]  565 	lcall	_delay
+      000106 D0 03            [24]  566 	pop	ar3
+                                    567 ;	Display.c:33: for (char i = 0; i < 8; i++)
+      000108 0B               [12]  568 	inc	r3
+      000109 02r00r98         [24]  569 	ljmp	00106$
+      00010C                        570 00108$:
+                                    571 ;	Display.c:46: }
+      00010C 22               [24]  572 	ret
+                                    573 ;------------------------------------------------------------
+                                    574 ;Allocation info for local variables in function 'Show_Ans'
                                     575 ;------------------------------------------------------------
-                                    576 ;Allocation info for local variables in function 'Show_Ans'
-                                    577 ;------------------------------------------------------------
-                                    578 ;start                     Allocated with name '_Show_Ans_PARM_2'
-                                    579 ;end                       Allocated with name '_Show_Ans_PARM_3'
-                                    580 ;buffer                    Allocated with name '_Show_Ans_buffer_10000_20'
-                                    581 ;i                         Allocated to registers r4 
-                                    582 ;sloc0                     Allocated with name '_Show_Ans_sloc0_1_0'
-                                    583 ;sloc1                     Allocated with name '_Show_Ans_sloc1_1_0'
-                                    584 ;------------------------------------------------------------
-                                    585 ;	Display.c:48: void Show_Ans(char *buffer, char start, char end)
-                                    586 ;	-----------------------------------------
-                                    587 ;	 function Show_Ans
-                                    588 ;	-----------------------------------------
-      00010D                        589 _Show_Ans:
-      00010D 85 82*24         [24]  590 	mov	_Show_Ans_buffer_10000_20,dpl
-      000110 85 83*25         [24]  591 	mov	(_Show_Ans_buffer_10000_20 + 1),dph
-      000113 85 F0*26         [24]  592 	mov	(_Show_Ans_buffer_10000_20 + 2),b
-                                    593 ;	Display.c:50: for (char i = 0; i < 8; i++)
-      000116 7C 00            [12]  594 	mov	r4,#0x00
-      000118                        595 00106$:
-      000118 BC 08 00         [24]  596 	cjne	r4,#0x08,00129$
-      00011B                        597 00129$:
-      00011B 50 66            [24]  598 	jnc	00108$
-                                    599 ;	Display.c:52: P1 = control[i];
-      00011D EC               [12]  600 	mov	a,r4
-      00011E 24r00            [12]  601 	add	a, #_control
-      000120 F9               [12]  602 	mov	r1,a
-      000121 87 90            [24]  603 	mov	_P1,@r1
-                                    604 ;	Display.c:53: if (i<(end-start))
-      000123 AA*23            [24]  605 	mov	r2,_Show_Ans_PARM_3
-      000125 7B 00            [12]  606 	mov	r3,#0x00
-      000127 85*22*27         [24]  607 	mov	_Show_Ans_sloc0_1_0,_Show_Ans_PARM_2
-      00012A 8B*28            [24]  608 	mov	(_Show_Ans_sloc0_1_0 + 1),r3
-      00012C EA               [12]  609 	mov	a,r2
-      00012D C3               [12]  610 	clr	c
-      00012E 95*27            [12]  611 	subb	a,_Show_Ans_sloc0_1_0
-      000130 FA               [12]  612 	mov	r2,a
-      000131 EB               [12]  613 	mov	a,r3
-      000132 95*28            [12]  614 	subb	a,(_Show_Ans_sloc0_1_0 + 1)
-      000134 FB               [12]  615 	mov	r3,a
-      000135 8C*29            [24]  616 	mov	_Show_Ans_sloc1_1_0,r4
-      000137 75*2A 00         [24]  617 	mov	(_Show_Ans_sloc1_1_0 + 1),#0x00
-      00013A C3               [12]  618 	clr	c
-      00013B E5*29            [12]  619 	mov	a,_Show_Ans_sloc1_1_0
-      00013D 9A               [12]  620 	subb	a,r2
-      00013E E5*2A            [12]  621 	mov	a,(_Show_Ans_sloc1_1_0 + 1)
-      000140 64 80            [12]  622 	xrl	a,#0x80
-      000142 8B F0            [24]  623 	mov	b,r3
-      000144 63 F0 80         [24]  624 	xrl	b,#0x80
-      000147 95 F0            [12]  625 	subb	a,b
-      000149 50 26            [24]  626 	jnc	00102$
-                                    627 ;	Display.c:55: P2 = ~numbers[buffer[start+i]];
-      00014B E5*29            [12]  628 	mov	a,_Show_Ans_sloc1_1_0
-      00014D 25*27            [12]  629 	add	a, _Show_Ans_sloc0_1_0
-      00014F FA               [12]  630 	mov	r2,a
-      000150 E5*2A            [12]  631 	mov	a,(_Show_Ans_sloc1_1_0 + 1)
-      000152 35*28            [12]  632 	addc	a, (_Show_Ans_sloc0_1_0 + 1)
-      000154 FB               [12]  633 	mov	r3,a
-      000155 EA               [12]  634 	mov	a,r2
-      000156 25*24            [12]  635 	add	a, _Show_Ans_buffer_10000_20
-      000158 FA               [12]  636 	mov	r2,a
-      000159 EB               [12]  637 	mov	a,r3
-      00015A 35*25            [12]  638 	addc	a, (_Show_Ans_buffer_10000_20 + 1)
-      00015C FB               [12]  639 	mov	r3,a
-      00015D AF*26            [24]  640 	mov	r7,(_Show_Ans_buffer_10000_20 + 2)
-      00015F 8A 82            [24]  641 	mov	dpl,r2
-      000161 8B 83            [24]  642 	mov	dph,r3
-      000163 8F F0            [24]  643 	mov	b,r7
-      000165 12r00r00         [24]  644 	lcall	__gptrget
-      000168 24r08            [12]  645 	add	a, #_numbers
-      00016A F9               [12]  646 	mov	r1,a
-      00016B E7               [12]  647 	mov	a,@r1
-      00016C F4               [12]  648 	cpl	a
-      00016D F5 A0            [12]  649 	mov	_P2,a
-      00016F 80 05            [24]  650 	sjmp	00103$
-      000171                        651 00102$:
-                                    652 ;	Display.c:59: P2 = ~numbers[16];
-      000171 E5*18            [12]  653 	mov	a,(_numbers + 0x0010)
-      000173 F4               [12]  654 	cpl	a
-      000174 F5 A0            [12]  655 	mov	_P2,a
-      000176                        656 00103$:
-                                    657 ;	Display.c:61: delay(280);
-      000176 90 01 18         [24]  658 	mov	dptr,#0x0118
-      000179 C0 04            [24]  659 	push	ar4
-      00017B 12r00r00         [24]  660 	lcall	_delay
-      00017E D0 04            [24]  661 	pop	ar4
-                                    662 ;	Display.c:50: for (char i = 0; i < 8; i++)
-      000180 0C               [12]  663 	inc	r4
-      000181 80 95            [24]  664 	sjmp	00106$
-      000183                        665 00108$:
-                                    666 ;	Display.c:63: }
-      000183 22               [24]  667 	ret
-                                    668 ;------------------------------------------------------------
-                                    669 ;Allocation info for local variables in function 'Counter'
-                                    670 ;------------------------------------------------------------
-                                    671 ;flag                      Allocated to registers r7 
-                                    672 ;count                     Allocated to registers r6 
-                                    673 ;i                         Allocated to registers r5 
-                                    674 ;------------------------------------------------------------
-                                    675 ;	Display.c:65: char Counter(char flag)
-                                    676 ;	-----------------------------------------
-                                    677 ;	 function Counter
-                                    678 ;	-----------------------------------------
-      000184                        679 _Counter:
-      000184 AF 82            [24]  680 	mov	r7, dpl
-                                    681 ;	Display.c:68: for (char i = 0; i < 8; i++)
-      000186 7E 00            [12]  682 	mov	r6,#0x00
-      000188 7D 00            [12]  683 	mov	r5,#0x00
-      00018A                        684 00105$:
-      00018A BD 08 00         [24]  685 	cjne	r5,#0x08,00128$
-      00018D                        686 00128$:
-      00018D 50 2F            [24]  687 	jnc	00103$
-                                    688 ;	Display.c:70: if ((flag & (1 << i)) > 0)
-      00018F 8D F0            [24]  689 	mov	b,r5
-      000191 05 F0            [12]  690 	inc	b
-      000193 7B 01            [12]  691 	mov	r3,#0x01
-      000195 7C 00            [12]  692 	mov	r4,#0x00
-      000197 80 06            [24]  693 	sjmp	00131$
-      000199                        694 00130$:
-      000199 EB               [12]  695 	mov	a,r3
-      00019A 2B               [12]  696 	add	a,r3
-      00019B FB               [12]  697 	mov	r3,a
-      00019C EC               [12]  698 	mov	a,r4
-      00019D 33               [12]  699 	rlc	a
-      00019E FC               [12]  700 	mov	r4,a
-      00019F                        701 00131$:
-      00019F D5 F0 F7         [24]  702 	djnz	b,00130$
-      0001A2 8F 01            [24]  703 	mov	ar1,r7
-      0001A4 7A 00            [12]  704 	mov	r2,#0x00
-      0001A6 E9               [12]  705 	mov	a,r1
-      0001A7 52 03            [12]  706 	anl	ar3,a
-      0001A9 EA               [12]  707 	mov	a,r2
-      0001AA 52 04            [12]  708 	anl	ar4,a
-      0001AC C3               [12]  709 	clr	c
-      0001AD E4               [12]  710 	clr	a
-      0001AE 9B               [12]  711 	subb	a,r3
-      0001AF 74 80            [12]  712 	mov	a,#(0x00 ^ 0x80)
-      0001B1 8C F0            [24]  713 	mov	b,r4
-      0001B3 63 F0 80         [24]  714 	xrl	b,#0x80
-      0001B6 95 F0            [12]  715 	subb	a,b
-      0001B8 50 01            [24]  716 	jnc	00106$
-                                    717 ;	Display.c:72: count++;
-      0001BA 0E               [12]  718 	inc	r6
-      0001BB                        719 00106$:
-                                    720 ;	Display.c:68: for (char i = 0; i < 8; i++)
-      0001BB 0D               [12]  721 	inc	r5
-      0001BC 80 CC            [24]  722 	sjmp	00105$
-      0001BE                        723 00103$:
-                                    724 ;	Display.c:75: return count;
-      0001BE 8E 82            [24]  725 	mov	dpl, r6
-                                    726 ;	Display.c:76: }
-      0001C0 22               [24]  727 	ret
-                                    728 	.area CSEG    (CODE)
-                                    729 	.area CONST   (CODE)
-                                    730 	.area XINIT   (CODE)
-                                    731 	.area CABS    (ABS,CODE)
+                                    576 ;start                     Allocated with name '_Show_Ans_PARM_2'
+                                    577 ;count                     Allocated with name '_Show_Ans_PARM_3'
+                                    578 ;buffer                    Allocated with name '_Show_Ans_buffer_10000_20'
+                                    579 ;i                         Allocated with name '_Show_Ans_i_20000_22'
+                                    580 ;------------------------------------------------------------
+                                    581 ;	Display.c:48: void Show_Ans(char *buffer, char start, char count)
+                                    582 ;	-----------------------------------------
+                                    583 ;	 function Show_Ans
+                                    584 ;	-----------------------------------------
+      00010D                        585 _Show_Ans:
+      00010D 85 82*24         [24]  586 	mov	_Show_Ans_buffer_10000_20,dpl
+      000110 85 83*25         [24]  587 	mov	(_Show_Ans_buffer_10000_20 + 1),dph
+      000113 85 F0*26         [24]  588 	mov	(_Show_Ans_buffer_10000_20 + 2),b
+                                    589 ;	Display.c:51: for (char i = 0; i < 8; i++)
+      000116 75*27 00         [24]  590 	mov	_Show_Ans_i_20000_22,#0x00
+      000119                        591 00106$:
+      000119 74 F8            [12]  592 	mov	a,#0x100 - 0x08
+      00011B 25*27            [12]  593 	add	a,_Show_Ans_i_20000_22
+      00011D 40 57            [24]  594 	jc	00108$
+                                    595 ;	Display.c:53: P1 = control[i];
+      00011F E5*27            [12]  596 	mov	a,_Show_Ans_i_20000_22
+      000121 24r00            [12]  597 	add	a, #_control
+      000123 F9               [12]  598 	mov	r1,a
+      000124 87 90            [24]  599 	mov	_P1,@r1
+                                    600 ;	Display.c:54: if (i<count)
+      000126 C3               [12]  601 	clr	c
+      000127 E5*27            [12]  602 	mov	a,_Show_Ans_i_20000_22
+      000129 95*23            [12]  603 	subb	a,_Show_Ans_PARM_3
+      00012B 50 3A            [24]  604 	jnc	00102$
+                                    605 ;	Display.c:56: P2 = ~numbers[buffer[start+(count-1-i)]];
+      00012D AA*22            [24]  606 	mov	r2,_Show_Ans_PARM_2
+      00012F 7B 00            [12]  607 	mov	r3,#0x00
+      000131 AE*23            [24]  608 	mov	r6,_Show_Ans_PARM_3
+      000133 7F 00            [12]  609 	mov	r7,#0x00
+      000135 1E               [12]  610 	dec	r6
+      000136 BE FF 01         [24]  611 	cjne	r6,#0xff,00131$
+      000139 1F               [12]  612 	dec	r7
+      00013A                        613 00131$:
+      00013A AC*27            [24]  614 	mov	r4,_Show_Ans_i_20000_22
+      00013C 7D 00            [12]  615 	mov	r5,#0x00
+      00013E EE               [12]  616 	mov	a,r6
+      00013F C3               [12]  617 	clr	c
+      000140 9C               [12]  618 	subb	a,r4
+      000141 FE               [12]  619 	mov	r6,a
+      000142 EF               [12]  620 	mov	a,r7
+      000143 9D               [12]  621 	subb	a,r5
+      000144 FF               [12]  622 	mov	r7,a
+      000145 EE               [12]  623 	mov	a,r6
+      000146 2A               [12]  624 	add	a, r2
+      000147 FA               [12]  625 	mov	r2,a
+      000148 EF               [12]  626 	mov	a,r7
+      000149 3B               [12]  627 	addc	a, r3
+      00014A FB               [12]  628 	mov	r3,a
+      00014B EA               [12]  629 	mov	a,r2
+      00014C 25*24            [12]  630 	add	a, _Show_Ans_buffer_10000_20
+      00014E FA               [12]  631 	mov	r2,a
+      00014F EB               [12]  632 	mov	a,r3
+      000150 35*25            [12]  633 	addc	a, (_Show_Ans_buffer_10000_20 + 1)
+      000152 FB               [12]  634 	mov	r3,a
+      000153 AF*26            [24]  635 	mov	r7,(_Show_Ans_buffer_10000_20 + 2)
+      000155 8A 82            [24]  636 	mov	dpl,r2
+      000157 8B 83            [24]  637 	mov	dph,r3
+      000159 8F F0            [24]  638 	mov	b,r7
+      00015B 12r00r00         [24]  639 	lcall	__gptrget
+      00015E 24r08            [12]  640 	add	a, #_numbers
+      000160 F9               [12]  641 	mov	r1,a
+      000161 E7               [12]  642 	mov	a,@r1
+      000162 F4               [12]  643 	cpl	a
+      000163 F5 A0            [12]  644 	mov	_P2,a
+      000165 80 05            [24]  645 	sjmp	00103$
+      000167                        646 00102$:
+                                    647 ;	Display.c:60: P2 = ~numbers[16];
+      000167 E5*18            [12]  648 	mov	a,(_numbers + 0x0010)
+      000169 F4               [12]  649 	cpl	a
+      00016A F5 A0            [12]  650 	mov	_P2,a
+      00016C                        651 00103$:
+                                    652 ;	Display.c:62: delay(280);
+      00016C 90 01 18         [24]  653 	mov	dptr,#0x0118
+      00016F 12r00r00         [24]  654 	lcall	_delay
+                                    655 ;	Display.c:51: for (char i = 0; i < 8; i++)
+      000172 05*27            [12]  656 	inc	_Show_Ans_i_20000_22
+      000174 80 A3            [24]  657 	sjmp	00106$
+      000176                        658 00108$:
+                                    659 ;	Display.c:64: }
+      000176 22               [24]  660 	ret
+                                    661 ;------------------------------------------------------------
+                                    662 ;Allocation info for local variables in function 'Counter'
+                                    663 ;------------------------------------------------------------
+                                    664 ;flag                      Allocated to registers r7 
+                                    665 ;count                     Allocated to registers r6 
+                                    666 ;i                         Allocated to registers r5 
+                                    667 ;------------------------------------------------------------
+                                    668 ;	Display.c:66: char Counter(char flag)
+                                    669 ;	-----------------------------------------
+                                    670 ;	 function Counter
+                                    671 ;	-----------------------------------------
+      000177                        672 _Counter:
+      000177 AF 82            [24]  673 	mov	r7, dpl
+                                    674 ;	Display.c:69: for (char i = 0; i < 8; i++)
+      000179 7E 00            [12]  675 	mov	r6,#0x00
+      00017B 7D 00            [12]  676 	mov	r5,#0x00
+      00017D                        677 00105$:
+      00017D BD 08 00         [24]  678 	cjne	r5,#0x08,00128$
+      000180                        679 00128$:
+      000180 50 2F            [24]  680 	jnc	00103$
+                                    681 ;	Display.c:71: if ((flag & (1 << i)) > 0)
+      000182 8D F0            [24]  682 	mov	b,r5
+      000184 05 F0            [12]  683 	inc	b
+      000186 7B 01            [12]  684 	mov	r3,#0x01
+      000188 7C 00            [12]  685 	mov	r4,#0x00
+      00018A 80 06            [24]  686 	sjmp	00131$
+      00018C                        687 00130$:
+      00018C EB               [12]  688 	mov	a,r3
+      00018D 2B               [12]  689 	add	a,r3
+      00018E FB               [12]  690 	mov	r3,a
+      00018F EC               [12]  691 	mov	a,r4
+      000190 33               [12]  692 	rlc	a
+      000191 FC               [12]  693 	mov	r4,a
+      000192                        694 00131$:
+      000192 D5 F0 F7         [24]  695 	djnz	b,00130$
+      000195 8F 01            [24]  696 	mov	ar1,r7
+      000197 7A 00            [12]  697 	mov	r2,#0x00
+      000199 E9               [12]  698 	mov	a,r1
+      00019A 52 03            [12]  699 	anl	ar3,a
+      00019C EA               [12]  700 	mov	a,r2
+      00019D 52 04            [12]  701 	anl	ar4,a
+      00019F C3               [12]  702 	clr	c
+      0001A0 E4               [12]  703 	clr	a
+      0001A1 9B               [12]  704 	subb	a,r3
+      0001A2 74 80            [12]  705 	mov	a,#(0x00 ^ 0x80)
+      0001A4 8C F0            [24]  706 	mov	b,r4
+      0001A6 63 F0 80         [24]  707 	xrl	b,#0x80
+      0001A9 95 F0            [12]  708 	subb	a,b
+      0001AB 50 01            [24]  709 	jnc	00106$
+                                    710 ;	Display.c:73: count++;
+      0001AD 0E               [12]  711 	inc	r6
+      0001AE                        712 00106$:
+                                    713 ;	Display.c:69: for (char i = 0; i < 8; i++)
+      0001AE 0D               [12]  714 	inc	r5
+      0001AF 80 CC            [24]  715 	sjmp	00105$
+      0001B1                        716 00103$:
+                                    717 ;	Display.c:76: return count;
+      0001B1 8E 82            [24]  718 	mov	dpl, r6
+                                    719 ;	Display.c:77: }
+      0001B3 22               [24]  720 	ret
+                                    721 	.area CSEG    (CODE)
+                                    722 	.area CONST   (CODE)
+                                    723 	.area XINIT   (CODE)
+                                    724 	.area CABS    (ABS,CODE)
