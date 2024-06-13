@@ -1,10 +1,11 @@
 #include <8051.h>
 #include "Keypad.h"
 #include "Display.h"
+#include <stdint.h>
 
 __idata unsigned char buffer[8] = {-1};
 __idata unsigned char flag = 0;
-__idata unsigned char history[50] = {-1};
+__idata unsigned char history[30] = {-1};
 __idata unsigned char history_start[20] = {-1};
 __idata unsigned int Base_num[10] = {0};
 __idata unsigned char negative_base[10] = {0};
@@ -12,14 +13,15 @@ __idata unsigned char bits = 0;
 __idata unsigned char base_index = 0;
 __idata unsigned char history_count = 0;
 __idata unsigned char start = 0;
-__idata unsigned char base_flag = 0;
+
 // 宣告外部記憶體
-char timer_count = 0, number, num1_counter = 0;
+unsigned char timer_count = 0, number, num1_counter = 0;
 __sbit divide_zero = 0;
 __sbit cal_flag = 0;
 __sbit Keypad_flag = 0;
+__sbit base_flag = 0;
 
-void Restart(int *num_1, int *num_2, char *op, int *ans, int *negative_num1, int *negative_num2, int *negative_ans)
+void Restart(int32_t *num_1, int32_t *num_2, char *op, int32_t *ans, int8_t *negative_num1, int8_t *negative_num2, int8_t *negative_ans)
 {
 	*num_1 = 0;
 	*num_2 = 0;
@@ -41,7 +43,7 @@ void SaveNumber(char n, char start, char *b)
 }
 // 儲存數字
 
-void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int *negative_num2)
+void Update_Expression(int32_t *num_1, int32_t *num_2, uint8_t *op, int8_t *negative_num1, int8_t *negative_num2)
 {
 
 	if (buffer[0] >= 0 && buffer[0] <= 9)
@@ -75,7 +77,7 @@ void Update_Expression(int *num_1, int *num_2, char *op, int *negative_num1, int
 }
 // 更新運算式子
 
-void Calculate(int num1, int num2, char op, int negative_num1, int negative_num2, int *ans)
+void Calculate(int32_t num1, int32_t num2, uint8_t op, int8_t negative_num1, int8_t negative_num2, int32_t *ans)
 {
 	switch (op)
 	{
@@ -175,10 +177,9 @@ void Base(char bits, char b, char flag){
 }
 void main(void)
 {
-	__idata int num_1 = 0, num_2 = 0, ans = 0;
-	__idata int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
-	__idata char op = '$';
-	// __idata unsigned int n = 0;
+	__idata int32_t num_1 = 0, num_2 = 0, ans = 0;
+	__idata int8_t negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
+	__idata uint8_t op = '$';
 	Keypad_Debounce_init();
 	// 利用Timer_0製作keypad debounce
 
@@ -271,7 +272,7 @@ void main(void)
 						// 清空buffer及flag
 						do
 						{
-							SaveNumber(ans % 10, 49, history);
+							SaveNumber(ans % 10, 29, history);
 							SaveNumber(ans % 10, 7, buffer);
 							ans /= 10;
 							flag <<= 1;
@@ -280,7 +281,7 @@ void main(void)
 						// 將答案放進buffer
 						if (negative_ans == 1)
 						{
-							SaveNumber(13, 49, history);
+							SaveNumber(13, 29, history);
 							SaveNumber(13, 7, buffer);
 							flag <<= 1;
 							flag |= 0x01;
