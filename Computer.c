@@ -4,10 +4,10 @@
 
 __idata unsigned char buffer[8] = {-1};
 __idata unsigned char flag = 0;
-__idata unsigned char history[10] = {-1};
+__idata unsigned char history[50] = {-1};
 __idata unsigned char history_start[10] = {-1};
-__idata unsigned int Base_num[5] = {0};
-__idata unsigned char negative_base[5] = {0};
+__idata unsigned int Base_num[10] = {0};
+__idata unsigned char negative_base[10] = {0};
 __idata unsigned char bits = 0;
 __idata unsigned char base_index = 0;
 __idata unsigned char history_count = 0;
@@ -15,6 +15,7 @@ __idata unsigned char start = 0;
 __idata unsigned char base_flag = 0;
 // 宣告外部記憶體
 char timer_count = 0, number, num1_counter = 0;
+__sbit divide_zero = 0;
 __sbit cal_flag = 0;
 __sbit Keypad_flag = 0;
 
@@ -88,7 +89,12 @@ void Calculate(int num1, int num2, char op, int negative_num1, int negative_num2
 		*ans = (((-1) * negative_num1) * num1) * (((-1) * negative_num2) * num2);
 		break;
 	case 15:
-		*ans = (((-1) * negative_num1) * num1) / (((-1) * negative_num2) * num2);
+		if(num2 == 0){
+			divide_zero = 1;
+		}
+		else{
+			*ans = (((-1) * negative_num1) * num1) / (((-1) * negative_num2) * num2);
+		}
 		break;
 	}
 }
@@ -147,7 +153,7 @@ void clean()
 	// 清空buffer
 }
 
-void Base(char bits, char b){
+void Base(char bits, char b, char flag){
 	if (negative_base[base_index - 1] == 1)
 	{
 		bits = ~bits;
@@ -160,10 +166,6 @@ void Base(char bits, char b){
 				SaveNumber(bits&1, 7, buffer);
 				bits >>= 1;
 			}
-			for (char m = 0; m < 100; m++)
-			{
-				Show_Ans(buffer, 0xff);
-			}
 			break;
 		case 8:
 			for (char m = 0; m < 3; m++)
@@ -175,10 +177,6 @@ void Base(char bits, char b){
 			{
 				buffer[0]+=4;
 			}
-			for (char m = 0; m < 100; m++)
-			{
-				Show_Ans(buffer, 0x07);
-			}
 			break;
 		case 16:
 			for (char m = 0; m < 2; m++)
@@ -186,18 +184,18 @@ void Base(char bits, char b){
 				SaveNumber(bits&0x0f, 7, buffer);
 				bits >>= 4;
 			}
-			for (char m = 0; m < 100; m++)
-			{
-				Show_Ans(buffer, 0x03);
-			}
 			break;
-		
+	}
+	for (char m = 0; m < 100; m++)
+	{
+		Show_Ans(buffer, flag);
 	}
 	
 }
 void main(void)
 {
-	__idata int num_1 = 0, num_2 = 0, ans = 0, negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
+	__idata int num_1 = 0, num_2 = 0, ans = 0;
+	__idata int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
 	__idata char op = '$';
 	// __idata unsigned int n = 0;
 	Base_init();
@@ -243,9 +241,9 @@ void main(void)
 					temp |= bits & 1;
 					bits >>= 1;
 				}
-				Base(temp, 2);
-				Base(temp, 8);
-				Base(temp, 16);
+				Base(temp, 2, 0xff);
+				Base(temp, 8, 0x07);
+				Base(temp, 16, 0x03);
 				base_flag = 0;
 				base_index--;
 				clean();
@@ -267,42 +265,57 @@ void main(void)
 					// 如果按了'='就會將cal_flag設為1，表示可以運算了
 					Calculate(num_1, num_2, op, negative_num1, negative_num2, &ans);
 					// 進行運算
-
-					if (ans < 0)
-					{
-						ans = -ans;
-						negative_ans = 1;
-						negative_base[base_index] = 1;
+					if(divide_zero == 1){
+						SaveNumber(14, 7, buffer);
+						SaveNumber(17, 7, buffer);
+						SaveNumber(17, 7, buffer);
+						SaveNumber(18, 7, buffer);
+						SaveNumber(17, 7, buffer);
+						flag = 0x1f;
+						for (char m = 0; m < 100; m++)
+						{
+							Show(buffer, flag);
+						}
+						divide_zero = 0;
 					}
-					Base_num[base_index] = ans;
-					base_index++;
-					// 統一將答案轉成正數，如果答案本身是負數將negative_ans設為1
-					clean();
-					// 清空buffer及flag
-					do
-					{
-						SaveNumber(ans % 10, 9, history);
-						SaveNumber(ans % 10, 7, buffer);
-						ans /= 10;
-						flag <<= 1;
-						flag |= 0x01;
-					} while (ans);
-					// 將答案放進buffer
-					if (negative_ans == 1)
-					{
-						SaveNumber(13, 9, history);
-						SaveNumber(13, 7, buffer);
-						flag <<= 1;
-						flag |= 0x01;
+					else{
+						if (ans < 0)
+						{
+							ans = -ans;
+							negative_ans = 1;
+							negative_base[base_index] = 1;
+						}
+						Base_num[base_index] = ans;
+						base_index++;
+						// 統一將答案轉成正數，如果答案本身是負數將negative_ans設為1
+						clean();
+						// 清空buffer及flag
+						do
+						{
+							SaveNumber(ans % 10, 49, history);
+							SaveNumber(ans % 10, 7, buffer);
+							ans /= 10;
+							flag <<= 1;
+							flag |= 0x01;
+						} while (ans);
+						// 將答案放進buffer
+						if (negative_ans == 1)
+						{
+							SaveNumber(13, 49, history);
+							SaveNumber(13, 7, buffer);
+							flag <<= 1;
+							flag |= 0x01;
+						}
+						// 如果答案是負的就放負號進去buffer
+						char count = Counter(flag);
+						SaveNumber(count, 9, history_start);
+						for (char m = 0; m < 100; m++)
+						{
+							Show_Ans(buffer, flag);
+						}
+						// 顯示答案
 					}
-					// 如果答案是負的就放負號進去buffer
-					char count = Counter(flag);
-					SaveNumber(count, 9, history_start);
-					for (char m = 0; m < 100; m++)
-					{
-						Show_Ans(buffer, flag);
-					}
-					// 顯示答案
+					
 					clean();
 					Restart(&num_1, &num_2, &op, &ans, &negative_num1, &negative_num2, &negative_ans);
 					// 將變數歸零重新準備計算
