@@ -8,6 +8,7 @@ __idata unsigned char history[10] = {-1};
 __idata unsigned char history_start[10] = {-1};
 __idata unsigned int Base_num[5] = {0};
 __idata unsigned char negative_base[5] = {0};
+__idata unsigned char bits = 0;
 __idata unsigned char base_index = 0;
 __idata unsigned char history_count = 0;
 __idata unsigned char start = 0;
@@ -145,6 +146,55 @@ void clean()
 	}
 	// 清空buffer
 }
+
+void Base(char bits, char b){
+	if (negative_base[base_index - 1] == 1)
+	{
+		bits = ~bits;
+		bits += 1;
+	}
+	switch(b){
+		case 2:
+			for (char m = 0; m < 8; m++)
+			{
+				SaveNumber(bits&1, 7, buffer);
+				bits >>= 1;
+			}
+			for (char m = 0; m < 100; m++)
+			{
+				Show_Ans(buffer, 0xff);
+			}
+			break;
+		case 8:
+			for (char m = 0; m < 3; m++)
+			{
+				SaveNumber(bits&0x07, 7, buffer);
+				bits >>= 3;
+			}
+			if (negative_base[base_index - 1] == 1)
+			{
+				buffer[0]+=4;
+			}
+			for (char m = 0; m < 100; m++)
+			{
+				Show_Ans(buffer, 0x07);
+			}
+			break;
+		case 16:
+			for (char m = 0; m < 2; m++)
+			{
+				SaveNumber(bits&0x0f, 7, buffer);
+				bits >>= 4;
+			}
+			for (char m = 0; m < 100; m++)
+			{
+				Show_Ans(buffer, 0x03);
+			}
+			break;
+		
+	}
+	
+}
 void main(void)
 {
 	__idata int num_1 = 0, num_2 = 0, ans = 0, negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
@@ -182,37 +232,20 @@ void main(void)
 			{
 				for (char i = 0; i < 8; i++)
 				{
-					flag <<= 1;
-					flag |= Base_num[base_index - 1] & 1;
+					bits <<= 1;
+					bits |= Base_num[base_index - 1] & 1;
 					Base_num[base_index - 1] >>= 1;
 				}
-				if (negative_base[base_index - 1] == 1)
+				char temp = 0;
+				for (char i = 0; i < 8; i++)
 				{
-					flag = ~flag;
-					flag += 1;
-					for (char m = 0; m < 8; m++)
-					{
-						SaveNumber(flag & 1, 7, buffer);
-						flag >>= 1;
-					}
-					for (char m = 0; m < 100; m++)
-					{
-						Show_Ans(buffer, 0xff);
-					}
+					temp <<= 1;
+					temp |= bits & 1;
+					bits >>= 1;
 				}
-				else 
-				{
-					for (char m = 0; m < 8; m++)
-					{
-						SaveNumber(flag & 1, 7, buffer);
-						flag >>= 1;
-					}
-					for (char m = 0; m < 100; m++)
-					{
-						Show(buffer, 0xff);
-					}
-				}
-
+				Base(temp, 2);
+				Base(temp, 8);
+				Base(temp, 16);
 				base_flag = 0;
 				base_index--;
 				clean();
