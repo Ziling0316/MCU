@@ -5,7 +5,7 @@
 __idata unsigned char buffer[8] = {-1};
 __idata unsigned char flag = 0;
 __idata unsigned char history[50] = {-1};
-__idata unsigned char history_start[10] = {-1};
+__idata unsigned char history_start[20] = {-1};
 __idata unsigned int Base_num[10] = {0};
 __idata unsigned char negative_base[10] = {0};
 __idata unsigned char bits = 0;
@@ -124,25 +124,6 @@ void Keypad_Debounce(void) __interrupt(1) __using(1)
 	}
 }
 
-void Base_init(void)
-{
-	IE = 0x8a;
-	// 允許Timer_1 overflow
-	TMOD = 0x10;
-	// 設定 Timer_1 為 Mode 1
-}
-
-void Base_timer(void) __interrupt(3) __using(2)
-{
-	TH1 = (65536 - 50000) / 256;
-	TL1 = (65536 - 50000) % 256;
-	base_flag = 1;
-	TF1 = 0;
-	// 清空 Timer_1 overflow flag
-	TR1 = 0;
-	// 關閉 Timer_0
-}
-
 void clean()
 {
 	flag = 0;
@@ -198,8 +179,6 @@ void main(void)
 	__idata int negative_num1 = -1, negative_num2 = -1, negative_ans = 0;
 	__idata char op = '$';
 	// __idata unsigned int n = 0;
-	Base_init();
-	// 利用Timer_1秀進制轉換結果
 	Keypad_Debounce_init();
 	// 利用Timer_0製作keypad debounce
 
@@ -214,7 +193,7 @@ void main(void)
 			// 表示有讀到數字
 			if (number == 10)
 			{
-				TR1 = 1;
+				base_flag = 1;
 				// 啟動 Timer_1
 				char count = history_start[history_count];
 				for (char m = 0; m < 100; m++)
@@ -308,7 +287,7 @@ void main(void)
 						}
 						// 如果答案是負的就放負號進去buffer
 						char count = Counter(flag);
-						SaveNumber(count, 9, history_start);
+						SaveNumber(count, 19, history_start);
 						for (char m = 0; m < 100; m++)
 						{
 							Show_Ans(buffer, flag);
