@@ -4,17 +4,17 @@ all:Computer.hex
 .PHONY: clean
 
 clean:
-	del *.sym
-	del *.rel
-	del *.lst
-	del *.asm
-	del *.lib
-	del *.ihx
-	del *lk
-	del *.map
-	del *.mem
-	del *.rst
-	del *.hex
+	rm *.sym
+	rm *.rel
+	rm *.lst
+	rm *.asm
+	rm *.lib
+	rm *.ihx
+	rm *lk
+	rm *.map
+	rm *.mem
+	rm *.rst
+	rm *.hex
 Computer.hex:Computer.ihx
 	$(P) Computer.ihx > Computer.hex
 Computer.ihx:Computer.C myIO.lib
